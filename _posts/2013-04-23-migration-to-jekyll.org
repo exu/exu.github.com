@@ -1,0 +1,25 @@
+---
+layout: post
+title: "Migration to Jekyll"
+description: ""
+category:
+tags: []
+---
+{% include JB/setup %}
+
+* The blogger exodus
+I've migrated old blog on http://blog.wysocki.org.pl to http://exu.github.io. Why? It looks
+like good idea to have everything in git. And what is most important I want to write my posts
+in Org-mode (markdown sucks so much!)
+
+
+I've used several tools to complete:
+
+- Jekyll http://jekyllrb.com/
+- http://jekyllbootstrap.com/
+- https://gist.github.com/kennym/1115810 (I've changed `Config` to `RbConfig` because of deprecation warning)'
+
+* TODO Left:
+
+- [ ] Migrate domain: blog.wysocki.org.pl
+- [ ] Make some Bootstrap layout
