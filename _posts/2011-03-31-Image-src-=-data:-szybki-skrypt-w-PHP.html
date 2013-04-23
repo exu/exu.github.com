@@ -1,0 +1,24 @@
+---
+layout: post
+title: Image src data - szybki skrypt w PHP
+date: 2011-03-31 22:42:24 UTC
+updated: 2011-03-31 22:42:24 UTC
+comments: false
+categories: data image embedded php
+---
+
+Ja mam poniższy skrypt zapisany jako plik image_to_data (w katalogu ~/scripts, który jest dodany do $PATH).<br />
+<br />
+<pre class="brush:bash">image_to_data http://www.blogger.com/img/logo40.png image/png
+</pre>- 1 parametr: URL<br />
+- 2 parametr: mime (domyślnie ustawiłem image/png)<br />
+<br />
+<br />
+A Oto wynik<br />
+<pre class="brush:bash">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAAoCAMAAAArH/PVAAAAYFBMVEUNQIDCz988ZZhKcKAcTIhoiLArWJDw8/f///93lLiGn7+zw9f/jEFZfKiVq8ekt8/R2+fh5+//17y4Wyb/5tXrYwt3UUj/eSD/ZgD/cBApRHH/xp9DSGP/9e//tYT/gzDYtauvAAAAAXRSTlMAQObYZgAAAtNJREFUeF7t2OluozAUBeDrfWPP3mXm/d9yMMcuoU0JQinpjzlVa12CpU92bxJMRC/H3eE8k8Pu+EKb5213vpvd29aqF6juubZer+N5UY4bs3bLWLuNWYdlrMPGrPPCPJN1KlJ+E6vobM77n8tvYb1ClGF/n87KqjlXBpQWaWqRa6N/jlXYz+lusvwI97kWP8fq7JcUsyxwfph1sl/z+h3LE/GmH8ODWZxzIk7xd7qH+2IIim6GRTrCH8wCiRP/zCpQdTDOsegGSzjFKUcrpYm4kEMlS8eJtNAAlN6XSSI4kfBef7CGnynr9TIU76j+3FmtZsJyJkrbZKxiUSvsNCkTb+fWmoHSjnfG6cHmF0CbsG5mf7nN0k0/qsyCF0FVoeg1bHxXibaoMqnkYA1lWMpCiu87saIrlo6Iqo6rkCrLKmPBauNl31qwmji3ShSb4miS9aygr1kVxugqiRw8AgOPZEkyKlHVmCCJQFJePoplzfUmsr4mCDyQ8VVsYgkIhX7EjBIXBVgT0HqWJ5JxNHpkYV3yyEYsy3MwAtcw1uAi5j2Khe2q1rCYRRaz8AaBnLo7LAHAOlbDhvCFLCAAvcNyU1aDFuRYw/SfT83AUsNFtAX+loQsZO2Lj+znWbJFh4MFiAZWAVsT6dyQMMcpQNYLWSf7TS43WC1jzKCzU62GxmpKZaw1EotmfdmARfHmIAK6TsaqLoUL1RwL6W6rurkvNq1En6fmi4EVFcKmk7D9iJlhzbdiMcNqOTYTn46Sje/9+QOGJZZshvuxiaPS8MRa/qV5/LCesjhLqRWcumKsFgPFh9ppQqQLtRrXQtXBDXDMcRULvpSxDRhTCx8xpiqEVgWsHLDWP5AhXXFezZJKY7fQdIpTbsj1j6/Iaf0DGUCIAyglPPdhn2WHkROkeO7RSLjuVnLZqJ59kKSF7yMIkcL1VSk3O3Z7/iHl/yPdX3oA/g/ZTJgDwAULKQAAAABJRU5ErkJggg==
+</pre><br />
+Skrypt:<br />
+<script src="https://gist.github.com/894315.js?file=image_to_data">
+</script><br />
+<br />
+(<a href="http://blog.wysocki.org.pl/2011/04/embedded-data-image-vim-script.html">zobacz też jak zrobić coś takiego jako plugin do VIM'a w pythonie</a>)<img src="http://feeds.feedburner.com/~r/JacekWysocki/~4/ssBGWp3DkBs" height="1" width="1"/>

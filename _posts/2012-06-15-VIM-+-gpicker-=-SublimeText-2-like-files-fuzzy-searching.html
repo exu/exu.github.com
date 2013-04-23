@@ -1,0 +1,61 @@
+---
+layout: post
+title: VIM + gpicker = SublimeText 2 like files fuzzy searching
+date: 2012-06-15 12:40:23 UTC
+updated: 2012-06-15 12:40:23 UTC
+comments: false
+categories: vim fuzzy linux fuzzy-search find emacs sublimetext
+---
+
+Authors of SublimeText2 make great job with Fuzzy searching. In the past&nbsp;I've&nbsp;used <a href="https://wincent.com/products/command-t" target="_blank">Command-T</a> and <a href="https://github.com/kien/ctrlp.vim" target="_blank">CtrlP</a> plugins but both of them doesn't works well for me. Then i found <a href="https://github.com/alk/gpicker" target="_blank">Gpicker</a> project it is written in C so its very fast and can be used in two most&nbsp;powerful&nbsp;editors: VIM (gpicker.vim) or Emacs (gpicker.el). I'm using now gpicker for both of them. It's not so&nbsp;powerful&nbsp;like SublimeText but it get the job done very well.<br />
+<br />
+You can install gpicker in ubuntu<br />
+<br />
+<pre class="brush:bash">$ sudo apt-get install gpicker
+</pre>
+<br />
+Next step is to configure your favourite editor. In VIM you must put&nbsp;<b>gpicker.vim</b> to <b>~/.vim/plugins</b> directory (or use any other technique pathogen, vundle or whatever). In emacs you must load gpicker.el in your init.el file (I'm using prelude for that ~/.emacs.d/vendor/).&nbsp;It is working out of the box for me (Ubuntu 12.04, Vim 7.3.429, Emacs-snapshot - 24.1.50.1).<br />
+<br />
+My&nbsp;key bindings&nbsp;in VIM:<br />
+<br />
+<pre class="brush:bash">map &lt;Leader&gt;p :GPickFile&lt;CR&gt;
+noremap &lt;C-p&gt; :GPickFile&lt;CR&gt;
+map &lt;Leader&gt;. :GPickBuffer&lt;CR&gt;
+
+</pre>
+<br />
+Final result:<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://4.bp.blogspot.com/-TaUFafNGFJ8/T9rtpO2psJI/AAAAAAAAFtA/tSlfo5UlJMA/s1600/Snap+2012-06-15+at+10.08.41.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="408" src="http://4.bp.blogspot.com/-TaUFafNGFJ8/T9rtpO2psJI/AAAAAAAAFtA/tSlfo5UlJMA/s640/Snap+2012-06-15+at+10.08.41.png" width="640" /></a></div>
+<div style="text-align: center;">
+Gpicker in VIM</div>
+<div style="text-align: center;">
+<br /></div>
+<div style="text-align: center;">
+<br /></div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://3.bp.blogspot.com/-KGMdsnTypSQ/T9ruArP65vI/AAAAAAAAFtI/uL0KxaQVTdw/s1600/Snap+2012-06-15+at+10.10.23.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="574" src="http://3.bp.blogspot.com/-KGMdsnTypSQ/T9ruArP65vI/AAAAAAAAFtI/uL0KxaQVTdw/s640/Snap+2012-06-15+at+10.10.23.png" width="640" /></a></div>
+<div style="text-align: center;">
+Gpicker in Emacs</div>
+<div style="text-align: center;">
+<br /></div>
+<div style="text-align: left;">
+<br /></div>
+<div style="text-align: left;">
+<br /></div>
+<div style="text-align: left;">
+You can use it in shell too:&nbsp;</div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://4.bp.blogspot.com/-pMnKhvNlwDA/T9rvAYmyMaI/AAAAAAAAFtQ/HbB38dJvebU/s1600/Snap+2012-06-15+at+10.12.07.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="410" src="http://4.bp.blogspot.com/-pMnKhvNlwDA/T9rvAYmyMaI/AAAAAAAAFtQ/HbB38dJvebU/s640/Snap+2012-06-15+at+10.12.07.png" width="640" /></a></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://1.bp.blogspot.com/-z8B1eZ2o3w0/T9rvBVOAG4I/AAAAAAAAFtU/cPZgKLj9nR0/s1600/Snap+2012-06-15+at+10.14.25.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="406" src="http://1.bp.blogspot.com/-z8B1eZ2o3w0/T9rvBVOAG4I/AAAAAAAAFtU/cPZgKLj9nR0/s640/Snap+2012-06-15+at+10.14.25.png" width="640" /></a></div>
+<div style="text-align: left;">
+<br />
+You can look in my <a href="https://github.com/exu/vim-dotfiles" target="_blank">vim dotfiles</a> for more information.&nbsp;If you want try my VIM configs you can run command below in your shell<br />
+<br />
+<pre class="brush:bash">$ curl -L https://raw.github.com/exu/vim-dotfiles/master/gitinstall|bash</pre>
+<br />
+<span style="color: red; font-size: large;"><b>WARNING </b>this command will kill your .vimrc file and .vim/ directory so <b>BACKUP </b>your old configs! look at <a href="https://raw.github.com/exu/vim-dotfiles/master/gitinstall" target="_blank">https://raw.github.com/exu/vim-dotfiles/master/gitinstall</a> for more details</span><br />
+<br /></div><img src="http://feeds.feedburner.com/~r/JacekWysocki/~4/wMpp9uJrixw" height="1" width="1"/>

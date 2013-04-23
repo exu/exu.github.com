@@ -1,0 +1,39 @@
+---
+layout: post
+title: PHP Ubuntu simple server monitoring script
+date: 2011-09-12 10:09:36 UTC
+updated: 2011-09-12 10:09:36 UTC
+comments: false
+categories: linux php cron
+---
+
+Simple PHP monitoring script.<br />
+<script src="https://gist.github.com/1203367.js?file=monitoring"></script>
+<br />
+<b>Change hosts variable (array) and path to icon file (-i /usr/share/icons/Faenza/status/scalable/error.svg).</b>
+
+<br />
+<br />
+You can use it in your crontab:
+
+Edit your cron settings: 
+<br />
+<pre class="brush:bash"> 
+crontab -e
+</pre>
+<br />
+and insert:
+
+<br />
+<pre class="brush:bash"> 
+* * * * * php /home/exu/scripts/monitoring
+</pre>
+<br />
+(change /home/exu/scripts/monitoring to path to your file)
+
+
+Enjoy!<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://2.bp.blogspot.com/-BzQe9cJrnMA/TmjLmiUL-zI/AAAAAAAABWc/LI9qTZST_lI/s1600/Przechwytywanie_monitoring.JPG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="132" src="http://2.bp.blogspot.com/-BzQe9cJrnMA/TmjLmiUL-zI/AAAAAAAABWc/LI9qTZST_lI/s320/Przechwytywanie_monitoring.JPG" width="320" /></a></div>
+<br /><img src="http://feeds.feedburner.com/~r/JacekWysocki/~4/yDk6njQP12E" height="1" width="1"/>

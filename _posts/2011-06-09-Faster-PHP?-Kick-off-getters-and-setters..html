@@ -1,0 +1,24 @@
+---
+layout: post
+title: Faster PHP? Kick off getters and setters.
+date: 2011-06-09 12:58:33 UTC
+updated: 2011-06-09 12:58:33 UTC
+comments: false
+categories: performance php
+---
+
+In PHP getters and setters sucks on performance.<br />
+<br />
+<script src="https://gist.github.com/1016679.js?file=getterssetter_vs_pubproperties.php"></script><br />
+<br />
+Output on my Ubuntu VM (PHP 5.3.5):<br />
+<pre class="brush:bash">
+test_getters_setters: 0.64945447444916
+test_public_properties: 0.27986690998077
+test_magic_methods: 1.0444820642471
+test_array_access: 0.9640593290329
+
+</pre><br />
+WTF? How many getters/setters You use in your project per request?<br />
+<br />
+Source: <a href="http://code.google.com/intl/pl/speed/articles/optimizing-php.html">Let's make the web faster by Google</a><img src="http://feeds.feedburner.com/~r/JacekWysocki/~4/_mGAmLFOboU" height="1" width="1"/>

@@ -1,0 +1,39 @@
+---
+layout: post
+title: rsync with --itemize-changes flag
+date: 2011-07-07 10:11:41 UTC
+updated: 2011-07-07 10:11:41 UTC
+comments: false
+categories: synchronization deploy linux rsync
+---
+
+My yesterday rsync battle notes:<br />
+<pre class="brush:bash">rsync --checksum --verbose  --recursive --delete --itemize-changes --times SOURCE_HOST DESTINATION_HOST 
+</pre><br />
+<pre>+- incoming / outgoing / change 
+|
+|+- type : f for a file, a d for a
+||         directory, an L for a symlink, 
+||         a D for a device, and a S  for  a
+||         special file (e.g. named sockets and fifos
+||
+&lt;f.st......
+  |||||||||
+  ||||||||+- x - extended attributes
+  |||||||+- a - ACL info changed
+  ||||||+- u - reserved for future
+  |||||+- g - group
+  ||||+- o - owner
+  |||+- p - permissions
+  ||+- t - modification time 
+  |+- s - size
+  +- c - checksum
+
+
+Additional information:
+. - no change
+* - e.g. *deleting
+c - local change/creation e.g. creating dir symlink
+&lt; - file transfer to remote
+&gt; - file transfer to local host (received)
+</pre><img src="http://feeds.feedburner.com/~r/JacekWysocki/~4/rLFX2vC_GYE" height="1" width="1"/>

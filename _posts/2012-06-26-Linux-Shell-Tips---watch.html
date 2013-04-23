@@ -1,0 +1,29 @@
+---
+layout: post
+title: Linux Shell Tips - watch
+date: 2012-06-26 13:12:11 UTC
+updated: 2012-06-26 13:12:11 UTC
+comments: false
+categories: linux shell
+---
+
+If you want to monitor some command execution in time like "tail -f" for files, probably your linux box have nice solution for you:<br />
+<br />
+<pre class="brush:bash">watch -n 1 'ls -l'
+</pre><br />
+Where:<br />
+'-n 1'  - time (in seconds) to refresh command output<br />
+'ls -l' - command to execute in interval above<br />
+<br />
+When we add '-d' option (help: highlight changes between updates), watch inform Us what was changed between command executions.<br />
+<br />
+Example for 'ls' command below:<br />
+<br />
+<br />
+<pre class="brush:bash">watch --color -n 10 -d 'ls -la'</pre><br />
+Output:<br />
+<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-hWdWtskK6gk/TZteizdEJfI/AAAAAAAABE0/ET9I3HB39iU/s1600/screenshot13.png" imageanchor="1" style="margin-bottom: 1em; margin-right: 1em;"><img border="0" height="148" src="http://1.bp.blogspot.com/-hWdWtskK6gk/TZteizdEJfI/AAAAAAAABE0/ET9I3HB39iU/s320/screenshot13.png" width="320" /></a></div><br />
+After change in directory structure watch informs us about changes:<br />
+<div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-E-DmRqYVeT8/TZtenHXr0FI/AAAAAAAABE8/9Lxnznlbf5c/s1600/screenshot14.png" imageanchor="1" style="margin-bottom: 1em; margin-right: 1em;"><img border="0" height="126" src="http://1.bp.blogspot.com/-E-DmRqYVeT8/TZtenHXr0FI/AAAAAAAABE8/9Lxnznlbf5c/s320/screenshot14.png" width="320" /></a></div><br /><img src="http://feeds.feedburner.com/~r/JacekWysocki/~4/ElkzEVxUDLs" height="1" width="1"/>

@@ -1,0 +1,22 @@
+---
+layout: post
+title: Embedded data image VIM script
+date: 2011-03-31 22:45:12 UTC
+updated: 2011-03-31 22:45:12 UTC
+comments: false
+categories: vim plugin python
+---
+
+(w nawiązaniu do posta <a href="http://blog.wysocki.org.pl/2011/03/image-src-data-szybki-skrypt-w-php.html">o konwersji obrazka na embedded data za pomocą PHP</a>)<br />
+<br />
+Stwierdziłem że skoro używam VIM'a fajnie byłoby mieć plugina który to zrobi. A ponieważ ostatnio przerabiam <a href="https://github.com/gregmalcolm/python_koans">python koans</a>&nbsp;a VIM ma możliwość pisania pluginów w pythonie więc wziąłem się dziś do dzieła.<br />
+<br />
+Wynik moich wypocin to kilka linijek kodu w postaci <a href="https://github.com/exu/img2data.vim">plugin'u do VIM'a Image2Data</a><br />
+<br />
+<script src="https://gist.github.com/897411.js?file=img2data.vim">
+</script><br />
+<br />
+<br />
+Jest to wersja po tuningu, wykrywa automatycznie mime type. Wystarczy dodać plugin do VIM'a, zmapować sobie go pod klawisz a następnie skopiować do schowka link do obrazka a w miejscu, w którym chcemy aby nasz obrazek objawił się w formie data:image...... wykorzystać swój skrót w normal mode.<br />
+<br />
+PS: proszę o wrozumiałość to mój pierwszy plugin w VIMie :p<img src="http://feeds.feedburner.com/~r/JacekWysocki/~4/DpT94t-vN38" height="1" width="1"/>
