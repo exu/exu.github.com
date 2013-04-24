@@ -3,17 +3,18 @@ layout: post
 title: rsync with --itemize-changes flag
 date: 2011-07-07 10:11:41 UTC
 updated: 2011-07-07 10:11:41 UTC
-comments: false
-categories: synchronization deploy linux rsync
+comments: true
+category: linux
+tags: [synchronization, deploy, linux, rsync]
 ---
 
 My yesterday rsync battle notes:<br />
-<pre class="brush:bash">rsync --checksum --verbose  --recursive --delete --itemize-changes --times SOURCE_HOST DESTINATION_HOST 
+<pre class="brush:bash">rsync --checksum --verbose  --recursive --delete --itemize-changes --times SOURCE_HOST DESTINATION_HOST
 </pre><br />
-<pre>+- incoming / outgoing / change 
+<pre>+- incoming / outgoing / change
 |
 |+- type : f for a file, a d for a
-||         directory, an L for a symlink, 
+||         directory, an L for a symlink,
 ||         a D for a device, and a S  for  a
 ||         special file (e.g. named sockets and fifos
 ||
@@ -25,7 +26,7 @@ My yesterday rsync battle notes:<br />
   |||||+- g - group
   ||||+- o - owner
   |||+- p - permissions
-  ||+- t - modification time 
+  ||+- t - modification time
   |+- s - size
   +- c - checksum
 
