@@ -1,0 +1,92 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: "Migration to Jekyll"
+description: ""
+comments: true
+category: blog
+tags: [migration, blog, posts, import]
+---
+{% include JB/setup %}
+#+END_HTML
+
+* The blogger exodus
+
+I wan't to start writting some blog posts so I've thought that I will start from
+migration of My old blog on Blogger (http://blog.wysocki.org.pl) to new and shiny
+Jekyll powered blog engine (http://exu.github.io) - domain will be changed later.
+Why? It looks like good idea to have everything in git. And what is most important
+I can write my posts in Org-mode (markdown sucks so much!)
+
+
+** I've used several tools to complete this job:
+
+- Jekyll http://jekyllrb.com/
+- http://jekyllbootstrap.com/
+- https://gist.github.com/kennym/1115810 (I've changed =Config= to =RbConfig= because of deprecation warning)'
+
+** Org-mode integration
+
+=org= directory in jekyll root directory structure similar to root directory.
+I have =_posts= directory with org files inside
+
+To avoid =<p>= tags in jekyll parameters I've put them between =#+BEGIN_HTML= and =#+END_HTML= tags
+
+#+begin_src org :results replace output :exports both
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: "Migration to Jekyll"
+description: ""
+comments: true
+category: blog
+tags: [migration, blog, posts, import]
+---
+{% include JB/setup %}
+#+END_HTML
+#+end_src
+
+I've added some little helper to publish org files by hitting one key:
+
+#+begin_src elisp :results replace output :exports both
+(setq org-publish-project-alist
+      '(
+
+  ("github"
+          ;; Path to your org files.
+          :base-directory "~/Workspace/exu.github.com/org/"
+          :base-extension "org"
+
+          ;; Path to your Jekyll project.
+          :publishing-directory "~/Workspace/exu.github.com/"
+          :recursive t
+          :publishing-function org-publish-org-to-html
+          :headline-levels 4
+          :html-extension "html"
+          :body-only t ;; Only export section between <body> </body>
+    )
+))
+
+(defun publish-blog ()
+  (interactive)
+  (org-publish "github")
+  )
+
+(global-set-key (kbd "<f12>") 'publish-blog)
+#+end_src
+
+
+** Todo Left [3/6]:
+
+- [X] Make new home page
+- [X] Integrate Org-mode to work on github pages
+- [ ] Add some static pages with informations
+- [ ] Migrate domain: blog.wysocki.org.pl
+- [ ] Make some Bootstrap layout
+- [X] Find some nice font
