@@ -3,8 +3,8 @@ layout: post
 title: "Migration to Jekyll"
 description: ""
 comments: true
-category:
-tags: []
+category: blog
+tags: [migration, blog, posts, import]
 ---
 {% include JB/setup %}
 
