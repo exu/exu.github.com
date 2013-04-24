@@ -1,0 +1,29 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: page
+title: Contact
+tagline:
+---
+{% include JB/setup %}
+#+END_HTML
+
+* by Email
+
+#+BEGIN_HTML
+<script>
+var a = ('jacek.wysocki' + '+blog@' + 'gmail.com')
+document.write('<a href="mailto:' + a + '">' + a + '</a>')
+</script>
+
+<NOSCRIPT>
+    <em>Email address protected by JavaScript.<BR>
+    Please enable JavaScript to contact me.</em>
+</NOSCRIPT>
+#+END_HTML
+
+* Social media
+- [[http://twitter.com/ex00][ex00 @ twitter]]
+- [[http://github.com/exu][exu @ github]]
