@@ -2,6 +2,7 @@
 layout: post
 title: "Migration to Jekyll"
 description: ""
+comments: true
 category:
 tags: []
 ---
@@ -9,7 +10,7 @@ tags: []
 
 * The blogger exodus
 I've migrated old blog on http://blog.wysocki.org.pl to http://exu.github.io. Why? It looks
-like good idea to have everything in git. And what is most important I want to write my posts
+like good idea to have everything in git. And what is most important I can write my posts
 in Org-mode (markdown sucks so much!)
 
 
@@ -19,7 +20,9 @@ I've used several tools to complete:
 - http://jekyllbootstrap.com/
 - https://gist.github.com/kennym/1115810 (I've changed `Config` to `RbConfig` because of deprecation warning)'
 
-* TODO Left:
+* Todo Left:
 
+- [ ] Make new home page
+- [ ] Add some static pages with informations
 - [ ] Migrate domain: blog.wysocki.org.pl
 - [ ] Make some Bootstrap layout
