@@ -30,7 +30,7 @@ I can write my posts in Org-mode (markdown sucks so much!)
 
 ** Org-mode integration
 
-=org= directory in jekyll root directory structure similar to root directory.
+=_org= directory in jekyll root directory structure similar to root directory.
 I have =_posts= directory with org files inside
 
 To avoid =<p>= tags in jekyll parameters I've put them between =#+BEGIN_HTML= and =#+END_HTML= tags
@@ -60,7 +60,7 @@ I've added some little helper to publish org files by hitting one key:
 
   ("github"
           ;; Path to your org files.
-          :base-directory "~/Workspace/exu.github.com/org/"
+          :base-directory "~/Workspace/exu.github.com/_org/"
           :base-extension "org"
 
           ;; Path to your Jekyll project.

@@ -1,10 +1,18 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
 ---
 layout: post
 title: "My new color theme (Zenburn based) for Emacs exu-theme.el"
 description: ""
+comments: true
 category: editor
 tags: [emacs, color, theme]
 ---
+{% include JB/setup %}
+#+END_HTML
+
 {% include JB/setup %}
 
 * Why one more colortheme?
