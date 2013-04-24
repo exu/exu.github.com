@@ -1,4 +1,10 @@
 /* Custom container */
+@import url(http://fonts.googleapis.com/css?family=Exo:200&subset=latin-ext,latin);
+
+body {
+    font-family: 'Exo', sans-serif;
+}
+
 .container-narrow {
   margin: 0 auto;
   max-width: 700px; }
@@ -63,3 +69,31 @@
   background: #57A957;
   border: 1px solid #4c964d;
   color: #FFF; }
+
+.posts {
+    list-style: none;
+}
+
+.posts li.current {
+    font-size: 22px;
+    line-height: 28px;
+}
+
+.posts li.current span {
+    line-height: 24px;
+    text-align: center;
+}
+
+
+.posts li {
+    list-style: none;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.posts li span {
+    line-height: 20px;
+    margin: 2px 5px 2px 0 ;
+    width: 80px;
+    text-align: center;
+}

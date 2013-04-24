@@ -9,20 +9,24 @@ tags: [migration, blog, posts, import]
 {% include JB/setup %}
 
 * The blogger exodus
-I've migrated old blog on http://blog.wysocki.org.pl to http://exu.github.io. Why? It looks
-like good idea to have everything in git. And what is most important I can write my posts
-in Org-mode (markdown sucks so much!)
+
+I wan't to start writting some blog posts so I've thought that I will start from
+migration of My old blog on Blogger (http://blog.wysocki.org.pl) to new and shiny
+Jekyll powered blog engine (http://exu.github.io) - domain will be changed later.
+Why? It looks like good idea to have everything in git. And what is most important
+I can write my posts in Org-mode (markdown sucks so much!)
 
 
-I've used several tools to complete:
+** I've used several tools to complete this job:
 
 - Jekyll http://jekyllrb.com/
 - http://jekyllbootstrap.com/
 - https://gist.github.com/kennym/1115810 (I've changed `Config` to `RbConfig` because of deprecation warning)'
 
-* Todo Left:
+** Todo Left [2/5]:
 
-- [ ] Make new home page
+- [X] Make new home page
 - [ ] Add some static pages with informations
 - [ ] Migrate domain: blog.wysocki.org.pl
 - [ ] Make some Bootstrap layout
+- [X] Find some nice font

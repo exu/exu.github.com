@@ -1,0 +1,38 @@
+---
+layout: post
+title: "My new color theme (Zenburn based) for Emacs exu-theme.el"
+description: ""
+category: editor
+tags: [emacs, color, theme]
+---
+{% include JB/setup %}
+
+* Why one more colortheme?
+
+In my office i have very big windows and after 1PM brightness is killing my
+ability to see letters in my previous emacs setup with Zenburn colortheme.
+
+It's good to see shiny day but my low contrast [[https://github.com/bbatsov/zenburn-emacs][Zenburn Theme]] is too bright and I
+often don't see elements with lower contrast.
+
+* exu-theme.el
+
+** Installation
+
+You can grab it from my [[https://github.com/exu/emacs.d/blob/master/themes/exu-theme.el][emacs github repository]] (if You are using Emacs 24
+simply put it into `~/.emacs.d/themes` directory and add lines below into
+your `~/.emacs.d/init.el` file to load this theme
+
+#+begin_src elisp :results replace output :exports both
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'exu t)
+#+end_src
+
+
+** Below are some screenshots of my new theme:
+
+[[/assets/img/exu-emacs-theme-01.png]]
+
+[[/assets/img/exu-emacs-theme-02.png]]
+
+[[/assets/img/exu-emacs-theme-03.png]]
