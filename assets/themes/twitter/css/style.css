@@ -97,3 +97,8 @@ body {
     width: 80px;
     text-align: center;
 }
+
+h1 {
+    color: silver;
+    text-shadow: -1px 0 0 gray;
+}
