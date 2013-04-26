@@ -17,29 +17,24 @@ tags: [vagrant, pupppet, php, nginx, apache, webserver, symfony2]
 [[http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.jpg]]
 
 
-
-* "One click" Developers VM setup with Vagrant and Puppet Nginx and Symfony2
-
 Before incoming Symfony2 training I've decided to upgrade a little puppet-symfony
 configuration for our developers (original on https://github.com/l3l0/puppet-symfony).
 
 
 
 ** Requirements:
-
-*** First you must install Vagrant and Puppet:
 - Virtualbox 4.2+ (I've installed from deb package on VBox site https://www.virtualbox.org/wiki/Linux_Downloads)
 - Vagrant - installed it from http://downloads.vagrantup.com/tags/v1.2.2
 - Puppet - installed from gem install puppet (You'll need ruby and bundler)
 
-*** Next Clone the puppet modules and manifests into your project:
+** Next Clone the puppet modules and manifests into your project:
 
 #+begin_src sh
 cd your-project
 git clone git://github.com/exu/puppet-symfony.git .puppet
 #+end_src
 
-*** Create a Vagrantfile and configure manifests and module paths. You can use provided example:
+** Create a Vagrantfile and configure manifests and module paths. You can use provided example:
 
 #+begin_src sh
 cat .puppet/Vagrantfile |
@@ -48,13 +43,13 @@ cat .puppet/Vagrantfile |
 #+end_src
 
 
-*** Boot your virtual machine:
+** Boot your virtual machine:
 
 #+begin_src sh
 vagrant up
 #+end_src
 
-*** Finally ssh into it once it boots:
+** Finally ssh into it once it boots:
 
 #+begin_src sh
 vagrant ssh
