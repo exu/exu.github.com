@@ -14,6 +14,9 @@ tags: [vagrant, pupppet, php, nginx, apache, webserver, symfony2]
 {% include JB/setup %}
 #+END_HTML
 
+[[http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.png]]
+
+
 
 * "One click" Developers VM setup with Vagrant and Puppet Nginx and Symfony2
 
