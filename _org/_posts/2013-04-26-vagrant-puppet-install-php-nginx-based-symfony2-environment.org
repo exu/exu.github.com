@@ -59,8 +59,8 @@ vagrant ssh
 - Your client accessing it with IP: 10.0.100.1.
 - You can =ssh vagrant@10.0.100.110= (default password is =vagrant=)
 
-** Next you should add vagrant.dev to hosts file
+** Next you should add vagrant.dev to your hosts file ([[https://en.wikipedia.org/wiki/Hosts_(file)][/etc/hosts]])
 
 #+begin_src sh
-10.0.100.110 vagrant.dev
+echo '10.0.100.110 vagrant.dev' >> /etc/hosts
 #+end_src
