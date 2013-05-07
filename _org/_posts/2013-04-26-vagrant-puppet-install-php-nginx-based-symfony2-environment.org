@@ -25,7 +25,7 @@ configuration for our developers (original on https://github.com/l3l0/puppet-sym
 ** Requirements:
 - Virtualbox 4.2+ (I've installed from deb package on VBox site https://www.virtualbox.org/wiki/Linux_Downloads)
 - Vagrant - installed it from http://downloads.vagrantup.com/tags/v1.2.2
-- Puppet - installed from =gem install puppet= (You'll need ruby)
+- Puppet - installed from =gem install puppet= (You'll need [[https://rvm.io/rvm/install/][ruby]])
 
 ** Next Clone the puppet modules and manifests into your project:
 
