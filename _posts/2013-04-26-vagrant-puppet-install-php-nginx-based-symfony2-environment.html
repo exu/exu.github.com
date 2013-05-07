@@ -146,7 +146,7 @@ git clone git://github.com/exu/puppet-symfony.git .puppet
 
 <p>
 To edit files you can install sshfs <code>sudo apt-get install sshfs</code> and then mount project directory
-wherever you want (I've mounted it in  <code>/home/exu/Training directory</code>)
+wherever you want (I've mounted it in  <code>/home/exu/Training directory</code>, use directory where you want to mount it)
 </p>
 
 
@@ -158,5 +158,38 @@ sshfs vagrant@10.0.100.110:/home/vagrant/vagrant.dev /home/exu/Training
 
 <p>
 If you don't want to enter your password you can execute <code>ssh-copy-id vagrant@10.0.100.110</code> first (if you use <a href="http://en.wikipedia.org/wiki/Public-key_infrastructure">PKI</a>).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-3">
+<h3 id="sec-9">Additional tips:</h3>
+<div class="outline-text-3" id="text-9">
+
+
+<p>
+If you don't want to provision machine after each restart (with new basic Symfony project) use <code>--no-provision</code>
+when you run <code>vagrant up</code> command
+</p>
+
+
+
+<pre class="example">vagrant up --no-provision
+</pre>
+
+
+<p>
+I've added alias to speed up VM start
+</p>
+
+
+
+<pre class="example">alias vup='vagrant up --no-provision'
+</pre>
+
+
+<p>
+You can put it in your <code>.bashrc</code> or <code>.zshrc</code> file
 </p></div>
 </div>
