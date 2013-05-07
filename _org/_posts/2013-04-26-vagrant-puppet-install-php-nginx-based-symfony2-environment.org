@@ -17,8 +17,8 @@ tags: [vagrant, pupppet, php, nginx, apache, webserver, symfony2]
 [[http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.jpg]]
 
 
-Before incoming Symfony2 training I've decided to upgrade a little puppet-symfony
-configuration for our developers (original on https://github.com/l3l0/puppet-symfony).
+Before incoming Symfony2 training I've decided to upgrade a little [[https://github.com/exu/puppet-symfony][puppet-symfony
+configuration for our developers]] (original on https://github.com/l3l0/puppet-symfony).
 
 
 
