@@ -134,5 +134,29 @@ git clone git://github.com/exu/puppet-symfony.git .puppet
 <pre class="example">sudo sh -c 'echo "10.0.100.110 vagrant.dev" &gt;&gt; /etc/hosts'
 </pre>
 
+
 </div>
+
+</div>
+
+<div id="outline-container-8" class="outline-3">
+<h3 id="sec-8">Editing files on VM</h3>
+<div class="outline-text-3" id="text-8">
+
+
+<p>
+To edit files you can install sshfs <code>sudo apt-get install sshfs</code> and then mount project directory
+wherever you want (I've mounted it in  <code>/home/exu/Training directory</code>)
+</p>
+
+
+
+<pre class="example">sudo apt-get install sshfs
+sshfs vagrant@10.0.100.110:/home/vagrant/vagrant.dev /home/exu/Training
+</pre>
+
+
+<p>
+If you don't want to enter your password you can execute <code>ssh-copy-id vagrant@10.0.100.110</code> first (if you use <a href="http://en.wikipedia.org/wiki/Public-key_infrastructure">PKI</a>).
+</p></div>
 </div>
