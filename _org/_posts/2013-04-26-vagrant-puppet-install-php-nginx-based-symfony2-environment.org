@@ -34,12 +34,10 @@ cd your-project
 git clone git://github.com/exu/puppet-symfony.git .puppet
 #+end_src
 
-** Create a Vagrantfile and configure manifests and module paths. You can use provided example:
+** Create symlink to a Vagrantfile:
 
 #+begin_src sh
-cat .puppet/Vagrantfile |
-    sed -e 's/manifests_path = "manifests"/manifests_path = ".puppet\/manifests"/g' |
-    sed -e 's/module_path = "modules"/module_path = ".puppet\/modules"/g' > Vagrantfile
+ln -s .puppet/Vagrantfile ./Vagrantfile
 #+end_src
 
 
