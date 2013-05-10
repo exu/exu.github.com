@@ -14,6 +14,8 @@ tags: [symfony, component, standalone, shell, console]
 {% include JB/setup %}
 #+END_HTML
 
+All files are located on GitHub [[git@github.com:exu/symfony2-console-standalone.git][Symfony2 Console as standalone component]]
+
 To use symfony console you should create =composer.json= file and add =symfony/console= component
 
 #+begin_src json
