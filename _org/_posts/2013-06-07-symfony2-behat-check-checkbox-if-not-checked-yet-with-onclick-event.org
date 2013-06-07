@@ -14,7 +14,7 @@ tags: [symfony2, php, behat, testing]
 {% include JB/setup %}
 #+END_HTML
 
-** 'I check "checkbox_id"' doesn't work for me
+** 'I check "checkbox\_id"' doesn't work for me
 
 Behat includes method for checking checkboxes, but it have one disadvantage - when it is run on Selenium server
 it only tacks checkbox value but don't fire onclick event. I write some small snippet to handle this flaw.
