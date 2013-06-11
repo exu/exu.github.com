@@ -23,7 +23,7 @@ ability to see letters in my previous emacs setup with Zenburn colortheme.
 It's good to see shiny day but my low contrast [[https://github.com/bbatsov/zenburn-emacs][Zenburn Theme]] is too bright and I
 often don't see elements with lower contrast.
 
-* exu-theme.el
+* How to install exu-theme.el
 
 ** Installation
 

@@ -1,0 +1,194 @@
+---
+layout: post
+title: Vagrant with puppet - Install webserver environment with Symfony2 project
+date: 2013-04-26 10:56:12 UTC UTC
+updated: 2013-04-26 10:56:12 UTC UTC
+comments: true
+category: setup
+tags: [vagrant, pupppet, php, nginx, apache, webserver, symfony2]
+---
+{% include JB/setup %}
+
+<p>
+<img src="http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.jpg"  alt="http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.jpg" />
+</p>
+
+<p>
+Before incoming Symfony2 training I've decided to upgrade a little <a href="https://github.com/exu/puppet-symfony">puppet-symfony configuration for our developers</a> (original on <a href="https://github.com/l3l0/puppet-symfony">https://github.com/l3l0/puppet-symfony</a>).
+</p>
+
+
+
+<div id="outline-container-1" class="outline-3">
+<h3 id="sec-1">Requirements:</h3>
+<div class="outline-text-3" id="text-1">
+
+<ul>
+<li>Virtualbox 4.2+ (I've installed from deb package on VBox site <a href="https://www.virtualbox.org/wiki/Linux_Downloads">https://www.virtualbox.org/wiki/Linux_Downloads</a>)
+</li>
+<li>Vagrant - installed it from <a href="http://downloads.vagrantup.com/tags/v1.2.2">http://downloads.vagrantup.com/tags/v1.2.2</a>
+</li>
+<li>Puppet - installed from <code>gem install puppet</code> (You'll need <a href="https://rvm.io/rvm/install/">ruby</a>)
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-3">
+<h3 id="sec-2">Next Clone the puppet modules and manifests into your project:</h3>
+<div class="outline-text-3" id="text-2">
+
+
+
+
+
+<pre class="example">cd your-project
+git clone git://github.com/exu/puppet-symfony.git .puppet
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-3">
+<h3 id="sec-3">Create symlink to a Vagrantfile:</h3>
+<div class="outline-text-3" id="text-3">
+
+
+
+
+
+<pre class="example">ln -s .puppet/Vagrantfile ./Vagrantfile
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-3">
+<h3 id="sec-4">Boot your virtual machine:</h3>
+<div class="outline-text-3" id="text-4">
+
+
+
+
+
+<pre class="example">vagrant up
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-3">
+<h3 id="sec-5">Finally ssh into it once it boots:</h3>
+<div class="outline-text-3" id="text-5">
+
+
+
+
+
+<pre class="example">vagrant ssh
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-3">
+<h3 id="sec-6">Networking details</h3>
+<div class="outline-text-3" id="text-6">
+
+
+<ul>
+<li>VMs network is configured in host-only mode to handle IP 10.0.100.110.
+</li>
+<li>Your client accessing it with IP: 10.0.100.1.
+</li>
+<li>You can <code>ssh vagrant@10.0.100.110</code> (default password is <code>vagrant</code>)
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-3">
+<h3 id="sec-7">Next you should add vagrant.dev to your hosts file (<a href="https://en.wikipedia.org/wiki/Hosts_(file)">/etc/hosts</a>)</h3>
+<div class="outline-text-3" id="text-7">
+
+
+
+
+
+<pre class="example">sudo sh -c 'echo "10.0.100.110 vagrant.dev" &gt;&gt; /etc/hosts'
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-3">
+<h3 id="sec-8">Editing files on VM</h3>
+<div class="outline-text-3" id="text-8">
+
+
+<p>
+To edit files you can install sshfs <code>sudo apt-get install sshfs</code> and then mount project directory
+wherever you want (I've mounted it in  <code>/home/exu/Training directory</code>, use directory where you want to mount it)
+</p>
+
+
+
+<pre class="example">sudo apt-get install sshfs
+sshfs vagrant@10.0.100.110:/home/vagrant/vagrant.dev /home/exu/Training
+</pre>
+
+
+<p>
+If you don't want to enter your password you can execute <code>ssh-copy-id vagrant@10.0.100.110</code> first (if you use <a href="http://en.wikipedia.org/wiki/Public-key_infrastructure">PKI</a>).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-3">
+<h3 id="sec-9">Additional tips:</h3>
+<div class="outline-text-3" id="text-9">
+
+
+<p>
+If you don't want to provision machine after each restart (with new basic Symfony project) use <code>--no-provision</code>
+when you run <code>vagrant up</code> command
+</p>
+
+
+
+<pre class="example">vagrant up --no-provision
+</pre>
+
+
+<p>
+I've added alias to speed up VM start
+</p>
+
+
+
+<pre class="example">alias vup='vagrant up --no-provision'
+</pre>
+
+
+<p>
+You can put it in your <code>.bashrc</code> or <code>.zshrc</code> file
+</p></div>
+</div>

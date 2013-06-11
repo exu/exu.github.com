@@ -1,0 +1,95 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: Vagrant with puppet - Install webserver environment with Symfony2 project
+date: 2013-04-26 10:56:12 UTC UTC
+updated: 2013-04-26 10:56:12 UTC UTC
+comments: true
+category: setup
+tags: [vagrant, pupppet, php, nginx, apache, webserver, symfony2]
+---
+{% include JB/setup %}
+#+END_HTML
+
+[[http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.jpg]]
+
+
+Before incoming Symfony2 training I've decided to upgrade a little [[https://github.com/exu/puppet-symfony][puppet-symfony
+configuration for our developers]] (original on https://github.com/l3l0/puppet-symfony).
+
+
+
+** Requirements:
+- Virtualbox 4.2+ (I've installed from deb package on VBox site https://www.virtualbox.org/wiki/Linux_Downloads)
+- Vagrant - installed it from http://downloads.vagrantup.com/tags/v1.2.2
+- Puppet - installed from =gem install puppet= (You'll need [[https://rvm.io/rvm/install/][ruby]])
+
+** Next Clone the puppet modules and manifests into your project:
+
+#+begin_src sh
+cd your-project
+git clone git://github.com/exu/puppet-symfony.git .puppet
+#+end_src
+
+** Create symlink to a Vagrantfile:
+
+#+begin_src sh
+ln -s .puppet/Vagrantfile ./Vagrantfile
+#+end_src
+
+
+** Boot your virtual machine:
+
+#+begin_src sh
+vagrant up
+#+end_src
+
+** Finally ssh into it once it boots:
+
+#+begin_src sh
+vagrant ssh
+#+end_src
+
+** Networking details
+
+- VMs network is configured in host-only mode to handle IP 10.0.100.110.
+- Your client accessing it with IP: 10.0.100.1.
+- You can =ssh vagrant@10.0.100.110= (default password is =vagrant=)
+
+** Next you should add vagrant.dev to your hosts file ([[https://en.wikipedia.org/wiki/Hosts_(file)][/etc/hosts]])
+
+#+begin_src sh
+sudo sh -c 'echo "10.0.100.110 vagrant.dev" >> /etc/hosts'
+#+end_src
+
+** Editing files on VM
+
+To edit files you can install sshfs =sudo apt-get install sshfs= and then mount project directory
+wherever you want (I've mounted it in  =/home/exu/Training directory=, use directory where you want to mount it)
+
+#+begin_src sh
+sudo apt-get install sshfs
+sshfs vagrant@10.0.100.110:/home/vagrant/vagrant.dev /home/exu/Training
+#+end_src
+
+If you don't want to enter your password you can execute =ssh-copy-id vagrant@10.0.100.110= first (if you use [[http://en.wikipedia.org/wiki/Public-key_infrastructure][PKI]]).
+
+** Additional tips:
+
+If you don't want to provision machine after each restart (with new basic Symfony project) use =--no-provision=
+when you run =vagrant up= command
+
+#+begin_src sh
+vagrant up --no-provision
+#+end_src
+
+I've added alias to speed up VM start
+
+#+begin_src sh
+alias vup='vagrant up --no-provision'
+#+end_src
+
+You can put it in your =.bashrc= or =.zshrc= file

@@ -1,0 +1,50 @@
+---
+layout: post
+title: Symfony2 Behat - check checkbox if not checked yet (with onclick event)
+date: 2013-06-07 11:03:31 UTC UTC
+updated: 2013-06-07 11:03:31 UTC UTC
+comments: true
+category: programming
+tags: [symfony2, php, behat, testing]
+---
+{% include JB/setup %}
+
+
+<div id="outline-container-1" class="outline-3">
+<h3 id="sec-1">'I check "checkbox_id"' doesn't work for me</h3>
+<div class="outline-text-3" id="text-1">
+
+
+<p>
+Behat includes method for checking checkboxes, but it have one disadvantage - when it is run on Selenium server
+it only tacks checkbox value but don't fire onclick event. I write some small snippet to handle this flaw.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-3">
+<h3 id="sec-2">Code snippet</h3>
+<div class="outline-text-3" id="text-2">
+
+
+
+
+<pre class="example">/**
+ * @When /^I check "([^"]*)" if not checked yet$/
+ */
+public function iCheckIfNotCheckedYet($id)
+{
+    $Page = $this-&gt;getSession()-&gt;getPage();
+    $isChecked = $Page-&gt;find('css', 'input[type="checkbox"]:checked#' . $id);
+    if (!$isChecked) {
+        $Page-&gt;find('css', '#' . $id)-&gt;click();
+    }
+}
+</pre>
+
+
+<p>
+It checks if checkbox is checked, if not it fire click action on it.
+</p></div>
+</div>
