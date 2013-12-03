@@ -5,8 +5,8 @@
 ---
 layout: post
 title: Symfony2 Behat - check checkbox if not checked yet (with onclick event)
-date: 2013-06-07 11:03:31 UTC UTC
-updated: 2013-06-07 11:03:31 UTC UTC
+date: 2013-06-07 11:03:31 UTC
+updated: 2013-06-07 11:03:31 UTC
 comments: true
 category: programming
 tags: [symfony2, php, behat, testing]
