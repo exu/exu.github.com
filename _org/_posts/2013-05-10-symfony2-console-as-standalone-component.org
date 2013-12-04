@@ -14,7 +14,7 @@ tags: [symfony, component, standalone, shell, console]
 {% include JB/setup %}
 #+END_HTML
 
-[[/assets/img/sf2-console-component.png]]
+[[http://wysocki.in/assets/img/sf2-console-component.png]]
 
 All files are located on My GitHub project: [[https://github.com/exu/symfony2-console-standalone][Symfony2 Console as standalone component]]
 
