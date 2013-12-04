@@ -9,21 +9,24 @@ tags: [vagrant, pupppet, php, nginx, apache, webserver, symfony2]
 ---
 {% include JB/setup %}
 
+
+<div class="figure">
+<p><img src="http://wysocki.in/assets/img/vagrant-puppet-symfony.jpg" alt="vagrant-puppet-symfony.jpg" />
+</p>
+</div>
+
+
 <p>
-<img src="http://wysocki.in/assets/img/vagrant-puppet-symfony.jpg"  alt="http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.jpg" />
+Before incoming Symfony2 training I've decided to upgrade a little <a href="https://github.com/exu/puppet-symfony">puppet-symfony
+configuration for our developers</a> (original on <a href="https://github.com/l3l0/puppet-symfony">https://github.com/l3l0/puppet-symfony</a>).
 </p>
 
-<p>
-Before incoming Symfony2 training I've decided to upgrade a little <a href="https://github.com/exu/puppet-symfony">puppet-symfony configuration for our developers</a> (original on <a href="https://github.com/l3l0/puppet-symfony">https://github.com/l3l0/puppet-symfony</a>).
-</p>
 
 
-
-<div id="outline-container-1" class="outline-3">
-<h3 id="sec-1">Requirements:</h3>
-<div class="outline-text-3" id="text-1">
-
-<ul>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Requirements:</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
 <li>Virtualbox 4.2+ (I've installed from deb package on VBox site <a href="https://www.virtualbox.org/wiki/Linux_Downloads">https://www.virtualbox.org/wiki/Linux_Downloads</a>)
 </li>
 <li>Vagrant - installed it from <a href="http://downloads.vagrantup.com/tags/v1.2.2">http://downloads.vagrantup.com/tags/v1.2.2</a>
@@ -31,84 +34,54 @@ Before incoming Symfony2 training I've decided to upgrade a little <a href="http
 <li>Puppet - installed from <code>gem install puppet</code> (You'll need <a href="https://rvm.io/rvm/install/">ruby</a>)
 </li>
 </ul>
-
-
 </div>
-
 </div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Next Clone the puppet modules and manifests into your project:</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
 
-<div id="outline-container-2" class="outline-3">
-<h3 id="sec-2">Next Clone the puppet modules and manifests into your project:</h3>
-<div class="outline-text-3" id="text-2">
-
-
-
-
-
-<pre class="example">cd your-project
+<pre class="src src-sh"><span style="color: #93e0e3;">cd</span> your-project
 git clone git://github.com/exu/puppet-symfony.git .puppet
 </pre>
-
-
 </div>
-
 </div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Create symlink to a Vagrantfile:</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
 
-<div id="outline-container-3" class="outline-3">
-<h3 id="sec-3">Create symlink to a Vagrantfile:</h3>
-<div class="outline-text-3" id="text-3">
-
-
-
-
-
-<pre class="example">ln -s .puppet/Vagrantfile ./Vagrantfile
+<pre class="src src-sh">ln -s .puppet/Vagrantfile ./Vagrantfile
 </pre>
-
-
-
+</div>
+</div>
 </div>
 
-</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Boot your virtual machine:</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
 
-<div id="outline-container-4" class="outline-3">
-<h3 id="sec-4">Boot your virtual machine:</h3>
-<div class="outline-text-3" id="text-4">
-
-
-
-
-
-<pre class="example">vagrant up
+<pre class="src src-sh">vagrant up
 </pre>
-
-
 </div>
-
 </div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Finally ssh into it once it boots:</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
 
-<div id="outline-container-5" class="outline-3">
-<h3 id="sec-5">Finally ssh into it once it boots:</h3>
-<div class="outline-text-3" id="text-5">
-
-
-
-
-
-<pre class="example">vagrant ssh
+<pre class="src src-sh">vagrant ssh
 </pre>
-
-
 </div>
-
 </div>
-
-<div id="outline-container-6" class="outline-3">
-<h3 id="sec-6">Networking details</h3>
-<div class="outline-text-3" id="text-6">
-
-
-<ul>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Networking details</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
 <li>VMs network is configured in host-only mode to handle IP 10.0.100.110.
 </li>
 <li>Your client accessing it with IP: 10.0.100.1.
@@ -116,79 +89,64 @@ git clone git://github.com/exu/puppet-symfony.git .puppet
 <li>You can <code>ssh vagrant@10.0.100.110</code> (default password is <code>vagrant</code>)
 </li>
 </ul>
-
-
 </div>
-
 </div>
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">Next you should add vagrant.dev to your hosts file (<a href="https://en.wikipedia.org/wiki/Hosts_(file)">/etc/hosts</a>)</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
 
-<div id="outline-container-7" class="outline-3">
-<h3 id="sec-7">Next you should add vagrant.dev to your hosts file (<a href="https://en.wikipedia.org/wiki/Hosts_(file)">/etc/hosts</a>)</h3>
-<div class="outline-text-3" id="text-7">
-
-
-
-
-
-<pre class="example">sudo sh -c 'echo "10.0.100.110 vagrant.dev" &gt;&gt; /etc/hosts'
+<pre class="src src-sh">sudo sh -c <span style="color: #a5a5a5;">'echo "10.0.100.110 vagrant.dev" &gt;&gt; /etc/hosts'</span>
 </pre>
-
-
 </div>
-
 </div>
-
-<div id="outline-container-8" class="outline-3">
-<h3 id="sec-8">Editing files on VM</h3>
-<div class="outline-text-3" id="text-8">
-
-
+</div>
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8">Editing files on VM</h2>
+<div class="outline-text-2" id="text-8">
 <p>
 To edit files you can install sshfs <code>sudo apt-get install sshfs</code> and then mount project directory
 wherever you want (I've mounted it in  <code>/home/exu/Training directory</code>, use directory where you want to mount it)
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="example">sudo apt-get install sshfs
+<pre class="src src-sh">sudo apt-get install sshfs
 sshfs vagrant@10.0.100.110:/home/vagrant/vagrant.dev /home/exu/Training
 </pre>
-
+</div>
 
 <p>
 If you don't want to enter your password you can execute <code>ssh-copy-id vagrant@10.0.100.110</code> first (if you use <a href="http://en.wikipedia.org/wiki/Public-key_infrastructure">PKI</a>).
 </p>
 </div>
-
 </div>
-
-<div id="outline-container-9" class="outline-3">
-<h3 id="sec-9">Additional tips:</h3>
-<div class="outline-text-3" id="text-9">
-
-
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9">Additional tips:</h2>
+<div class="outline-text-2" id="text-9">
 <p>
 If you don't want to provision machine after each restart (with new basic Symfony project) use <code>--no-provision</code>
 when you run <code>vagrant up</code> command
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="example">vagrant up --no-provision
+<pre class="src src-sh">vagrant up --no-provision
 </pre>
-
+</div>
 
 <p>
 I've added alias to speed up VM start
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="example">alias vup='vagrant up --no-provision'
+<pre class="src src-sh"><span style="color: #93e0e3;">alias</span> <span style="color: #e2b1f4;">vup</span>=<span style="color: #a5a5a5;">'vagrant up --no-provision'</span>
 </pre>
-
+</div>
 
 <p>
 You can put it in your <code>.bashrc</code> or <code>.zshrc</code> file
-</p></div>
+</p>
+</div>
 </div>
