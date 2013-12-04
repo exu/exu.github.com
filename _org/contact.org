@@ -27,9 +27,3 @@ document.write('<a href="mailto:' + a + '">' + a + '</a>')
 * Social media
 - [[http://twitter.com/ex00][ex00 @ twitter]]
 - [[http://github.com/exu][exu @ github]]
-
-
-* test
-
-#+ATTR_HTML: title="Google.com"
-[[https://www.google.com][file:http://www.google.com/images/srpr/logo4w.png]]
