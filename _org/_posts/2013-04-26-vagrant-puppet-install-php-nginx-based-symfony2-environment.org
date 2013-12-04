@@ -14,7 +14,7 @@ tags: [vagrant, pupppet, php, nginx, apache, webserver, symfony2]
 {% include JB/setup %}
 #+END_HTML
 
-[[http://wysocki.org.pl/assets/img/vagrant-puppet-symfony.jpg]]
+[[http://wysocki.in/assets/img/vagrant-puppet-symfony.jpg]]
 
 
 Before incoming Symfony2 training I've decided to upgrade a little [[https://github.com/exu/puppet-symfony][puppet-symfony

@@ -39,8 +39,8 @@ your `~/.emacs.d/init.el` file to load this theme
 
 ** Below are some screenshots of my new theme:
 
-[[http://wysocki.org.pl/assets/img/exu-emacs-theme-01.png]]
+[[http://wysocki.in/assets/img/exu-emacs-theme-01.png]]
 
-[[http://wysocki.org.pl/assets/img/exu-emacs-theme-02.png]]
+[[http://wysocki.in/assets/img/exu-emacs-theme-02.png]]
 
-[[http://wysocki.org.pl/assets/img/exu-emacs-theme-03.png]]
+[[http://wysocki.in/assets/img/exu-emacs-theme-03.png]]
