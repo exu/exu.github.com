@@ -1,10 +1,10 @@
-# exu.github.com AKA wysocki.org.pl
+# exu.github.com AKA wysocki.in
 
 Jacek Wysocki blog based on <http://jekyllbootstrap.com>
 
 ## Usage
 
-hit to <http://wysocki.org.pl>
+hit to <http://wysocki.in>
 
 ## License
 
