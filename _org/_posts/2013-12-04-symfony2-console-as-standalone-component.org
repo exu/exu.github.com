@@ -5,7 +5,7 @@
 ---
 layout: post
 title: Using Symfony2 Console as standalone component
-date: 2013-05-10 18:42:42 UTC UTC
+date: 2013-12-04 15:02:42 UTC UTC
 updated: 2013-12-04 15:02:42 UTC UTC
 comments: true
 category: programming

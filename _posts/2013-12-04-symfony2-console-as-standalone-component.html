@@ -1,0 +1,210 @@
+---
+layout: post
+title: Using Symfony2 Console as standalone component
+date: 2013-12-04 15:02:42 UTC UTC
+updated: 2013-12-04 15:02:42 UTC UTC
+comments: true
+category: programming
+tags: [symfony, component, standalone, shell, console]
+---
+{% include JB/setup %}
+
+
+<div class="figure">
+<p><img src="http://wysocki.in/assets/img/sf2-console-component.png" alt="sf2-console-component.png" />
+</p>
+</div>
+
+<p>
+All files are located on My GitHub project: <a href="https://github.com/exu/symfony2-console-standalone">Symfony2 Console as standalone component</a>
+</p>
+
+<p>
+To use symfony console you should create <code>composer.json</code> file and add <code>symfony/console</code> component
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-json">{
+    <span style="color: #f0dfaf; font-weight: bold;">"autoload":</span> {
+        <span style="color: #f0dfaf; font-weight: bold;">"psr-0":</span> {<span style="color: #a5a5a5;">""</span>: <span style="color: #a5a5a5;">"src/"</span>}
+    },
+
+    <span style="color: #f0dfaf; font-weight: bold;">"require":</span> {
+        <span style="color: #f0dfaf; font-weight: bold;">"symfony/console":</span> <span style="color: #a5a5a5;">"dev-master"</span>
+    }
+}
+</pre>
+</div>
+
+<p>
+You should replace "<code>dev-master</code>" to current stable version (I'm trying whats new in development branch).
+</p>
+
+<p>
+I'm using composer autoloader, so in this example all classes will be loaded from <code>src</code> directory,
+you can change it to other dir (in <code>composer.json</code>)
+</p>
+
+
+
+
+<p>
+Next run
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ composer update
+</pre>
+</div>
+
+<p>
+to install dependencies in your new project.
+</p>
+
+
+
+<p>
+Next thing to do is Your new shiny command loader.
+Put it in <code>bin/console</code> file - or whatever you want - but if you change
+directory position remember that you should adjust your paths
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #5f7f5f;">#!/usr/bin/env php</span>
+<span style="color: #b0deff;">&lt;?php</span>
+
+<span style="color: #cfcfcf; background-color: #1f1f1f;">date_default_timezone_set</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">UTC</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+
+<span style="color: #cfcfcf; background-color: #1f1f1f;">set_time_limit</span>(<span style="color: #ff5555;">0</span>);
+
+(@<span style="color: #f0dfaf; font-weight: bold;">include_once</span> <span style="color: #b0deff;">__DIR__</span> . <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">/../vendor/autoload.php</span><span style="color: #9a9a9a; font-weight: bold;">'</span>) || @<span style="color: #f0dfaf; font-weight: bold;">include_once</span> <span style="color: #b0deff;">__DIR__</span> . <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">/../../../autoload.php</span><span style="color: #9a9a9a; font-weight: bold;">'</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Application</span>;
+
+<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">app</span> = <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">Application</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">Sample Console Component Based Application</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">6.6.6</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+
+<span style="color: #f0dfaf; font-weight: bold;">foreach</span>(<span style="color: #cfcfcf; background-color: #1f1f1f;">glob</span>(<span style="color: #b0deff;">__DIR__</span> . <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">/../src/Command/*Command.php</span><span style="color: #9a9a9a; font-weight: bold;">'</span>) <span style="color: #f0dfaf; font-weight: bold;">as</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">FileName</span>) {
+    <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">className</span> = <span style="color: #9a9a9a; font-weight: bold;">"</span><span style="color: #a5a5a5;">Command\\</span><span style="color: #9a9a9a; font-weight: bold;">"</span> . <span style="color: #cfcfcf; background-color: #1f1f1f;">rtrim</span>(<span style="color: #cfcfcf; background-color: #1f1f1f;">basename</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">FileName</span>), <span style="color: #9a9a9a; font-weight: bold;">"</span><span style="color: #a5a5a5;">.php</span><span style="color: #9a9a9a; font-weight: bold;">"</span>);
+    <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">app</span>-<span style="color: #b0deff;">&gt;</span><span style="color: #cfcfcf; background-color: #1f1f1f;">addCommands</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span>(
+        <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #ffffff;">$</span><span style="color: #9dd7ff;">className</span>,
+    ));
+}
+
+<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">app</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">run</span>();
+</pre>
+</div>
+
+
+<p>
+Finally create your new command file (src) for example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #b0deff;">&lt;?php</span>
+<span style="color: #5f7f5f;">/**</span>
+<span style="color: #5f7f5f;"> * </span><span style="color: #b0deff; background-color: #0b0b0b;">@author</span><span style="color: #5f7f5f;">    Jacek Wysocki <a href="mailto:jacek.wysocki%40gmail.com">&lt;jacek.wysocki@gmail.com&gt;</a></span>
+<span style="color: #5f7f5f;"> </span><span style="color: #5f7f5f;">*/</span>
+<span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #9dd7ff;">Command</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Command\Command</span>;
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Input\InputInterface</span>;
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Output\OutputInterface</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #9dd7ff;">Test2Command</span> <span style="color: #f0dfaf; font-weight: bold;">extends</span> <span style="color: #9dd7ff;">Command</span>
+{
+    <span style="color: #f0dfaf; font-weight: bold;">protected</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">configure</span>()
+    {
+        <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>
+            -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">setName</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">say:nothing</span><span style="color: #9a9a9a; font-weight: bold;">'</span>)
+            -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">setDescription</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">Says nothing</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+        ;
+    }
+
+    <span style="color: #f0dfaf; font-weight: bold;">protected</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">execute</span>(<span style="color: #9dd7ff;">InputInterface</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>, <span style="color: #9dd7ff;">OutputInterface</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">output</span>)
+    {
+        <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">output</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">writeln</span>(<span style="color: #9a9a9a; font-weight: bold;">"</span><span style="color: #a5a5a5;">nothing &lt;info&gt;nothing&lt;/info&gt; &lt;error&gt;nothing&lt;/error&gt;</span><span style="color: #9a9a9a; font-weight: bold;">"</span>);
+    }
+}
+</pre>
+</div>
+
+<p>
+Thats all, command loader should detect this file and load it. You can use your command by running
+<code>php bin/console say:nothing</code>.
+</p>
+
+
+
+<p>
+You can put other commands in <code>src/Command</code>
+directory try save content below as <code>src/Command/TestCommand.php</code>
+</p>
+
+
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #b0deff;">&lt;?php</span>
+<span style="color: #5f7f5f;">/**</span>
+<span style="color: #5f7f5f;"> * </span><span style="color: #b0deff; background-color: #0b0b0b;">@author</span><span style="color: #5f7f5f;">    Jacek Wysocki <a href="mailto:jacek.wysocki%40gmail.com">&lt;jacek.wysocki@gmail.com&gt;</a></span>
+<span style="color: #5f7f5f;"> </span><span style="color: #5f7f5f;">*/</span>
+
+<span style="color: #f0dfaf; font-weight: bold;">namespace</span> <span style="color: #9dd7ff;">Command</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Command\Command</span>;
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Input\InputArgument</span>;
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Input\InputInterface</span>;
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Input\InputOption</span>;
+<span style="color: #f0dfaf; font-weight: bold;">use</span> <span style="color: #9dd7ff;">Symfony\Component\Console\Output\OutputInterface</span>;
+
+<span style="color: #f0dfaf; font-weight: bold;">class</span> <span style="color: #9dd7ff;">TestCommand</span> <span style="color: #f0dfaf; font-weight: bold;">extends</span> <span style="color: #9dd7ff;">Command</span>
+{
+    <span style="color: #f0dfaf; font-weight: bold;">protected</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">configure</span>()
+    {
+        <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>
+            -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">setName</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">say:mynamebitch</span><span style="color: #9a9a9a; font-weight: bold;">'</span>)
+            -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">setDescription</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">Greet someone with colors</span><span style="color: #9a9a9a; font-weight: bold;">'</span>)
+            -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">addArgument</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">name</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #9dd7ff;">InputArgument</span>::<span style="color: #b0deff;">OPTIONAL</span>, <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">Who do you want to greet?</span><span style="color: #9a9a9a; font-weight: bold;">'</span>)
+            -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">addOption</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">yell</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #b0deff;">null</span>, <span style="color: #9dd7ff;">InputOption</span>::<span style="color: #b0deff;">VALUE_NONE</span>, <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">If set, the task will yell in uppercase letters</span><span style="color: #9a9a9a; font-weight: bold;">'</span>)
+        ;
+    }
+
+    <span style="color: #f0dfaf; font-weight: bold;">protected</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">execute</span>(<span style="color: #9dd7ff;">InputInterface</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>, <span style="color: #9dd7ff;">OutputInterface</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">output</span>)
+    {
+        <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">name</span> = <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">getArgument</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">name</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+        <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">name</span>) {
+            <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">text</span> = <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">Hello </span><span style="color: #9a9a9a; font-weight: bold;">'</span>.<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">name</span>;
+        } <span style="color: #f0dfaf; font-weight: bold;">else</span> {
+            <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">text</span> = <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">Hello</span><span style="color: #9a9a9a; font-weight: bold;">'</span>;
+        }
+
+        <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">getOption</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">yell</span><span style="color: #9a9a9a; font-weight: bold;">'</span>)) {
+            <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">text</span> = <span style="color: #cfcfcf; background-color: #1f1f1f;">strtoupper</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">text</span>);
+        }
+
+        <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">output</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">writeln</span>(<span style="color: #9a9a9a; font-weight: bold;">"</span><span style="color: #ffffff;">$</span><span style="color: #a5a5a5;">text in green </span><span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">&lt;info&gt;</span><span style="color: #ffffff;">$</span><span style="color: #a5a5a5;">text&lt;/info&gt;</span><span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;"> and in red: &lt;error&gt;</span><span style="color: #ffffff;">$</span><span style="color: #a5a5a5;">text&lt;/error&gt;</span><span style="color: #9a9a9a; font-weight: bold;">"</span>);
+    }
+}
+</pre>
+</div>
+
+<p>
+and then run:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">bin/console say:mynamebitch Jacek
+</pre>
+</div>
+
+<p>
+You will get some nice colorized output.
+</p>
+
+<p>
+Enjoy!
+</p>
