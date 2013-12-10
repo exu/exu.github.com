@@ -14,6 +14,9 @@ tags: [behat, phpspec, tests, php, parser]
 {% include JB/setup %}
 #+END_HTML
 
+[[/assets/img/behat-screenshot-phpspec.png]]
+
+
 ** Introduction
 
 Several days ago I was asked to write simple file parser. I've thought that it could
