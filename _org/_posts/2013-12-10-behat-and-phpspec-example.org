@@ -14,7 +14,7 @@ tags: [behat, phpspec, tests, php, parser]
 {% include JB/setup %}
 #+END_HTML
 
-[[/assets/img/behat-screenshot-phpspec.png]]
+[[http://wysocki.in/assets/img/behat-screenshot-phpspec.png]]
 
 
 ** Introduction
