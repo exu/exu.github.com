@@ -19,6 +19,9 @@ tags: [behat, phpspec, tests, php, parser]
 Several days ago I was asked to write simple file parser. I've thought that it could
 be great excercise to try Behat with PHPSpec BDD tandem to write this library from scratch.
 
+You could get code used in this post from
+my Github page: https://github.com/exu/php-bdd-parser-example
+
 ** Lets setup some environment
 
 We'll use composer. So first We must install it:
