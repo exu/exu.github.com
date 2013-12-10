@@ -1,0 +1,367 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: Behat and PHPSpec example on simple task
+date: 2013-12-10 22:16:30 UTC
+updated: 2013-12-10 22:16:30 UTC
+comments: true
+category: programming
+tags: [behat, phpspec, tests, php, parser]
+---
+{% include JB/setup %}
+#+END_HTML
+
+** Introduction
+
+Several days ago I was asked to write simple file parser. I've thought that it could
+be great excercise to try Behat with PHPSpec BDD tandem to write this library from scratch.
+
+** Lets setup some environment
+
+We'll use composer. So first We must install it:
+
+
+This project is based on composer so you will need it. To
+install composer. I prefer installing composer globally so
+everything what you should do is
+
+
+#+begin_src sh
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+#+end_src
+
+
+Next you should run =composer install= command
+to download and resolve all dependencies
+(composer will do it automatically).
+
+#+begin_src sh
+composer install
+#+end_src
+
+
+** Next we should define some dependencies in Our project
+
+
+#+begin_src json
+{
+    "require": {
+        "symfony/console": "*"
+    },
+
+    "require-dev" : {
+        "behat/behat": "~2.5.0@stable",
+        "phpspec/phpspec": "2.0.*@dev"
+    },
+
+    "minimum-stability": "stable",
+
+    "autoload" : {
+        "psr-0" : {
+            "" : "src/",
+            "Context" : "features/"
+        }
+    },
+
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
+#+end_src
+
+I want to output some
+messages in shell so I've included
+symfony console component in =conposer.json=.
+
+#+begin_src json
+    "require": {
+        "symfony/console": "*"
+    },
+#+end_src
+
+
+** When composer dependencies are defined it's time to install them
+
+#+begin_src sh
+composer install
+#+end_src
+
+Composer will install all dependencies into =vendor= directory
+
+
+
+
+** Our project is ready to go. Now its time to setup Behat
+
+Put lines below into behat.yml file in root of your project directory.
+
+#+begin_src yaml
+default:
+    paths:
+        features: features
+    context:
+        class: Context\FeatureContext
+#+end_src
+
+
+** Now it's time to write some features.
+
+First We'll try to describe what Our library should do:
+
+File: =features/parser.feature=
+#+begin_src feature
+Feature: Attachments parser
+    As a software developer
+    In order to find duplicate attachments content
+    I should see ids of duplicated attachments
+        separated by "space" character
+#+end_src
+
+Features files are in =Gherkin= syntax. Their main task is to allow "Non-tech" people
+to cooperate with "Tech-people" (Nerds, Geeks etc.). It's basically simple text
+file with some syntax constrints. So you don't need fat IDE to write its content.
+
+So in one sentence: "Feature file is business bridge to Our code".
+It should be written (in most cases) by people responsible for defining
+business part of your software - or with their close cooperation.
+
+Every feature file should respond to three basic questions
+- *Who* need this feature
+
+#+begin_src feature
+As a ....................
+#+end_src
+
+- *Why* He'll be need it
+
+#+begin_src feature
+In order to  ....................
+#+end_src
+
+- *What* benefits will it bring to Us
+
+#+begin_src feature
+I need to .........................
+#+end_src
+
+If we are able to answer this questions we should
+start wiritng scenarios (If no - probably your
+feature request is incomplete and need more discussion
+with your team).
+
+Scenarios are first Behat elements which
+will be mapped to real PHP code.
+
+
+** Write some scenarios
+
+Now it's time to describe what our
+ software should do:
+
+#+begin_src feature
+Scenario: Displaying duplicates from file when duplicates are present
+    Given There is file with lines:
+     | line                |
+     | Attachment id: 1    |
+     | fsjdhf483493h934hfs |
+     | sfwqus483493u934usf |
+     | Attachment id: 2    |
+     | fsjdhf483493h934hfs |
+     | sfwqus483493u934usf |
+     | Attachment id: 3    |
+     | aasksdshfksjdhfkhds |
+     | Attachment id: 4    |
+     | sfwqus483493u934usf |
+    When I run console sctipt
+    Then I should see following output
+     | output |
+     | 1 2    |
+     | 3      |
+     | 4      |
+#+end_src
+
+You can write as many scenarios as you need - they should
+cover all possible variants.
+
+Each scenario line is called "Step". Steps are mapped
+to PHP Context class methods (in =FeatureContext.php= file).
+
+Steps are divided to following types:
+
+*** *Given* steps
+Our =Given= steps
+should always *setup* Our environment. If you have system with database, often your Given
+step inserts some data into it
+
+*** *When* steps
+=When= steps are responsible for doing actions on your system.
+In these steps you should run, load, click and do everything what
+real user do with your application.
+
+*** *Then* steps
+=Then= steps are responsible for checking system result, in these
+steps you should chceck if system output (HTML, JSON, shell results)
+are meeting your expectations.
+
+
+** Next we can run Behat
+
+#+begin_src sh
+bin/behat
+#+end_src
+
+It gives us output about unimplemented methods.  It's
+because we don't have any methods yet mapped to our steps
+in feature file.
+
+*** Steps mapping
+
+Steps are mapped by from feature file into
+PHP methods. It's done thanks to annotation
+mechanism. Text after =@Given=, =@When=, =@Then=, =@And=
+is regular expression, you can use groups which
+will be mapped to method variables.
+
+#+begin_src php
+    /**
+     * @When /^I run console sctipt$/
+     */
+    public function iRunConsoleSctipt()
+    {
+    }
+#+end_src
+
+
+
+** TODO When we complete all needed scenarios we can run behat
+
+#+begin_src sh
+bin/behat
+#+end_src
+
+#+begin_src sh
+    /**
+     * @Given /^There is file with lines:$/
+     */
+    public function thereIsFileWithLines(TableNode $table)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I run console sctipt$/
+     */
+    public function iRunConsoleSctipt()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see following output$/
+     */
+    public function iShouldSeeFollowingOutput(TableNode $table)
+    {
+        throw new PendingException();
+    }
+#+end_src
+
+Behat gives us information about missing step methods which are connected to
+steps in feature file.
+
+We can automatically append this output to Our Context class
+
+#+begin_src sh
+bin/behat --append-snippets
+#+end_src
+
+Now our Context class have included step methods.
+Methods will throw =PendingException= exception,
+so you'll need to implement them.
+
+** Steps implementation
+
+Look at =FeatureContext= file to look at
+steps implementation - it's really simople
+
+- *Given* will reset your =attachments.txt= file
+  in every step
+- *When* will run some action - in this step
+  it will be simple simple backtick PHP's exec.
+- *Then* - will check output from *When* step.
+  and will Throw Exception if output will be
+  different from expected one.
+
+** PHPSpec
+
+When Behat goes red (there are errors we'll implement
+our =Parser= library in spec and make some runner in
+=ParserCommand=.
+
+*** Create specification
+
+#+begin_src sh
+Specification for Parser\Attachment created
+in /srv/http/tmp/php-bdd-parser-example/spec/Parser/AttachmentSpec.php.
+#+end_src
+
+*** Describe what it should do
+
+**** it_is_initializable (autogenerated)
+
+**** it_should_detect_id_in_header_line
+We need to detect ID in our file
+
+**** it_should_return_false_when_no_header_detected
+When line have no ID we return false
+
+**** it_should_collect_content_hashes_and_id_pairs
+
+our =parseLine= will function will use =getId=
+For last Attachment we will always map rest
+of content to last parsed ID.
+
+Result should be array with content hash
+as keys and attachment ids as array elements
+
+
+*** Shell runner
+
+Behat will run additional file in shell,
+so we must create new shell command. I've
+used symfony command component (It's really
+great for this job).
+
+#+begin_src sh
+bin/console parser
+#+end_src
+
+More details how to create symfony you couldreally early
+find in [[http://wysocki.in/programming/2013/12/04/symfony2-console-as-standalone-component/][Using Symfony2 Console as standalone component]]
+
+
+** Profits?
+
+This example is really simple, but it gives Us
+control over development workflow (why, who, how).
+Specification is our documentation for other developers
+and feature files could be easily presented to
+non-tech team members.
+
+
+
+Entry point and setup could be time consuming,
+but You will see profits really early as enhanced
+quality of your software.
+
+
+In real world you need to unleash the Selenium and some headless browser drivers, if
+your system will not be recent framework based you will
+need to handle database reset and write steps implementation
+which will be adding necesarry data, you can have
+more than one database and probably you will need to
+handle with many more (sometimes crazy) things. But I think
+that it's worth it.

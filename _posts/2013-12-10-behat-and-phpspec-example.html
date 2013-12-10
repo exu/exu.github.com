@@ -1,0 +1,540 @@
+---
+layout: post
+title: Behat and PHPSpec example on simple task
+date: 2013-12-10 22:16:30 UTC
+updated: 2013-12-10 22:16:30 UTC
+comments: true
+category: programming
+tags: [behat, phpspec, tests, php, parser]
+---
+{% include JB/setup %}
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Several days ago I was asked to write simple file parser. I've thought that it could
+be great excercise to try Behat with PHPSpec BDD tandem to write this library from scratch.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Lets setup some environment</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+We'll use composer. So first We must install it:
+</p>
+
+
+<p>
+This project is based on composer so you will need it. To
+install composer. I prefer installing composer globally so
+everything what you should do is
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-sh">curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+</pre>
+</div>
+
+
+<p>
+Next you should run <code>composer install</code> command
+to download and resolve all dependencies
+(composer will do it automatically).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">composer install
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Next we should define some dependencies in Our project</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+
+<pre class="src src-json">{
+    <span style="color: #f0dfaf; font-weight: bold;">"require":</span> {
+        <span style="color: #f0dfaf; font-weight: bold;">"symfony/console":</span> <span style="color: #a5a5a5;">"*"</span>
+    },
+
+    <span style="color: #f0dfaf; font-weight: bold;">"require-dev" :</span> {
+        <span style="color: #f0dfaf; font-weight: bold;">"behat/behat":</span> <span style="color: #a5a5a5;">"~2.5.0@stable"</span>,
+        <span style="color: #f0dfaf; font-weight: bold;">"phpspec/phpspec":</span> <span style="color: #a5a5a5;">"2.0.*@dev"</span>
+    },
+
+    <span style="color: #f0dfaf; font-weight: bold;">"minimum-stability":</span> <span style="color: #a5a5a5;">"stable"</span>,
+
+    <span style="color: #f0dfaf; font-weight: bold;">"autoload" :</span> {
+        <span style="color: #f0dfaf; font-weight: bold;">"psr-0" :</span> {
+            <span style="color: #a5a5a5;">""</span> : <span style="color: #a5a5a5;">"src/"</span>,
+            <span style="color: #f0dfaf; font-weight: bold;">"Context" :</span> <span style="color: #a5a5a5;">"features/"</span>
+        }
+    },
+
+    <span style="color: #f0dfaf; font-weight: bold;">"config":</span> {
+        <span style="color: #f0dfaf; font-weight: bold;">"bin-dir":</span> <span style="color: #a5a5a5;">"bin/"</span>
+    }
+}
+</pre>
+</div>
+
+<p>
+I want to output some
+messages in shell so I've included
+symfony console component in <code>conposer.json</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-json"><span style="color: #f0dfaf; font-weight: bold;">"require":</span> {
+    <span style="color: #f0dfaf; font-weight: bold;">"symfony/console":</span> <span style="color: #a5a5a5;">"*"</span>
+},
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">When composer dependencies are defined it's time to install them</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+
+<pre class="src src-sh">composer install
+</pre>
+</div>
+
+<p>
+Composer will install all dependencies into <code>vendor</code> directory
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Our project is ready to go. Now its time to setup Behat</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Put lines below into behat.yml file in root of your project directory.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-yaml"><span style="color: #e2b1f4;">default</span>:
+    <span style="color: #e2b1f4;">paths</span>:
+        <span style="color: #e2b1f4;">features</span>: features
+    <span style="color: #e2b1f4;">context</span>:
+        <span style="color: #e2b1f4;">class</span>: Context\FeatureContext
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Now it's time to write some features.</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+First We'll try to describe what Our library should do:
+</p>
+
+<p>
+File: <code>features/parser.feature</code>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-feature"><span style="color: #f0dfaf; font-weight: bold;">Feature:</span><span style="color: #9dd7ff;"> Attachments parser</span>
+    As a software developer
+    In order to find duplicate attachments content
+    I should see ids of duplicated attachments
+        separated by <span style="color: #a5a5a5;">"space"</span> character
+</pre>
+</div>
+
+<p>
+Features files are in <code>Gherkin</code> syntax. Their main task is to allow "Non-tech" people
+to cooperate with "Tech-people" (Nerds, Geeks etc.). It's basically simple text
+file with some syntax constrints. So you don't need fat IDE to write its content.
+</p>
+
+<p>
+So in one sentence: "Feature file is business bridge to Our code".
+It should be written (in most cases) by people responsible for defining
+business part of your software - or with their close cooperation.
+</p>
+
+<p>
+Every feature file should respond to three basic questions
+</p>
+<ul class="org-ul">
+<li><b>Who</b> need this feature
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-feature">As a ....................
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b>Why</b> He'll be need it
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-feature">In order to  ....................
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b>What</b> benefits will it bring to Us
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-feature">I need to .........................
+</pre>
+</div>
+
+<p>
+If we are able to answer this questions we should
+start wiritng scenarios (If no - probably your
+feature request is incomplete and need more discussion
+with your team).
+</p>
+
+<p>
+Scenarios are first Behat elements which
+will be mapped to real PHP code.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">Write some scenarios</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Now it's time to describe what our
+ software should do:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-feature"><span style="color: #f0dfaf; font-weight: bold;">Scenario:</span><span style="color: #a2d7fb;"> Displaying duplicates from file when duplicates are present</span>
+<span style="color: #f0dfaf; font-weight: bold;">    Given</span> There is file with lines:
+<span style="color: #00bfff;">     | line                |</span>
+<span style="color: #00bfff;">     | Attachment id: 1    |</span>
+<span style="color: #00bfff;">     | fsjdhf483493h934hfs |</span>
+<span style="color: #00bfff;">     | sfwqus483493u934usf |</span>
+<span style="color: #00bfff;">     | Attachment id: 2    |</span>
+<span style="color: #00bfff;">     | fsjdhf483493h934hfs |</span>
+<span style="color: #00bfff;">     | sfwqus483493u934usf |</span>
+<span style="color: #00bfff;">     | Attachment id: 3    |</span>
+<span style="color: #00bfff;">     | aasksdshfksjdhfkhds |</span>
+<span style="color: #00bfff;">     | Attachment id: 4    |</span>
+<span style="color: #00bfff;">     | sfwqus483493u934usf |</span>
+<span style="color: #f0dfaf; font-weight: bold;">    When</span> I run console sctipt
+<span style="color: #f0dfaf; font-weight: bold;">    Then</span> I should see following output
+<span style="color: #00bfff;">     | output |</span>
+<span style="color: #00bfff;">     | 1 2    |</span>
+<span style="color: #00bfff;">     | 3      |</span>
+<span style="color: #00bfff;">     | 4      |</span>
+</pre>
+</div>
+
+<p>
+You can write as many scenarios as you need - they should
+cover all possible variants.
+</p>
+
+<p>
+Each scenario line is called "Step". Steps are mapped
+to PHP Context class methods (in <code>FeatureContext.php</code> file).
+</p>
+
+<p>
+Steps are divided to following types:
+</p>
+</div>
+
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><b>Given</b> steps</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Our <code>Given</code> steps
+should always <b>setup</b> Our environment. If you have system with database, often your Given
+step inserts some data into it
+</p>
+</div>
+</div>
+<div id="outline-container-sec-7-2" class="outline-3">
+<h3 id="sec-7-2"><b>When</b> steps</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+<code>When</code> steps are responsible for doing actions on your system.
+In these steps you should run, load, click and do everything what
+real user do with your application.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-7-3" class="outline-3">
+<h3 id="sec-7-3"><b>Then</b> steps</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+<code>Then</code> steps are responsible for checking system result, in these
+steps you should chceck if system output (HTML, JSON, shell results)
+are meeting your expectations.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8">Next we can run Behat</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+
+<pre class="src src-sh">bin/behat
+</pre>
+</div>
+
+<p>
+It gives us output about unimplemented methods.  It's
+because we don't have any methods yet mapped to our steps
+in feature file.
+</p>
+</div>
+
+<div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1">Steps mapping</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+Steps are mapped by from feature file into
+PHP methods. It's done thanks to annotation
+mechanism. Text after <code>@Given</code>, <code>@When</code>, <code>@Then</code>, <code>@And</code>
+is regular expression, you can use groups which
+will be mapped to method variables.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #5f7f5f;">/**</span>
+<span style="color: #5f7f5f;"> * </span><span style="color: #b0deff; background-color: #0b0b0b;">@When</span><span style="color: #5f7f5f;"> /^I run console sctipt</span><span style="color: #ffffff;">$</span><span style="color: #5f7f5f;">/</span>
+<span style="color: #5f7f5f;"> </span><span style="color: #5f7f5f;">*/</span>
+<span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">iRunConsoleSctipt</span>()
+{
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="todo TODO">TODO</span> When we complete all needed scenarios we can run behat</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+
+<pre class="src src-sh">bin/behat
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">/**
+ * @Given /^There is file with lines:$/
+ */
+public <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">thereIsFileWithLines</span>(TableNode $<span style="color: #e2b1f4;">table</span>)
+{
+    throw new PendingException();
+}
+
+/**
+ * @When /^I run console sctipt$/
+ */
+public <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">iRunConsoleSctipt</span>()
+{
+    throw new PendingException();
+}
+
+/**
+ * @Then /^I should see following output$/
+ */
+public <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">iShouldSeeFollowingOutput</span>(TableNode $<span style="color: #e2b1f4;">table</span>)
+{
+    throw new PendingException();
+}
+</pre>
+</div>
+
+<p>
+Behat gives us information about missing step methods which are connected to
+steps in feature file.
+</p>
+
+<p>
+We can automatically append this output to Our Context class
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">bin/behat --append-snippets
+</pre>
+</div>
+
+<p>
+Now our Context class have included step methods.
+Methods will throw <code>PendingException</code> exception,
+so you'll need to implement them.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10">Steps implementation</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Look at <code>FeatureContext</code> file to look at
+steps implementation - it's really simople
+</p>
+
+<ul class="org-ul">
+<li><b>Given</b> will reset your <code>attachments.txt</code> file
+in every step
+</li>
+<li><b>When</b> will run some action - in this step
+it will be simple simple backtick PHP's exec.
+</li>
+<li><b>Then</b> - will check output from <b>When</b> step.
+and will Throw Exception if output will be
+different from expected one.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11">PHPSpec</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+When Behat goes red (there are errors we'll implement
+our <code>Parser</code> library in spec and make some runner in
+<code>ParserCommand</code>.
+</p>
+</div>
+
+<div id="outline-container-sec-11-1" class="outline-3">
+<h3 id="sec-11-1">Create specification</h3>
+<div class="outline-text-3" id="text-11-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">Specification for Parser\Attachment created
+<span style="color: #f0dfaf; font-weight: bold;">in</span> /srv/http/tmp/php-bdd-parser-example/spec/Parser/AttachmentSpec.php.
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-11-2" class="outline-3">
+<h3 id="sec-11-2">Describe what it should do</h3>
+<div class="outline-text-3" id="text-11-2">
+</div><div id="outline-container-sec-11-2-1" class="outline-4">
+<h4 id="sec-11-2-1">it<sub>is</sub><sub>initializable</sub> (autogenerated)</h4>
+</div>
+
+<div id="outline-container-sec-11-2-2" class="outline-4">
+<h4 id="sec-11-2-2">it<sub>should</sub><sub>detect</sub><sub>id</sub><sub>in</sub><sub>header</sub><sub>line</sub></h4>
+<div class="outline-text-4" id="text-11-2-2">
+<p>
+We need to detect ID in our file
+</p>
+</div>
+</div>
+<div id="outline-container-sec-11-2-3" class="outline-4">
+<h4 id="sec-11-2-3">it<sub>should</sub><sub>return</sub><sub>false</sub><sub>when</sub><sub>no</sub><sub>header</sub><sub>detected</sub></h4>
+<div class="outline-text-4" id="text-11-2-3">
+<p>
+When line have no ID we return false
+</p>
+</div>
+</div>
+<div id="outline-container-sec-11-2-4" class="outline-4">
+<h4 id="sec-11-2-4">it<sub>should</sub><sub>collect</sub><sub>content</sub><sub>hashes</sub><sub>and</sub><sub>id</sub><sub>pairs</sub></h4>
+<div class="outline-text-4" id="text-11-2-4">
+<p>
+our <code>parseLine</code> will function will use <code>getId</code>
+For last Attachment we will always map rest
+of content to last parsed ID.
+</p>
+
+<p>
+Result should be array with content hash
+as keys and attachment ids as array elements
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-11-3" class="outline-3">
+<h3 id="sec-11-3">Shell runner</h3>
+<div class="outline-text-3" id="text-11-3">
+<p>
+Behat will run additional file in shell,
+so we must create new shell command. I've
+used symfony command component (It's really
+great for this job).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">bin/console parser
+</pre>
+</div>
+
+<p>
+More details how to create symfony you couldreally early
+find in <a href="http://wysocki.in/programming/2013/12/04/symfony2-console-as-standalone-component/">Using Symfony2 Console as standalone component</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12">Profits?</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+This example is really simple, but it gives Us
+control over development workflow (why, who, how).
+Specification is our documentation for other developers
+and feature files could be easily presented to
+non-tech team members.
+</p>
+
+
+
+<p>
+Entry point and setup could be time consuming,
+but You will see profits really early as enhanced
+quality of your software.
+</p>
+
+
+<p>
+In real world you need to unleash the Selenium and some headless browser drivers, if
+your system will not be recent framework based you will
+need to handle database reset and write steps implementation
+which will be adding necesarry data, you can have
+more than one database and probably you will need to
+handle with many more (sometimes crazy) things. But I think
+that it's worth it.
+</p>
+</div>
+</div>
