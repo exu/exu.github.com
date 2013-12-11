@@ -334,6 +334,17 @@ of content to last parsed ID.
 Result should be array with content hash
 as keys and attachment ids as array elements
 
+*** Implement your specification to pass
+
+You'll need to complete all written specs to
+get green. When you do it your software is complete
+refer to [[https://github.com/exu/php-bdd-parser-example/blob/master/spec/Parser/AttachmentSpec.php][Parser/AttachmentSpec specification]] and related
+[[https://github.com/exu/php-bdd-parser-example/blob/master/src/Parser/Attachment.php][Parser/Attchment]] class (and of course to [[http://phpspec.net][PHPSpec documentation]])
+
+
+Succesfull output should look like this:
+[[http://wysocki.in/assets/img/phpspec-success-output.png]]
+
 
 *** Shell runner
 
