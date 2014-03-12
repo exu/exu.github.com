@@ -16,7 +16,7 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
 
 * Introduction
 
-In these series of posts I want to show differences between PHP,
+In these series of posts I want to show differences (or similarities) between PHP,
 Google's Golang, and Javascript when you want to develop your code
 with BDD techniques.
 
@@ -62,7 +62,7 @@ has nice async handling and could be used to write any kind of tests from spec/u
 Look at:
 https://github.com/exu/php-12bdds/blob/master/composer.json
 
-If You're bad PHP boy without knowledge about composer you should
+If You're bad PHP boy without knowledge about [[http://getcomposer.org][composer]] you should
 take a pen and piece of paper and write:
 "I will use proper tools for my PHP development workflow!"
 *two hundred times!*
