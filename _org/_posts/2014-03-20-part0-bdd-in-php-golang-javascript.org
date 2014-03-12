@@ -1,0 +1,141 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: BDD with 3 languages - PHP with PHPSpec, Golang with Ginkgo and Javascript with Mocha
+date: 2014-03-03 07:16:59 UTC
+updated: 2014-03-13 07:16:59 UTC
+comments: true
+category: editor
+tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
+---
+{% include JB/setup %}
+#+END_HTML
+
+* Introduction
+
+In these series of posts I want to show differences between PHP,
+Google's Golang, and Javascript when you want to develop your code
+with BDD techniques.
+
+Idea to do some simple BDD excercises came from http://www.wiredtothemoon.com/2012/12/12-tdds-of-christmas/.
+First I 've done that in PHP, after that I want to try the same in Golang which I was playing with,
+and because I'm doing some javascript research last time I write first excercises in Javascript too.
+
+I have my solutions in 3 separate repositories one per language (+ bdd framework)
+- PHP - https://github.com/exu/php-12bdds
+- Golang - https://github.com/exu/bddgo
+- Javascript - https://github.com/exu/jsbdds
+
+* Languages Status of 12 tdds from wiredtothemoon blog
+
+- PHP - Completed *8* from 12
+- Golang - Completed *4* from 12
+- Javascript - Completed *2* from 12
+
+* Tools used for writing BDD specs
+
+** PHP - PHPSpec
+
+It's modern technique of writing your tests/specs in PHP world from Konstantin Kudryashov
+(@everzet). It should be treaten like DSL (don't try to complain that it's not PSR
+compatible).  You can find coverage tool for it too (but probably when You need it in spec
+way you are doing something wrong).
+
+** Golang - Ginkgo
+
+Syntax in Ginkgo is very familiar to many known tools (Rspec from ruby or Mocha from javascript)
+Your'e defining your expectations. It has many tools which make your Golang concurency easier.
+
+** Javascript (Nodejs) - Mocha
+
+Mocha is written by TJ Holowaychuk author of very popular Express framework. It's really good
+piece of software. You can install assert library of your choice (I've chosed should.js). Mocha
+has nice async handling and could be used to write any kind of tests from spec/unit to end-to-end.
+
+* Setup
+
+** PHPSpec
+
+Look at:
+https://github.com/exu/php-12bdds/blob/master/composer.json
+
+If You're bad PHP boy without knowledge about composer you should
+take a pen and piece of paper and write:
+"I will use proper tools for my PHP development workflow!"
+*two hundred times!*
+
+Remember to call
+#+begin_src sh
+composer install
+#+end_src
+
+in your shell
+
+** Ginkgo
+
+So You want to write some Golang code. Setup is really simple (https://github.com/onsi/ginkgo)
+Look at my repository for details https://github.com/exu/bddgo
+
+** Mocha
+
+run:
+
+#+begin_src sh
+npm install mocha --save-dev
+#+end_src
+
+and start writing your specs in tests directory.
+
+
+* Excercise 1 -  Numbers statistics
+
+First excercise is really warm-up, it's really simple task to calculate
+some data (sum, avg, min, max, count) from given list of integers.
+You'll find My solutions below. (all exercises are commited to repository from
+given language and test framework)
+
+** PHPSpec and PHP
+
+You can find details about my solution in separate post
+
+- Sources on github
+  - spec: https://github.com/exu/php-12bdds/blob/master/spec/Exc01/CalcStatsSpec.php
+  - source: https://github.com/exu/php-12bdds/blob/master/src/Exc01/CalcStats.php
+
+** Golang and Ginkgo
+
+- Sources on github
+  - spec: https://github.com/exu/bddgo/blob/master/stats_test.go
+  - source: https://github.com/exu/bddgo/blob/master/stats.go
+
+** Javascript and Mocha
+
+- Sources on github
+  - spec: https://github.com/exu/jsbdds/blob/master/test/calc.js
+  - source: https://github.com/exu/jsbdds/blob/master/calc.js
+
+* Excercise 2 -  Number speller
+
+Second excercise is little harder. Your task is to write number speller.
+You give a number and your function will spell it. Simple isn't it?
+
+** PHPSpec and PHP
+
+- Sources on github
+  - spec: https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNames.php
+  - source: https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php
+
+** Golang and Ginkgo
+
+- Sources on github
+  - spec: https://github.com/exu/bddgo/blob/master/numnames_test.go
+  - source: https://github.com/exu/bddgo/blob/master/numnames.go
+
+** Javascript and Mocha
+
+- Sources on github
+  - spec: https://github.com/exu/jsbdds/blob/master/test/numnames.js
+  - source: https://github.com/exu/jsbdds/blob/master/numnames.js

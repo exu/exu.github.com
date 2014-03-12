@@ -1,0 +1,317 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: (Excercise 1 - PHP) Numbers statistics- PHP with PHPSpec
+date: 2014-03-03 07:16:59 UTC
+updated: 2014-03-03 07:16:59 UTC
+comments: true
+category: editor
+tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
+---
+{% include JB/setup %}
+#+END_HTML
+
+* Part 1 - Using PHP and PHPSpec
+
+Your task is to process a sequence of integer numbers
+to determine the following statistics:
+
+- minimum value
+- maximum value
+- number of elements in the sequence
+- average value
+
+For example: =[6, 9, 15, -2, 92, 11]=
+
+- minimum value = -2
+- maximum value = 92
+- number of elements in the sequence = 6
+- average value = 21.833333
+
+* TODO Start in PHPSpec
+
+** Setup your tools
+
+In first excercise we'll do everything from scratch. First prepare your tools:
+
+*** Project structure
+
+First create project directory and cwd to it
+
+#+begin_src sh
+mkdir php-tdds
+cd php-tdds
+#+end_src
+
+
+PHPSpec will have following file and directories structure
+
+#+begin_src txt
+.
+spec/ - your specifications
+src/  - your classes
+composer.json
+#+end_src
+
+
+
+*** Composer
+
+This project is based on composer so you will need it. To
+install composer. I prefer installing composer globally so
+everything what you should do is
+
+#+begin_src sh
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+#+end_src
+
+*** PHPSpec
+
+Next You should add PHPSpec to your dev dependencies
+
+#+begin_src php
+{
+    "require-dev": {
+        "phpspec": "*"
+    }
+}
+#+end_src
+
+Thats all!. Run =composer install= and You are ready to start writing code.
+
+** Spec your classes
+
+We'll doing Test(Spec) First Developement so we should start from
+specify our Calculation statistics class.
+
+#+begin_src sh
+phpspec desc Exc01/Calc
+#+end_src
+
+
+PHPSpec will generate main class for You, and add it_is_instantiable method in your specification.
+Next we should run phpspec suite.
+
+#+begin_src sh
+phpspec run
+#+end_src
+
+
+* Write your Spec
+
+** Example input data
+
+Our example input data which will We be using in our spec methods:
+
+#+begin_src php
+    protected $data = [3,3,4,5,6,99,-99,7,8,64];
+#+end_src
+
+
+** We need to handle some exceptions:
+
+We should throw exception when input is empty array.
+
+#+begin_src php
+
+    function it_throws_exception_on_empty_array_input()
+    {
+        $this->shouldThrow(new \InvalidArgumentException('You cannot pass empty array'))
+            ->duringCollect([]);
+    }
+
+#+end_src
+
+
+** Our class project:
+
+We create =collect= method which will return
+associative array with =min=, =max=, =avg=,
+=sum=, =count= keys.
+
+
+** When We have plan, we can start writing specs
+
+*** Prerequisities (creating matcher)
+
+Our first task is to calculate minimum value from
+given input.
+
+
+We'll need method which will check if array contains
+expected value in given associative array key. In spec/
+We can do this by defining new matcher. We do this
+be returning new matchers array in =getMatchers=
+each matcher is closure function which returns boolean
+value. You can define as many matchers as You want.
+
+When You define e.g. =haveElement= matcher you can
+call it by =shouldHaveElement= method inside your spec
+methods.
+
+#+begin_src php
+
+    public function getMatchers()
+    {
+        $matchers = [
+            'haveElement' => function($result, $key, $value) {
+                return  isset($result[$key]) && $result[$key] === $value;
+            }
+        ];
+
+        return $matchers;
+    }
+
+#+end_src
+
+*** Min specification
+
+Now We're ready for specifing.
+
+#+begin_src php
+
+    function it_calculates_min_from_given_integers()
+    {
+        $this->collect($this->data)
+            ->shouldHaveElement('min', -99);
+    }
+
+#+end_src
+
+#+begin_src sh
+bin/phpspec run
+#+end_src
+
+We'll be asked to create new method. Press =ENTER=
+and our class will have new =collect= method which
+should be implemented.
+
+
+*** Other specifications
+
+3. With above technique We'll generate
+
+#+begin_src php
+
+    function it_calculates_max_from_given_integers()
+    {
+        $this->collect($this->data)
+            ->shouldHaveElement('max', 99);
+    }
+
+    function it_calculates_avg_from_given_integers()
+    {
+        $this->collect($this->data)
+            ->shouldHaveElement('avg', 10.0);
+    }
+
+    function it_calculates_count_from_given_integers()
+    {
+        $this->collect($this->data)
+            ->shouldHaveElement('count', 10);
+    }
+
+#+end_src
+
+** Writing code
+
+Now our spec is ready - it'll be our library documentation - we can
+start writing code.
+
+Run =bin/phpspec run= after each change.
+
+
+*** Handling spec'ed exception
+
+#+begin_src php
+    public function collect(array $input)
+    {
+        if (empty($input)) {
+            throw new \InvalidArgumentException('You cannot pass empty array');
+        }
+    }
+
+#+end_src
+
+*** Calculating min value from given input array
+
+#+begin_src php
+    public function collect(array $input)
+    {
+        if (empty($input)) {
+            throw new \InvalidArgumentException('You cannot pass empty array');
+        }
+
+        $result = [
+            'min' => min($input),
+        ];
+
+        return $result;
+    }
+#+end_src
+*** Calculating max value from given input array
+
+#+begin_src php
+    public function collect(array $input)
+    {
+        if (empty($input)) {
+            throw new \InvalidArgumentException('You cannot pass empty array');
+        }
+
+        $result = [
+            'min' => min($input),
+            'max' => max($input),
+        ];
+
+        return $result;
+    }
+#+end_src
+
+*** Calculating count from given input array
+
+#+begin_src php
+    public function collect(array $input)
+    {
+        if (empty($input)) {
+            throw new \InvalidArgumentException('You cannot pass empty array');
+        }
+
+        $result = [
+            'min' => min($input),
+            'max' => max($input),
+            'count' => count($input),
+        ];
+
+        return $result;
+    }
+#+end_src
+
+*** Calculating average from given input array
+
+#+begin_src php
+    public function collect(array $input)
+    {
+        if (empty($input)) {
+            throw new \InvalidArgumentException('You cannot pass empty array');
+        }
+
+        $result = [
+            'min' => min($input),
+            'max' => max($input),
+            'count' => count($input),
+            'avg' => array_sum($input) / (float) count($input),
+        ];
+
+        return $result;
+    }
+#+end_src
+
+
+** Conclusion
+
+Using PHPSpec is really simple and gives Us
+full control in case of future code refactors.
