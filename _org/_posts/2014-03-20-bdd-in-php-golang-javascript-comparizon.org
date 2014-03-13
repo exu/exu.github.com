@@ -18,7 +18,11 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
 
 In these series of posts I want to show differences (or similarities) between PHP,
 Google's Golang, and Javascript when you want to develop your code
-with BDD techniques.
+with BDD techniques. Why? One of reason is that You can easily port your specs to
+other language, spec is your project and your documentation and if you want learn
+some new language and You have already written what should be done then half of
+your work is done already. I was really suprised how easily I ported specs from
+Go to javascript.
 
 Idea to do some simple BDD excercises came from http://www.wiredtothemoon.com/2012/12/12-tdds-of-christmas/.
 First I 've done that in PHP, after that I want to try the same in Golang which I was playing with,
@@ -35,6 +39,8 @@ I have my solutions in 3 separate repositories one per language (+ bdd framework
 - Golang - Completed *4* from 12
 - Javascript - Completed *2* from 12
 
+I'll try to complete some more (but don't know if I'll have enough time to play with that)
+
 * Tools used for writing BDD specs
 
 ** PHP - PHPSpec
@@ -42,7 +48,8 @@ I have my solutions in 3 separate repositories one per language (+ bdd framework
 It's modern technique of writing your tests/specs in PHP world from Konstantin Kudryashov
 (@everzet). It should be treaten like DSL (don't try to complain that it's not PSR
 compatible).  You can find coverage tool for it too (but probably when You need it in spec
-way you are doing something wrong).
+way you are doing something wrong). I You are PHPUnit guy (girl) then You should give PHPSpec
+a try (If You don't write tests/specs for your new code hmm ... start doing it now!).
 
 ** Golang - Ginkgo
 

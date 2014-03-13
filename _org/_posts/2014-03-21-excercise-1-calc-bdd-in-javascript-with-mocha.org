@@ -5,8 +5,8 @@
 ---
 layout: post
 title: (Excercise 1 - Javascript) Numbers statistics- Javascript with Mocha
-date: 2014-03-03 07:16:59 UTC
-updated: 2014-03-03 07:16:59 UTC
+date: 2014-03-13 11:16:59 UTC
+updated: 2014-03-16 07:16:59 UTC
 comments: true
 category: editor
 tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
@@ -14,7 +14,7 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
 {% include JB/setup %}
 #+END_HTML
 
-* Part 1 - Using PHP and PHPSpec
+* Part 1 - Using Javascript with Mocha
 
 Your task is to process a sequence of integer numbers
 to determine the following statistics:
@@ -110,7 +110,6 @@ Our first task is to calculate minimum value from
 given input.
 
 
-
 *** Min specification
 
 Now We're ready for specifing.
@@ -134,7 +133,7 @@ Mocha should fail with message:
 
 *** Other specifications
 
-3. With above technique We'll generate
+3. With above technique We'll generate:
 
 #+begin_src php
 
@@ -161,7 +160,7 @@ it('calculates sum from given integers', function () {
 Now our spec is ready - it'll be our library documentation - we can
 start writing code.
 
-Run =mocha= after each change.
+*Remember* to run =mocha= after each change.
 
 
 *** Now it's time to implement minimum calculation from given input
@@ -201,9 +200,6 @@ in other tests.
 
 
 
-
-
-
 *** Whole library looks like this one below:
 
 #+begin_src javascript
@@ -238,9 +234,13 @@ Run
 
 #+end_src
 
-:D
+Now all tests should go green :D
 
-** Conclusion
 
-Using PHPSpec is really simple and gives Us
-full control in case of future code refactors.
+** Conslusions
+
+You can compare Javascript with Mocha technique
+with other in the same excercise
+
+- PHP and PHPSpec
+- Golang and Ginkgo

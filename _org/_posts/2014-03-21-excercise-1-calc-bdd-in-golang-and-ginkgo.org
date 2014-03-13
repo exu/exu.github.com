@@ -1,0 +1,278 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: (Excercise 1 - Golang) Numbers statistics- Golang and Ginkgo
+date: 2014-03-13 11:16:59 UTC
+updated: 2014-03-16 07:16:59 UTC
+comments: true
+category: editor
+tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
+---
+{% include JB/setup %}
+#+END_HTML
+
+* Part 1 - Using Golang and Ginkgo
+
+Your task is to process a sequence of integer numbers
+to determine the following statistics:
+
+- minimum value
+- maximum value
+- number of elements in the sequence
+- average value
+
+For example: =[6, 9, 15, -2, 92, 11]=
+
+- minimum value = -2
+- maximum value = 92
+- number of elements in the sequence = 6
+- average value = 21.833333
+
+* TODO Start in Ginkgo
+
+** Setup your tools
+
+In first excercise we'll do everything from scratch. First prepare your tools:
+
+*** Project structure
+
+First create project directory and cwd to it
+and install testing framework.
+
+#+begin_src sh
+mkdir gobdds
+cd gobdds
+
+go get github.com/onsi/ginkgo/ginkgo
+go get github.com/onsi/gomega
+#+end_src
+
+I'm using Ginkgo as BDD framework and Gomega as matcher (assert) library
+If You are familiar with Mocha or RSpec then tests written
+in Ginkgo will be similiar.
+
+To simplify tests all files will be in the same folder
+(I didin't check yet how to organize code with this technique).
+
+#+begin_src txt
+. - your sources
+gobdds_suite_test.go
+stats.go
+stats_test.go
+#+end_src
+
+If you check PHP or JS sources with the same excercise you can
+realize that naming (calc === stats etc) is little odd it's because I don't have
+enough time to polish these things up, sorry.
+
+** Spec your code
+
+Now we can write some tests. First we create bootstrap like
+in documentation import bddgo, and bdd framework and matcher
+next we are doing simple describe for each expectation we
+should collect new result.
+
+In =It= function we'll define our first =min= calculation
+expectations.
+
+#+begin_src javascript
+package bddgo_test
+
+import (
+	. "github.com/exu/bddgo"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+)
+
+var _ = Describe("Stats generator", func() {
+
+})
+
+#+end_src
+
+** Our function result:
+
+We create =collect= method which will return
+object with =min=, =max=, =avg=,
+=sum=, =count= keys.
+
+
+** When We have plan, we can start writing specs
+
+*** Prerequisities (creating matcher)
+
+Our first task is to calculate minimum value from
+given input.
+
+
+*** Min specification
+
+Now We're ready for specifing. Inside =Describe= function
+block insert following code:
+
+#+begin_src javascript
+	var result map[string]int
+	BeforeEach(func() {
+		input := []int{3, 3, 4, 5, 6, 99, -99, 7, 8, 64}
+		result = Collect(input)
+	})
+
+	It("collects min information", func() {
+		Expect(result["min"]).To(Equal(-99))
+	})
+#+end_src
+
+#+begin_src sh
+ginkgo
+#+end_src
+
+you can run it with standard =go test= command
+
+Ginkgo should fail with message:
+#+begin_src sh
+./stats_test.go:30: undefined: Collect
+#+end_src
+
+
+*** Other specifications
+
+3. With above technique We'll generate:
+
+#+begin_src golang
+
+	It("collects max information", func() {
+		Expect(result["max"]).To(Equal(99))
+	})
+	It("collects avg information", func() {
+		Expect(result["avg"]).To(Equal(10))
+	})
+	It("collects len information", func() {
+		Expect(result["len"]).To(Equal(10))
+	})
+	It("collects sum information", func() {
+		Expect(result["sum"]).To(Equal(100))
+	})
+
+#+end_src
+
+** Writing code
+
+Now our spec is ready - it'll be our library documentation - we can
+start writing code.
+
+*Remember* to run =ginkgo= after each change.
+
+
+*** Now it's time to implement minimum calculation from given input
+
+#+begin_src golang
+
+package bddgo
+
+func Collect(arr []int) map[string]int {
+	out := make(map[string]int)
+	min := arr[0]
+
+	for _, v := range arr {
+		if v < min {
+			min = v
+		}
+	}
+
+	out["min"] = min
+
+	return out
+}
+
+#+end_src
+
+
+Run ginkgo, you'll receive error messages about
+expected and current result.
+
+#+begin_src sh
+$ ginkgo
+
+ collects max information [It]
+  (/home/exu/go/src/github.com/exu/bddgo/stats_test.go:38)
+
+  Expected
+  	<int>: 0
+  to equal
+  	<int>: 99
+
+#+end_src
+
+It looks like first test passed. Now it's time to implement rest
+You can do it in little steps one by one, after each
+run =ginkgo= to check if you don't brake something
+in other tests. (You can run it with =-watch= - Ginkgo will watch
+your suite and run tests automatically on code change)
+
+*** Now it's time to implement rest of library:
+
+Whole library looks like this one below:
+
+#+begin_src golang
+
+package bddgo
+
+func Collect(arr []int) map[string]int {
+	out := make(map[string]int)
+	min, max, sum, count := arr[0], arr[0], 0, len(arr)
+
+	for _, v := range arr {
+		if v < min {
+			min = v
+		}
+		if v > max {
+			max = v
+		}
+
+		sum += v
+	}
+
+	out["min"] = min
+	out["len"] = count
+	out["avg"] = sum / count
+	out["max"] = max
+	out["sum"] = max
+
+	return out
+}
+
+#+end_src
+
+Run
+
+#+begin_src sh
+
+❯ ginkgo
+
+Running Suite: Bddgo Suite
+==========================
+Random Seed: 1394745662
+Will run 5 of 5 specs
+
+••••••••••••••••••
+Ran 5 of 5 Specs in 0.004 seconds
+SUCCESS! -- 5 Passed | 0 Failed | 0 Pending | 0 Skipped PASS
+
+Ginkgo ran in 4.06565762s
+Test Suite Passed
+
+#+end_src
+
+Now all tests should go green :D
+
+
+** Conslusions
+
+You can compare Golang and Ginkgo BDD technique
+with other in the same excercise
+
+- PHP and PHPSpec
+- Javascript with Mocha
