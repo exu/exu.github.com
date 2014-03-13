@@ -1,0 +1,246 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: (Excercise 1 - Javascript) Numbers statistics- Javascript with Mocha
+date: 2014-03-03 07:16:59 UTC
+updated: 2014-03-03 07:16:59 UTC
+comments: true
+category: editor
+tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
+---
+{% include JB/setup %}
+#+END_HTML
+
+* Part 1 - Using PHP and PHPSpec
+
+Your task is to process a sequence of integer numbers
+to determine the following statistics:
+
+- minimum value
+- maximum value
+- number of elements in the sequence
+- average value
+
+For example: =[6, 9, 15, -2, 92, 11]=
+
+- minimum value = -2
+- maximum value = 92
+- number of elements in the sequence = 6
+- average value = 21.833333
+
+* TODO Start in Mocha
+
+** Setup your tools
+
+In first excercise we'll do everything from scratch. First prepare your tools:
+
+*** Project structure
+
+First create project directory and cwd to it
+
+#+begin_src sh
+mkdir jsbdds
+cd jsbdds
+
+npm install mocha --save-dev
+npm install should --save-dev
+#+end_src
+
+I'm using Should.js as assert library so last
+line above will install it.
+
+
+NPM will add Mocha to =devDependencies= and install all related packages into node_modules directory
+
+In examples to simplify project structure we'll make tests in tests directory
+and code in root directory.
+#+begin_src txt
+. - your sources
+test/  - your specs
+package.json - your npm package management
+#+end_src
+
+
+** Spec your code
+
+put =calc.js= into your project =tests/= directory
+
+and write some tests
+
+#+begin_src javascript
+var stat = require('calc');
+var should = require('should');
+
+describe('Stat', function () {
+    'use strict';
+
+    describe('#collect()', function () {
+        // here will be our spec
+    });
+})
+#+end_src
+
+
+* Write your Spec
+
+** Example input data
+
+Our example input data which We will be using in our spec methods:
+
+#+begin_src javascript
+    var data = [3, 3, 4, 5, 6, 99, -99, 7, 8, 64];
+#+end_src
+
+
+** Our object project:
+
+We create =collect= method which will return
+object with =min=, =max=, =avg=,
+=sum=, =count= keys.
+
+
+** When We have plan, we can start writing specs
+
+*** Prerequisities (creating matcher)
+
+Our first task is to calculate minimum value from
+given input.
+
+
+
+*** Min specification
+
+Now We're ready for specifing.
+
+#+begin_src javascript
+it('calculates min from given integers', function () {
+    stat.collect(data).min.should.equal(-99);
+});
+#+end_src
+
+#+begin_src sh
+mocha
+#+end_src
+
+Mocha should fail with message:
+#+begin_src sh
+ Stat #collect() calculates min from given integers:
+     TypeError: Cannot read property 'should' of undefined
+#+end_src
+
+
+*** Other specifications
+
+3. With above technique We'll generate
+
+#+begin_src php
+
+it('calculates max from given integers', function () {
+    stat.collect(data).max.should.equal(99);
+});
+
+it('calculates avg from given integers', function () {
+    stat.collect(data).avg.should.equal(10);
+});
+
+it('calculates count from given integers', function () {
+    stat.collect(data).count.should.equal(10);
+});
+
+it('calculates sum from given integers', function () {
+    stat.collect(data).sum.should.equal(100);
+});
+
+#+end_src
+
+** Writing code
+
+Now our spec is ready - it'll be our library documentation - we can
+start writing code.
+
+Run =mocha= after each change.
+
+
+*** Now it's time to implement minimum calculation from given input
+
+#+begin_src php
+
+module.exports = {
+    collect : function (arr) {
+        'use strict';
+
+        return {
+            'min' : Math.min.apply(null, arr),
+        };
+    }
+};
+
+#+end_src
+
+
+Run mocha
+
+#+begin_src sh
+$ mocha
+
+  ․․․․․
+
+  1 passing (26ms)
+  4 failing
+
+... undefined messages ...
+#+end_src
+
+Wow horray! First test passed. Now it's time to implement rest
+You can do it in little steps one by one, after each
+run =mocha= to check if you don't brake something
+in other tests.
+
+
+
+
+
+
+*** Whole library looks like this one below:
+
+#+begin_src javascript
+module.exports = {
+    collect : function (arr) {
+        'use strict';
+
+        var sum = arr.reduce(function (pv, cv) { return pv + cv; }, 0);
+        var length = arr.length;
+
+        return {
+            'min' : Math.min.apply(null, arr),
+            'max': Math.max.apply(null, arr),
+            'avg': sum / length,
+            'count': length,
+            'sum': sum
+        };
+    }
+};
+#+end_src
+
+Run
+
+#+begin_src sh
+
+❯ mocha test/calc.js
+
+  ․․․․․
+
+  5 passing (29ms)
+
+
+#+end_src
+
+:D
+
+** Conclusion
+
+Using PHPSpec is really simple and gives Us
+full control in case of future code refactors.
