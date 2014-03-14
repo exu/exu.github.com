@@ -6,7 +6,7 @@
 layout: post
 title: BDD with 3 languages - PHP with PHPSpec, Golang with Ginkgo and Javascript with Mocha
 date: 2014-03-09 07:16:59 UTC
-updated: 2014-03-13 07:00:59 UTC
+updated: 2014-03-09 07:00:59 UTC
 comments: true
 category: programming
 tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
