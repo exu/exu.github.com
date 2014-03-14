@@ -8,7 +8,7 @@ title: (Excercise 1 - Golang) Numbers statistics- Golang and Ginkgo
 date: 2014-03-18 11:16:59 UTC
 updated: 2014-03-18 07:16:59 UTC
 comments: true
-category: editor
+category: programming
 tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
 ---
 {% include JB/setup %}
