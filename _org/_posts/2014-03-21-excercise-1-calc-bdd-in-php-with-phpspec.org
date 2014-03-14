@@ -14,6 +14,10 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
 {% include JB/setup %}
 #+END_HTML
 
+
+[[http://wysocki.in/assets/img/php-bdd.png]]
+
+
 * Part 1 - Using PHP and PHPSpec
 
 Your task is to process a sequence of integer numbers
