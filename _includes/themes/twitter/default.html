@@ -1,95 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{{ page.title }}</title>
-    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
-    <meta name="author" content="{{ site.author.name }}">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ page.title }}</title>
+        {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+        <meta name="author" content="{{ site.author.name }}">
 
-    <!-- Enable responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Enable responsive viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-    <!-- Le styles -->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
-    <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+        <!-- Le styles -->
+        <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
 
-    <!-- Le fav and touch icons -->
+        <!-- Le fav and touch icons -->
 
-    <link rel="shortcut icon" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
-    <link rel="apple-touch-icon" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
+        <link rel="shortcut icon" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
+        <link rel="apple-touch-icon" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="http://www.gravatar.com/avatar/08ef4cdbafc228a2a6052467e74f3c2e.png">
 
 
-    <!-- atom & rss feed -->
-    <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-    <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
-
-  </head>
-
-  <body>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container-narrow">
-          <a class="brand" href="{{ HOME_PATH }}">{{ site.title }}<i class="icon-star"></i></a>
-          <ul class="nav">
-            {% for link in site.navigation %}
-              {% assign active = nil %}
-              {% if page.url == link.url or page.layout == link.layout %}
-                {% assign active = 'active' %}
-              {% endif %}
-              <li class="{% if forloop.first %}first{% endif %} {{ active }} {% if forloop.last %}last{% endif %}">
-                <a class="{{ active }}" href="{{ link.url }}">{{ link.text }}</a>
-              </li>
-              {% endfor %}
-          </ul>
+        <!-- atom & rss feed -->
+        <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+        <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+    </head>
+    <body role="document">
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ HOME_PATH }}">Jacek Wysocki' <i class="glyphicon glyphicon-star"></i> Thoughts</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        {% for link in site.navigation %}
+                        {% assign active = nil %}
+                        {% if page.url == link.url or page.layout == link.layout %}
+                        {% assign active = 'active' %}
+                        {% endif %}
+                        <li class="{% if forloop.first %}first{% endif %} {{ active }} {% if forloop.last %}last{% endif %}">
+                            <a class="{{ active }}" href="{{ link.url }}">{{ link.text }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="container-narrow">
+        <div class="container theme-showcase" role="main">
 
-      <div class="content">
+            <!-- Main jumbotron for a primary marketing message or call to action -->
 
-          <div class="pull-right">
-              <a href="https://twitter.com/share" class="twitter-share-button" data-via="wysocki.in" data-lang="en" data-count="vertical">Tweet</a>
-              <div class="g-plusone" data-size="tall"></div>
-              <script type="text/javascript">
-               (function() {
-                   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                   po.src = 'https://apis.google.com/js/platform.js';
-                   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-               })();
 
-               !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-              </script>
-          </div>
+            <div class="pull-right">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="wysocki.in" data-lang="en" data-count="vertical">Tweet</a>
+                <div class="g-plusone" data-size="tall"></div>
+                <script type="text/javascript">
+                 (function() {
+                     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                     po.src = 'https://apis.google.com/js/platform.js';
+                     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                 })();
 
-        {{ content }}
-      </div>
-      <hr>
-      <footer>
-        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
-          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
-          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
-        </p>
-      </footer>
+                 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+                </script>
+            </div>
 
-    </div>
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            {{ content }}
+        </div>
+        <hr>
+        <footer>
+            <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }} </p>
+        </footer>
 
-     ga('create', 'UA-1883783-5', 'wysocki.in');
-     ga('send', 'pageview');
+        </div>
+        <script>
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                                  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    </script>
-  </body>
+         ga('create', 'UA-1883783-5', 'wysocki.in');
+         ga('send', 'pageview');
+
+        </script>
+    </body>
 </html>

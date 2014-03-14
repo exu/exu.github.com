@@ -2,15 +2,34 @@
 @import url(http://fonts.googleapis.com/css?family=Exo:200&subset=latin-ext,latin);
 
 body {
-    font-family: 'Exo', sans-serif;
     font-size: 16px;
+    font-family: monospace;
+    padding-top: 60px;
+}
+
+
+footer {
+    text-align: center;
+}
+
+a.navbar-brand {
+    font-family: 'Exo', sans-serif;
+    text-shadow: 1px 1px 0 #000;
+}
+
+a.navbar-brand i {
+    /* color: lightyellow; */
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Exo', sans-serif;
 }
 
 .page-header h1 { font-size: 34px; }
-h1 { font-size: 28px; }
-h2 { font-size: 26px; }
-h3 { font-size: 24px; }
-h1 { font-size: 22px; }
+h1 { font-size: 28px; color: rgb(155, 0, 194); }
+h2 { font-size: 24px; color: rgb(134, 0, 168); }
+h3 { font-size: 20px; color: rgb(103, 0, 129); }
+h1 { font-size: 18px; }
 
 
 .container-narrow {
@@ -46,7 +65,9 @@ h1 { font-size: 22px; }
 .tag_box {
   list-style: none;
   margin: 0;
-  overflow: hidden; }
+  overflow: hidden;
+  margin: 10px 0;
+}
 
 .tag_box li {
   line-height: 28px; }
@@ -83,8 +104,14 @@ h1 { font-size: 22px; }
 }
 
 .posts li.current {
-    font-size: 22px;
-    line-height: 28px;
+    font-size: 19px;
+    line-height: 26px;
+    margin: 10px 0;
+}
+
+.posts li.current .label {
+    width: 130px;
+    display: inline-block;
 }
 
 .posts li.current span {
@@ -106,12 +133,11 @@ h1 { font-size: 22px; }
     text-align: center;
 }
 
-h1 {
-    color: silver;
-    text-shadow: -1px 0 0 gray;
-}
-
 pre {
     color: white;
     background: #101010;
+}
+
+ul.posts {
+    padding: 0;
 }

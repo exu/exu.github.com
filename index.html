@@ -11,7 +11,7 @@ tagline:
 <ul class="posts">
   {% for post in site.posts %}
     <li{% if forloop.index <= 5 %} class="current"{% endif %}>
-        <span class="badge{% case forloop.index %}{% when 1 %} badge-important{% when 2 %} badge-warning{% when 3 %} badge-success{% when 4 %} badge-info{% endcase %}">
+        <span class="label label-{% case forloop.index %}{% when 1 %}danger{% when 2 %}primary{% when 3 %}info{% when 4 %}success{% when 5 %}warning{% else %}default{% endcase %}">
            {{ post.date | date_to_string }}
         </span>
         <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a>
