@@ -354,7 +354,7 @@ bin/console parser
 #+end_src
 
 More details how to create symfony you couldreally early
-find in [[http://wysocki.in/programming/2013/12/04/symfony2-console-as-standalone-component/][Using Symfony2 Console as standalone component]]
+find in [[http://wysocki.inhttp://wysocki.in/programming/2013/12/04/symfony2-console-as-standalone-component/][Using Symfony2 Console as standalone component]]
 
 
 ** Profits?

@@ -108,7 +108,7 @@ given language and test framework)
 
 ** PHPSpec and PHP
 
-You can find details about [[/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][my PHP solution in separate post]]
+You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][my PHP solution in separate post]]
 
 - Sources on github
   - spec: https://github.com/exu/php-12bdds/blob/master/spec/Exc01/CalcStatsSpec.php
@@ -116,7 +116,7 @@ You can find details about [[/programming/2014/03/excercise-1-calc-bdd-in-php-wi
 
 ** Golang and Ginkgo
 
-You can find details about [[/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][my Golang solution in separate post]]
+You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][my Golang solution in separate post]]
 
 - Sources on github
   - spec: https://github.com/exu/bddgo/blob/master/stats_test.go
@@ -124,7 +124,7 @@ You can find details about [[/programming/2014/03/excercise-1-calc-bdd-in-golang
 
 ** Javascript and Mocha
 
-You can find details about [[/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha][my Javascript solution in separate post]]
+You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha][my Javascript solution in separate post]]
 
 - Sources on github
   - spec: https://github.com/exu/jsbdds/blob/master/test/calc.js

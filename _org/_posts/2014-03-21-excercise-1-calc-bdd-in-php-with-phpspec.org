@@ -320,5 +320,5 @@ Using PHPSpec is really simple and gives Us
 full control in case of future code refactors.
 
 You can compare it to other BDD/Spec frameworks:
-- [[/programming/2014/03/bdd-in-php-golang-javascript-comparizon][Javascript with Mocha]]
-- [[/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][Golang and Ginkgo]]
+- [[http://wysocki.in/programming/2014/03/bdd-in-php-golang-javascript-comparizon][Javascript with Mocha]]
+- [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][Golang and Ginkgo]]

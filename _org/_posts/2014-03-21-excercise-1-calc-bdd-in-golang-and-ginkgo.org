@@ -67,7 +67,7 @@ stats.go
 stats_test.go
 #+end_src
 
-If you check [[/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][PHP]] or [[/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha][JS]] sources with the same excercise you can
+If you check [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][PHP]] or [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha][JS]] sources with the same excercise you can
 realize that naming (calc === stats etc) is little odd it's because I don't have
 enough time to polish these things up, sorry.
 
@@ -277,5 +277,5 @@ Now all tests should go green :D
 You can compare Golang and Ginkgo BDD technique
 with other in the same excercise
 
-- [[/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][PHP and PHPSpec]]
-- [[/programming/2014/03/bdd-in-php-golang-javascript-comparizon][Javascript with Mocha]]
+- [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][PHP and PHPSpec]]
+- [[http://wysocki.in/programming/2014/03/bdd-in-php-golang-javascript-comparizon][Javascript with Mocha]]
