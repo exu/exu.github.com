@@ -1,0 +1,16 @@
+{
+    "name": "wysocki.in",
+    "version": "1.0.0",
+    "directory": "lib",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "components",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "bootstrap": ">=3.1.1"
+    }
+}

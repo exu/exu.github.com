@@ -8,3 +8,9 @@ Thumbs.db
 
 .rbenv-version
 .rvmrc
+
+lib/bootstrap/*
+!lib/bootstrap/dist
+
+lib/jquery/*
+!lib/jquery/dist
