@@ -144,7 +144,7 @@ You give a number and your function will spell it. Simple isn't it?
 ** PHPSpec and PHP
 
 - Sources on github
-  - spec: https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNames.php
+  - spec: [[https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php]]
   - source: https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php
 
 ** Golang and Ginkgo
