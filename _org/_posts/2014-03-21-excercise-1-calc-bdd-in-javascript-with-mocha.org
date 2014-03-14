@@ -244,5 +244,5 @@ Now all tests should go green :D
 You can compare Javascript with Mocha technique
 with other in the same excercise
 
-- [[/2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html][PHP and PHPSpec]]
-- [[/2014-03-21-excercise-1-calc-bdd-in-golang-and-ginkgo.html][Golang and Ginkgo]]
+- [[/programming/2014/03/bdd-in-php-golang-javascript-comparizon][PHP and PHPSpec]]
+- [[/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][Golang and Ginkgo]]
