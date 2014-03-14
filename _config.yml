@@ -10,7 +10,7 @@ pygments: true
 # so be sure to set them if your theme uses them.
 #
 title : Jacek Wysocki Dev Blog
-tagline: Some PHP Javascript Ruby programming stuff
+tagline: Some PHP Javascript Golang coding related stuff
 author :
   name : Jacek Wysocki
   email : jacek.wysocki@gmail.com

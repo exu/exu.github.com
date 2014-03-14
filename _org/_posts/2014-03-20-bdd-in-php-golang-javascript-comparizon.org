@@ -16,7 +16,7 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
 
 * Introduction
 
-In these series of posts I want to show differences (or similarities) between PHP,
+In these series I want to show differences (or similarities) between PHP,
 Google's Golang, and Javascript when you want to develop your code
 with BDD techniques. Why? One of reason is that You can easily port your specs to
 other language, spec is your project and your documentation and if you want learn
@@ -33,7 +33,7 @@ I have my solutions in 3 separate repositories one per language (+ bdd framework
 - Golang - https://github.com/exu/bddgo
 - Javascript - https://github.com/exu/jsbdds
 
-* Languages Status of 12 tdds from wiredtothemoon blog
+* Excercise status for languages of 12 tdds from wiredtothemoon blog
 
 - PHP - Completed *8* from 12
 - Golang - Completed *4* from 12
@@ -106,7 +106,7 @@ given language and test framework)
 
 ** PHPSpec and PHP
 
-You can find details about [[http://wysocki.in/2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html][my solution in separate post]]
+You can find details about [[/2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html][my PHP solution in separate post]]
 
 - Sources on github
   - spec: https://github.com/exu/php-12bdds/blob/master/spec/Exc01/CalcStatsSpec.php
@@ -114,15 +114,25 @@ You can find details about [[http://wysocki.in/2014-03-21-excercise-1-calc-bdd-i
 
 ** Golang and Ginkgo
 
+You can find details about [[/2014-03-21-excercise-1-calc-bdd-in-golang-and-ginkgo.html][my Golang solution in separate post]]
+
 - Sources on github
   - spec: https://github.com/exu/bddgo/blob/master/stats_test.go
   - source: https://github.com/exu/bddgo/blob/master/stats.go
 
 ** Javascript and Mocha
 
+You can find details about [[/2014-03-21-excercise-1-calc-bdd-in-javascript-with-mocha.html][my Javascript solution in separate post]]
+
 - Sources on github
   - spec: https://github.com/exu/jsbdds/blob/master/test/calc.js
   - source: https://github.com/exu/jsbdds/blob/master/calc.js
+
+** Conclusions
+
+I think that the slighty faster development time You can achieve in PHPSpec.
+Main reason for it are Its generators. Slighty more readable output
+in case of errors are in Mocha IMHO.
 
 * Excercise 2 -  Number speller
 

@@ -31,7 +31,7 @@ For example: =[6, 9, 15, -2, 92, 11]=
 - number of elements in the sequence = 6
 - average value = 21.833333
 
-* TODO Start in Ginkgo
+* Start in Ginkgo
 
 ** Setup your tools
 
@@ -64,7 +64,7 @@ stats.go
 stats_test.go
 #+end_src
 
-If you check PHP or JS sources with the same excercise you can
+If you check [[/2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html][PHP]] or [[/2014-03-21-excercise-1-calc-bdd-in-javascript-with-mocha.html][JS]] sources with the same excercise you can
 realize that naming (calc === stats etc) is little odd it's because I don't have
 enough time to polish these things up, sorry.
 
@@ -274,5 +274,5 @@ Now all tests should go green :D
 You can compare Golang and Ginkgo BDD technique
 with other in the same excercise
 
-- PHP and PHPSpec
-- Javascript with Mocha
+- [[/2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html][PHP and PHPSpec]]
+- [[/2014-03-21-excercise-1-calc-bdd-in-javascript-with-mocha.html][Javascript with Mocha]]
