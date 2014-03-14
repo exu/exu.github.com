@@ -14,6 +14,8 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
 {% include JB/setup %}
 #+END_HTML
 
+[[http://wysocki.in/assets/img/php-js-go-bdd.png]]
+
 * Introduction
 
 In these series I want to show differences (or similarities) between PHP,
