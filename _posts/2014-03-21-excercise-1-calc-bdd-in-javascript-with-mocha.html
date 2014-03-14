@@ -1,0 +1,354 @@
+---
+layout: post
+title: (Excercise 1 - Javascript) Numbers statistics- Javascript with Mocha
+date: 2014-03-13 11:16:59 UTC
+updated: 2014-03-16 07:16:59 UTC
+comments: true
+category: editor
+tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
+---
+{% include JB/setup %}
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Part 1 - Using Javascript with Mocha</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Your task is to process a sequence of integer numbers
+to determine the following statistics:
+</p>
+
+<ul class="org-ul">
+<li>minimum value
+</li>
+<li>maximum value
+</li>
+<li>number of elements in the sequence
+</li>
+<li>average value
+</li>
+</ul>
+
+<p>
+For example: <code>[6, 9, 15, -2, 92, 11]</code>
+</p>
+
+<ul class="org-ul">
+<li>minimum value = -2
+</li>
+<li>maximum value = 92
+</li>
+<li>number of elements in the sequence = 6
+</li>
+<li>average value = 21.833333
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="todo TODO">TODO</span> Start in Mocha</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Setup your tools</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+In first excercise we'll do everything from scratch. First prepare your tools:
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">Project structure</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+First create project directory and cwd to it
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir jsbdds
+<span style="color: #93e0e3;">cd</span> jsbdds
+
+npm install mocha --save-dev
+npm install should --save-dev
+</pre>
+</div>
+
+<p>
+I'm using Should.js as assert library so last
+line above will install it.
+</p>
+
+
+<p>
+NPM will add Mocha to <code>devDependencies</code> and install all related packages into node<sub>modules</sub> directory
+</p>
+
+<p>
+In examples to simplify project structure we'll make tests in tests directory
+and code in root directory.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-txt">. - your sources
+test/  - your specs
+package.json - your npm package management
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Spec your code</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+put <code>calc.js</code> into your project <code>tests/</code> directory
+</p>
+
+<p>
+and write some tests
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #e2b1f4;">stat</span> = require(<span style="color: #a5a5a5;">'calc'</span>);
+<span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #e2b1f4;">should</span> = require(<span style="color: #a5a5a5;">'should'</span>);
+
+describe(<span style="color: #a5a5a5;">'Stat'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+    <span style="color: #a5a5a5;">'use strict'</span>;
+
+    describe(<span style="color: #a5a5a5;">'#collect()'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+        <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">here will be our spec</span>
+    });
+})
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Write your Spec</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Example input data</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Our example input data which We will be using in our spec methods:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #e2b1f4;">data</span> = [3, 3, 4, 5, 6, 99, -99, 7, 8, 64];
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">Our object project:</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+We create <code>collect</code> method which will return
+object with <code>min</code>, <code>max</code>, <code>avg</code>,
+<code>sum</code>, <code>count</code> keys.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3">When We have plan, we can start writing specs</h3>
+<div class="outline-text-3" id="text-3-3">
+</div><div id="outline-container-sec-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1">Prerequisities (creating matcher)</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+Our first task is to calculate minimum value from
+given input.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3-2" class="outline-4">
+<h4 id="sec-3-3-2">Min specification</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<p>
+Now We're ready for specifing.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">it(<span style="color: #a5a5a5;">'calculates min from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+    stat.collect(data).min.should.equal(-99);
+});
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">mocha
+</pre>
+</div>
+
+<p>
+Mocha should fail with message:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">Stat <span style="color: #5f7f5f;">#</span><span style="color: #5f7f5f;">collect() calculates min from given integers:</span>
+    TypeError: Cannot read property <span style="color: #a5a5a5;">'should'</span> of undefined
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3-3" class="outline-4">
+<h4 id="sec-3-3-3">Other specifications</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<ol class="org-ol">
+<li>With above technique We'll generate:
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates max from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+    <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">max</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">99</span>);
+});
+
+<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates avg from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+    <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">avg</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">10</span>);
+});
+
+<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates count from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+    <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">count</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">10</span>);
+});
+
+<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates sum from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+    <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">sum</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">100</span>);
+});
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4">Writing code</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Now our spec is ready - it'll be our library documentation - we can
+start writing code.
+</p>
+
+<p>
+<b>Remember</b> to run <code>mocha</code> after each change.
+</p>
+</div>
+
+
+<div id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1">Now it's time to implement minimum calculation from given input</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #d0bf8f; font-weight: bold;">module</span>.<span style="color: #d0bf8f; font-weight: bold;">exports</span> = {
+    <span style="color: #d0bf8f; font-weight: bold;">collect</span> : <span style="color: #f0dfaf; font-weight: bold;">function</span> (<span style="color: #d0bf8f; font-weight: bold;">arr</span>) {
+        <span style="color: #a5a5a5;">'use strict'</span>;
+
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> {
+            <span style="color: #a5a5a5;">'min'</span> : <span style="color: #d0bf8f; font-weight: bold;">Math</span>.<span style="color: #d0bf8f; font-weight: bold;">min</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">apply</span>(<span style="color: #b0deff;">null</span>, <span style="color: #d0bf8f; font-weight: bold;">arr</span>),
+        };
+    }
+};
+</pre>
+</div>
+
+
+<p>
+Run mocha
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ mocha
+
+  &#8228;&#8228;&#8228;&#8228;&#8228;
+
+  1 passing (26ms)
+  4 failing
+
+... undefined messages ...
+</pre>
+</div>
+
+<p>
+Wow horray! First test passed. Now it's time to implement rest
+You can do it in little steps one by one, after each
+run <code>mocha</code> to check if you don't brake something
+in other tests.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2">Whole library looks like this one below:</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<div class="org-src-container">
+
+<pre class="src src-javascript">module.exports = {
+    <span style="color: #a2d7fb;">collect</span> : <span style="color: #f0dfaf; font-weight: bold;">function</span> (<span style="color: #e2b1f4;">arr</span>) {
+        <span style="color: #a5a5a5;">'use strict'</span>;
+
+        <span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #e2b1f4;">sum</span> = arr.reduce(<span style="color: #f0dfaf; font-weight: bold;">function</span> (<span style="color: #e2b1f4;">pv</span>, <span style="color: #e2b1f4;">cv</span>) { <span style="color: #f0dfaf; font-weight: bold;">return</span> pv + cv; }, 0);
+        <span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #e2b1f4;">length</span> = arr.length;
+
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> {
+            <span style="color: #a5a5a5;">'min'</span> : Math.min.apply(<span style="color: #b0deff;">null</span>, arr),
+            <span style="color: #a5a5a5;">'max'</span>: Math.max.apply(<span style="color: #b0deff;">null</span>, arr),
+            <span style="color: #a5a5a5;">'avg'</span>: sum / length,
+            <span style="color: #a5a5a5;">'count'</span>: length,
+            <span style="color: #a5a5a5;">'sum'</span>: sum
+        };
+    }
+};
+</pre>
+</div>
+
+<p>
+Run
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#10095; mocha test/calc.js
+
+  &#8228;&#8228;&#8228;&#8228;&#8228;
+
+  5 passing (29ms)
+</pre>
+</div>
+
+<p>
+Now all tests should go green :D
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5">Conslusions</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+You can compare Javascript with Mocha technique
+with other in the same excercise
+</p>
+
+<ul class="org-ul">
+<li><a href="file:///2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html">PHP and PHPSpec</a>
+</li>
+<li><a href="file:///2014-03-21-excercise-1-calc-bdd-in-golang-and-ginkgo.html">Golang and Ginkgo</a>
+</li>
+</ul>
+</div>
+</div>
+</div>

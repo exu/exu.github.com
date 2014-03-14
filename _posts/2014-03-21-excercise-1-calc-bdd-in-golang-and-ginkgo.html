@@ -1,0 +1,379 @@
+---
+layout: post
+title: (Excercise 1 - Golang) Numbers statistics- Golang and Ginkgo
+date: 2014-03-13 11:16:59 UTC
+updated: 2014-03-16 07:16:59 UTC
+comments: true
+category: editor
+tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
+---
+{% include JB/setup %}
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Part 1 - Using Golang and Ginkgo</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Your task is to process a sequence of integer numbers
+to determine the following statistics:
+</p>
+
+<ul class="org-ul">
+<li>minimum value
+</li>
+<li>maximum value
+</li>
+<li>number of elements in the sequence
+</li>
+<li>average value
+</li>
+</ul>
+
+<p>
+For example: <code>[6, 9, 15, -2, 92, 11]</code>
+</p>
+
+<ul class="org-ul">
+<li>minimum value = -2
+</li>
+<li>maximum value = 92
+</li>
+<li>number of elements in the sequence = 6
+</li>
+<li>average value = 21.833333
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Start in Ginkgo</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Setup your tools</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+In first excercise we'll do everything from scratch. First prepare your tools:
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">Project structure</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+First create project directory and cwd to it
+and install testing framework.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir gobdds
+<span style="color: #93e0e3;">cd</span> gobdds
+
+go get github.com/onsi/ginkgo/ginkgo
+go get github.com/onsi/gomega
+</pre>
+</div>
+
+<p>
+I'm using Ginkgo as BDD framework and Gomega as matcher (assert) library
+If You are familiar with Mocha or RSpec then tests written
+in Ginkgo will be similiar.
+</p>
+
+<p>
+To simplify tests all files will be in the same folder
+(I didin't check yet how to organize code with this technique).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-txt">. - your sources
+gobdds_suite_test.go
+stats.go
+stats_test.go
+</pre>
+</div>
+
+<p>
+If you check <a href="file:///2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html">PHP</a> or <a href="file:///2014-03-21-excercise-1-calc-bdd-in-javascript-with-mocha.html">JS</a> sources with the same excercise you can
+realize that naming (calc <code>=</code> stats etc) is little odd it's because I don't have
+enough time to polish these things up, sorry.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Spec your code</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Now we can write some tests. First we create bootstrap like
+in documentation import bddgo, and bdd framework and matcher
+next we are doing simple describe for each expectation we
+should collect new result.
+</p>
+
+<p>
+In <code>It</code> function we'll define our first <code>min</code> calculation
+expectations.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">package</span> bddgo_test
+
+<span style="color: #f0dfaf; font-weight: bold;">import</span> (
+    . <span style="color: #a5a5a5;">"github.com/exu/bddgo"</span>
+    . <span style="color: #a5a5a5;">"github.com/onsi/ginkgo"</span>
+    . <span style="color: #a5a5a5;">"github.com/onsi/gomega"</span>
+)
+
+<span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #e2b1f4;">_</span> = Describe(<span style="color: #a5a5a5;">"Stats generator"</span>, func() {
+
+})
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">Our function result:</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+We create <code>collect</code> method which will return
+object with <code>min</code>, <code>max</code>, <code>avg</code>,
+<code>sum</code>, <code>count</code> keys.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">When We have plan, we can start writing specs</h3>
+<div class="outline-text-3" id="text-2-4">
+</div><div id="outline-container-sec-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1">Prerequisities (creating matcher)</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+Our first task is to calculate minimum value from
+given input.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-2" class="outline-4">
+<h4 id="sec-2-4-2">Min specification</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<p>
+Now We're ready for specifing. Inside <code>Describe</code> function
+block insert following code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #f0dfaf; font-weight: bold;">var</span> <span style="color: #e2b1f4;">result</span> map[string]<span style="color: #9dd7ff;">int</span>
+BeforeEach(func() {
+    input := []<span style="color: #9dd7ff;">int</span>{3, 3, 4, 5, 6, 99, -99, 7, 8, 64}
+    result = Collect(input)
+})
+
+It(<span style="color: #a5a5a5;">"collects min information"</span>, func() {
+    Expect(result[<span style="color: #a5a5a5;">"min"</span>]).To(Equal(-99))
+})
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ginkgo
+</pre>
+</div>
+
+<p>
+you can run it with standard <code>go test</code> command
+</p>
+
+<p>
+Ginkgo should fail with message:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">./stats_test.go:30: undefined: Collect
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-3" class="outline-4">
+<h4 id="sec-2-4-3">Other specifications</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<ol class="org-ol">
+<li>With above technique We'll generate:
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-golang">It("collects max information", func() {
+    Expect(result["max"]).To(Equal(99))
+})
+It("collects avg information", func() {
+    Expect(result["avg"]).To(Equal(10))
+})
+It("collects len information", func() {
+    Expect(result["len"]).To(Equal(10))
+})
+It("collects sum information", func() {
+    Expect(result["sum"]).To(Equal(100))
+})
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5">Writing code</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Now our spec is ready - it'll be our library documentation - we can
+start writing code.
+</p>
+
+<p>
+<b>Remember</b> to run <code>ginkgo</code> after each change.
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1">Now it's time to implement minimum calculation from given input</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<div class="org-src-container">
+
+<pre class="src src-golang">package bddgo
+
+func Collect(arr []int) map[string]int {
+    out := make(map[string]int)
+    min := arr[0]
+
+    for _, v := range arr {
+        if v &lt; min {
+            min = v
+        }
+    }
+
+    out["min"] = min
+
+    return out
+}
+</pre>
+</div>
+
+
+<p>
+Run ginkgo, you'll receive error messages about
+expected and current result.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ ginkgo
+
+ collects max information [It]
+  (/home/exu/go/src/github.com/exu/bddgo/stats_test.go:38)
+
+  Expected
+    &lt;int&gt;: 0
+  to equal
+    &lt;int&gt;: 99
+</pre>
+</div>
+
+<p>
+It looks like first test passed. Now it's time to implement rest
+You can do it in little steps one by one, after each
+run <code>ginkgo</code> to check if you don't brake something
+in other tests. (You can run it with <code>-watch</code> - Ginkgo will watch
+your suite and run tests automatically on code change)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2">Now it's time to implement rest of library:</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+Whole library looks like this one below:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-golang">package bddgo
+
+func Collect(arr []int) map[string]int {
+    out := make(map[string]int)
+    min, max, sum, count := arr[0], arr[0], 0, len(arr)
+
+    for _, v := range arr {
+        if v &lt; min {
+            min = v
+        }
+        if v &gt; max {
+            max = v
+        }
+
+        sum += v
+    }
+
+    out["min"] = min
+    out["len"] = count
+    out["avg"] = sum / count
+    out["max"] = max
+    out["sum"] = max
+
+    return out
+}
+</pre>
+</div>
+
+<p>
+Run
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#10095; ginkgo
+
+Running Suite: Bddgo Suite
+==========================
+Random Seed: 1394745662
+Will run 5 of 5 specs
+
+&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;
+Ran 5 of 5 Specs<span style="color: #f0dfaf; font-weight: bold;"> in</span> 0.004 seconds
+SUCCESS! -- 5 Passed | 0 Failed | 0 Pending | 0 Skipped PASS
+
+Ginkgo ran<span style="color: #f0dfaf; font-weight: bold;"> in</span> 4.06565762s
+Test Suite Passed
+</pre>
+</div>
+
+<p>
+Now all tests should go green :D
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6">Conslusions</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+You can compare Golang and Ginkgo BDD technique
+with other in the same excercise
+</p>
+
+<ul class="org-ul">
+<li><a href="file:///2014-03-21-excercise-1-calc-bdd-in-php-with-phpspec.html">PHP and PHPSpec</a>
+</li>
+<li><a href="file:///2014-03-21-excercise-1-calc-bdd-in-javascript-with-mocha.html">Javascript with Mocha</a>
+</li>
+</ul>
+</div>
+</div>
+</div>

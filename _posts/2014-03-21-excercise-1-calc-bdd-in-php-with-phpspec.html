@@ -1,0 +1,443 @@
+---
+layout: post
+title: (Excercise 1 - PHP) Numbers statistics- PHP with PHPSpec
+date: 2014-03-03 07:16:59 UTC
+updated: 2014-03-03 07:16:59 UTC
+comments: true
+category: editor
+tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
+---
+{% include JB/setup %}
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Part 1 - Using PHP and PHPSpec</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Your task is to process a sequence of integer numbers
+to determine the following statistics:
+</p>
+
+<ul class="org-ul">
+<li>minimum value
+</li>
+<li>maximum value
+</li>
+<li>number of elements in the sequence
+</li>
+<li>average value
+</li>
+</ul>
+
+<p>
+For example: <code>[6, 9, 15, -2, 92, 11]</code>
+</p>
+
+<ul class="org-ul">
+<li>minimum value = -2
+</li>
+<li>maximum value = 92
+</li>
+<li>number of elements in the sequence = 6
+</li>
+<li>average value = 21.833333
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="todo TODO">TODO</span> Start in PHPSpec</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Setup your tools</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+In first excercise we'll do everything from scratch. First prepare your tools:
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">Project structure</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+First create project directory and cwd to it
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir php-tdds
+<span style="color: #93e0e3;">cd</span> php-tdds
+</pre>
+</div>
+
+
+<p>
+PHPSpec will have following file and directories structure
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-txt">.
+spec/ - your specifications
+src/  - your classes
+composer.json
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2">Composer</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+This project is based on composer so you will need it. To
+install composer. I prefer installing composer globally so
+everything what you should do is
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3">PHPSpec</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+Next You should add PHPSpec to your dev dependencies
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php">{
+    <span style="color: #a5a5a5;">"require-dev"</span>: {
+        <span style="color: #a5a5a5;">"phpspec"</span>: <span style="color: #a5a5a5;">"*"</span>
+    }
+}
+</pre>
+</div>
+
+<p>
+Thats all!. Run <code>composer install</code> and You are ready to start writing code.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Spec your classes</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+We'll doing Test(Spec) First Developement so we should start from
+specify our Calculation statistics class.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">phpspec desc Exc01/Calc
+</pre>
+</div>
+
+
+<p>
+PHPSpec will generate main class for You, and add it<sub>is</sub><sub>instantiable</sub> method in your specification.
+Next we should run phpspec suite.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">phpspec run
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Write your Spec</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Example input data</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Our example input data which will We be using in our spec methods:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">protected</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">data</span> = [<span style="color: #ff5555;">3</span>,<span style="color: #ff5555;">3</span>,<span style="color: #ff5555;">4</span>,<span style="color: #ff5555;">5</span>,<span style="color: #ff5555;">6</span>,<span style="color: #ff5555;">99</span>,-<span style="color: #ff5555;">99</span>,<span style="color: #ff5555;">7</span>,<span style="color: #ff5555;">8</span>,<span style="color: #ff5555;">64</span>];
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">We need to handle some exceptions:</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+We should throw exception when input is empty array.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_throws_exception_on_empty_array_input</span>()
+{
+    <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldThrow</span>(<span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>))
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">duringCollect</span>([]);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3">Our class project:</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+We create <code>collect</code> method which will return
+associative array with <code>min</code>, <code>max</code>, <code>avg</code>,
+<code>sum</code>, <code>count</code> keys.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4">When We have plan, we can start writing specs</h3>
+<div class="outline-text-3" id="text-3-4">
+</div><div id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1">Prerequisities (creating matcher)</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+Our first task is to calculate minimum value from
+given input.
+</p>
+
+
+<p>
+We'll need method which will check if array contains
+expected value in given associative array key. In spec/
+We can do this by defining new matcher. We do this
+be returning new matchers array in <code>getMatchers</code>
+each matcher is closure function which returns boolean
+value. You can define as many matchers as You want.
+</p>
+
+<p>
+When You define e.g. <code>haveElement</code> matcher you can
+call it by <code>shouldHaveElement</code> method inside your spec
+methods.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">getMatchers</span>()
+{
+    <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">matchers</span> = [
+        <span style="color: #a5a5a5;">'haveElement'</span> =&gt; <span style="color: #f0dfaf; font-weight: bold;">function</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>, <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">key</span>, <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">value</span>) {
+            <span style="color: #f0dfaf; font-weight: bold;">return</span>  <span style="color: #f0dfaf; font-weight: bold;">isset</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>[<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">key</span>]) &amp;&amp; <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>[<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">key</span>] === <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">value</span>;
+        }
+    ];
+
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">matchers</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2">Min specification</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+Now We're ready for specifing.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_min_from_given_integers</span>()
+{
+    <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'min'</span>, -<span style="color: #ff5555;">99</span>);
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">bin/phpspec run
+</pre>
+</div>
+
+<p>
+We'll be asked to create new method. Press <code>ENTER</code>
+and our class will have new <code>collect</code> method which
+should be implemented.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4-3" class="outline-4">
+<h4 id="sec-3-4-3">Other specifications</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<ol class="org-ol">
+<li>With above technique We'll generate
+</li>
+</ol>
+
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_max_from_given_integers</span>()
+{
+    <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'max'</span>, <span style="color: #ff5555;">99</span>);
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_avg_from_given_integers</span>()
+{
+    <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'avg'</span>, <span style="color: #ff5555;">10</span>.<span style="color: #ff5555;">0</span>);
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_count_from_given_integers</span>()
+{
+    <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'count'</span>, <span style="color: #ff5555;">10</span>);
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5">Writing code</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Now our spec is ready - it'll be our library documentation - we can
+start writing code.
+</p>
+
+<p>
+Run <code>bin/phpspec run</code> after each change.
+</p>
+</div>
+
+
+<div id="outline-container-sec-3-5-1" class="outline-4">
+<h4 id="sec-3-5-1">Handling spec'ed exception</h4>
+<div class="outline-text-4" id="text-3-5-1">
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
+{
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-5-2" class="outline-4">
+<h4 id="sec-3-5-2">Calculating min value from given input array</h4>
+<div class="outline-text-4" id="text-3-5-2">
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
+{
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
+    }
+
+    <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+    ];
+
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-3" class="outline-4">
+<h4 id="sec-3-5-3">Calculating max value from given input array</h4>
+<div class="outline-text-4" id="text-3-5-3">
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
+{
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
+    }
+
+    <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'max'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+    ];
+
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-5-4" class="outline-4">
+<h4 id="sec-3-5-4">Calculating count from given input array</h4>
+<div class="outline-text-4" id="text-3-5-4">
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
+{
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
+    }
+
+    <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'max'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'count'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+    ];
+
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-5-5" class="outline-4">
+<h4 id="sec-3-5-5">Calculating average from given input array</h4>
+<div class="outline-text-4" id="text-3-5-5">
+<div class="org-src-container">
+
+<pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
+{
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
+    }
+
+    <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'max'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'count'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'avg'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">array_sum</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>) / (<span style="color: #9dd7ff;">float</span>) <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+    ];
+
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6">Conclusion</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Using PHPSpec is really simple and gives Us
+full control in case of future code refactors.
+</p>
+</div>
+</div>
+</div>
