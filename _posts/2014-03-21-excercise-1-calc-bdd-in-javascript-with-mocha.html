@@ -217,19 +217,19 @@ Mocha should fail with message:
 
 <div class="org-src-container">
 
-<pre class="src src-php"><span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates max from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+<pre class="src src-php"><span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">calculates max from given integers</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
     <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">max</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">99</span>);
 });
 
-<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates avg from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">calculates avg from given integers</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
     <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">avg</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">10</span>);
 });
 
-<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates count from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">calculates count from given integers</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
     <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">count</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">10</span>);
 });
 
-<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #a5a5a5;">'calculates sum from given integers'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
+<span style="color: #cfcfcf; background-color: #1f1f1f;">it</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">calculates sum from given integers</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #f0dfaf; font-weight: bold;">function</span> () {
     <span style="color: #d0bf8f; font-weight: bold;">stat</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #d0bf8f; font-weight: bold;">data</span>).<span style="color: #d0bf8f; font-weight: bold;">sum</span>.<span style="color: #d0bf8f; font-weight: bold;">should</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">equal</span>(<span style="color: #ff5555;">100</span>);
 });
 </pre>
@@ -258,10 +258,10 @@ start writing code.
 
 <pre class="src src-php"><span style="color: #d0bf8f; font-weight: bold;">module</span>.<span style="color: #d0bf8f; font-weight: bold;">exports</span> = {
     <span style="color: #d0bf8f; font-weight: bold;">collect</span> : <span style="color: #f0dfaf; font-weight: bold;">function</span> (<span style="color: #d0bf8f; font-weight: bold;">arr</span>) {
-        <span style="color: #a5a5a5;">'use strict'</span>;
+        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">use strict</span><span style="color: #9a9a9a; font-weight: bold;">'</span>;
 
         <span style="color: #f0dfaf; font-weight: bold;">return</span> {
-            <span style="color: #a5a5a5;">'min'</span> : <span style="color: #d0bf8f; font-weight: bold;">Math</span>.<span style="color: #d0bf8f; font-weight: bold;">min</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">apply</span>(<span style="color: #b0deff;">null</span>, <span style="color: #d0bf8f; font-weight: bold;">arr</span>),
+            <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">min</span><span style="color: #9a9a9a; font-weight: bold;">'</span> : <span style="color: #d0bf8f; font-weight: bold;">Math</span>.<span style="color: #d0bf8f; font-weight: bold;">min</span>.<span style="color: #cfcfcf; background-color: #1f1f1f;">apply</span>(<span style="color: #b0deff;">null</span>, <span style="color: #d0bf8f; font-weight: bold;">arr</span>),
         };
     }
 };
@@ -350,7 +350,7 @@ with other in the same excercise
 </p>
 
 <ul class="org-ul">
-<li><a href="http://wysocki.in/programming/2014/03/bdd-in-php-golang-javascript-comparizon">PHP and PHPSpec</a>
+<li><a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec">PHP and PHPSpec</a>
 </li>
 <li><a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo">Golang and Ginkgo</a>
 </li>
