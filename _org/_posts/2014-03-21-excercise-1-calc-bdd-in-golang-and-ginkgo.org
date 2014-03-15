@@ -278,4 +278,4 @@ You can compare Golang and Ginkgo BDD technique
 with other in the same excercise
 
 - [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][PHP and PHPSpec]]
-- [[http://wysocki.in/programming/2014/03/bdd-in-php-golang-javascript-comparizon][Javascript with Mocha]]
+- [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha/][Javascript with Mocha]]
