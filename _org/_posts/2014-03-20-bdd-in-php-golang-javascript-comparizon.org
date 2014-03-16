@@ -29,6 +29,18 @@ some new language and You have already written what should be done then half of
 your work is done already. I was really suprised how easily I ported specs from
 Go to javascript.
 
+** TLDR; goto blog entries for first excercise directly
+
+#+BEGIN_HTML
+<a class="btn btn-primary" href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec">PHP and PHPSpec</a>
+<a class="btn btn-primary" href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo">Golang and Ginkgo</a>
+<a class="btn btn-primary" href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha">Javascript and Mocha</a>
+<br>
+#+END_HTML
+
+
+
+** WiredToTheMoon Blog
 Idea to do some simple BDD excercises came from http://www.wiredtothemoon.com/2012/12/12-tdds-of-christmas/.
 First I 've done that in PHP, after that I want to try the same in Golang which I was playing with,
 and because I'm doing some javascript research recently so I've wrote first excercises in Javascript too.
@@ -44,6 +56,8 @@ about it.
 
 * Completed excercises
 
+**  My Excercise status for languages of 12 tdds from wiredtothemoon blog
+
 Here will be updates about my completed excercises.
 
 #+ATTR_HTML: :class table table-stripped
@@ -56,12 +70,14 @@ Here will be updates about my completed excercises.
 |  5 | FizzBuzz           | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc05/FizzBuzzSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc05/FizzBuzz.php][src]]              |               |               |
 |  6 | Recently used list | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc06/RecentlyUsedSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc06/RecentlyUsed.php][src]]              |               |               |
 |  7 | Template engine    | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc07/TplrSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc07/Tplr.php][src]]              |               |               |
-|  8 | Range class        | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc08/IntRangeSpec.php][spec1]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc08/IntRange.php][src1]] [[https://github.com/exu/php-12bdds/blob/master/spec/Exc08/FloatRangeSpec.php][spec2]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc08/FloatRange.php][src2]]  |               |               |
+|  8 | Range class        | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc08/IntRangeSpec.php][spec1]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc08/IntRange.php][src1]] [[https://github.com/exu/php-12bdds/blob/master/spec/Exc08/FloatRangeSpec.php][spec2]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc08/FloatRange.php][src2]] |               |               |
 |  9 |                    |                       |               |               |
 | 10 |                    |                       |               |               |
 | 11 |                    |                       |               |               |
 | 12 |                    |                       |               |               |
 |    |                    |                       |               |               |
+
+I'll try to complete some more (but don't know if I'll have enough time to play with that)
 
 ** Excercise 2 -  Number speller
 
@@ -118,15 +134,6 @@ You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-c
   - spec: https://github.com/exu/jsbdds/blob/master/test/calc.js
   - source: https://github.com/exu/jsbdds/blob/master/calc.js
 
-
-
-* My Excercise status for languages of 12 tdds from wiredtothemoon blog
-
-- PHP - Completed *8* from 12
-- Golang - Completed *4* from 12
-- Javascript - Completed *2* from 12
-
-I'll try to complete some more (but don't know if I'll have enough time to play with that)
 
 * Tools used for writing BDD specs
 

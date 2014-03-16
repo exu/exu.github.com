@@ -30,6 +30,8 @@ h1, h2, h3, h4, h5 {
 h1 { font-size: 28px; color: rgb(155, 0, 194); }
 h2 { font-size: 24px; color: rgb(134, 0, 168); }
 h3 { font-size: 20px; color: rgb(103, 0, 129); }
+h4 { font-size: 20px; color: rgb(93, 0, 110); }
+h5 { font-size: 20px; color: rgb(73, 0, 90); }
 h1 { font-size: 18px; }
 
 
