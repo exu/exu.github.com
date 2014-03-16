@@ -42,6 +42,84 @@ If You start your adventure with SpecBDD It'll be great boost for You to do whis
 excercises. If You have some ideas how to improve some of this excercises I'll be happy to hear
 about it.
 
+* Completed excercises
+
+Here will be updates about my completed excercises.
+
+#+ATTR_HTML: :class table table-stripped
+| No | Excercise          | PHP                   | Golang        | Javascript    |
+|----+--------------------+-----------------------+---------------+---------------|
+|  1 | Calculations       | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc01/CalcStatsSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc01/CalcStats.php][src]] [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][blog]]         | [[https://github.com/exu/bddgo/blob/master/stats_test.go][spec]] [[https://github.com/exu/bddgo/blob/master/stats.go][src]] [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][blog]] | [[https://github.com/exu/jsbdds/blob/master/test/numnames.js][spec]] [[https://github.com/exu/jsbdds/blob/master/numnames.js][src]] [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha][blog]] |
+|  2 | Numbers spelling   | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php][src]]              | [[https://github.com/exu/bddgo/blob/master/numnames_test.go][spec]] [[https://github.com/exu/bddgo/blob/master/numnames.go][src]]      | [[https://github.com/exu/jsbdds/blob/master/test/numnames.js][spec]] [[https://github.com/exu/jsbdds/blob/master/numnames.js][src]]      |
+|  3 | Bomberman game     | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc03/MinerSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc03/Miner.php][src]]              | spec src      |               |
+|  4 | Monty Hall game    | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc04/ZonkSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc04/Zonk.php][src]]              | spec src      |               |
+|  5 | FizzBuzz           | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc05/FizzBuzzSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc05/FizzBuzz.php][src]]              |               |               |
+|  6 | Recently used list | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc06/RecentlyUsedSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc06/RecentlyUsed.php][src]]              |               |               |
+|  7 | Template engine    | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc07/TplrSpec.php][spec]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc07/Tplr.php][src]]              |               |               |
+|  8 | Range class        | [[https://github.com/exu/php-12bdds/blob/master/spec/Exc08/IntRangeSpec.php][spec1]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc08/IntRange.php][src]]1 [[https://github.com/exu/php-12bdds/blob/master/spec/Exc08/FloatRangeSpec.php][spec2]] [[https://github.com/exu/php-12bdds/blob/master/src/Exc08/FloatRange.php][src2]] |               |               |
+|  9 |                    |                       |               |               |
+| 10 |                    |                       |               |               |
+| 11 |                    |                       |               |               |
+| 12 |                    |                       |               |               |
+|    |                    |                       |               |               |
+
+** Excercise 2 -  Number speller
+
+Second excercise is little harder. Your task is to write number speller.
+You give a number and your function will spell it. Simple isn't it?
+
+*** PHPSpec and PHP
+
+- Sources on github
+  - spec: [[https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php]]
+  - source: https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php
+
+*** Golang and Ginkgo
+
+- Sources on github
+  - spec: https://github.com/exu/bddgo/blob/master/numnames_test.go
+  - source: https://github.com/exu/bddgo/blob/master/numnames.go
+
+*** Javascript and Mocha
+
+- Sources on github
+  - spec: https://github.com/exu/jsbdds/blob/master/test/numnames.js
+  - source: https://github.com/exu/jsbdds/blob/master/numnames.js
+
+
+** Excercise 1 -  Numbers statistics
+
+First excercise is really warm-up, it's really simple task to calculate
+some data (sum, avg, min, max, count) from given list of integers.
+You'll find My solutions below. (all exercises are commited to repository from
+given language and test framework)
+
+*** PHPSpec and PHP
+
+You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][my PHP solution in separate post]]
+
+- Sources on github
+  - spec: https://github.com/exu/php-12bdds/blob/master/spec/Exc01/CalcStatsSpec.php
+  - source: https://github.com/exu/php-12bdds/blob/master/src/Exc01/CalcStats.php
+
+*** Golang and Ginkgo
+
+You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][my Golang solution in separate post]]
+
+- Sources on github
+  - spec: https://github.com/exu/bddgo/blob/master/stats_test.go
+  - source: https://github.com/exu/bddgo/blob/master/stats.go
+
+*** Javascript and Mocha
+
+You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha][my Javascript solution in separate post]]
+
+- Sources on github
+  - spec: https://github.com/exu/jsbdds/blob/master/test/calc.js
+  - source: https://github.com/exu/jsbdds/blob/master/calc.js
+
+
+
 * My Excercise status for languages of 12 tdds from wiredtothemoon blog
 
 - PHP - Completed *8* from 12
@@ -106,67 +184,9 @@ npm install mocha --save-dev
 and start writing your specs in tests directory.
 
 
-* Completed excercises
+* Conclusions
 
-Here will be updates about my completed excercises.
-
-** Excercise 2 -  Number speller
-
-Second excercise is little harder. Your task is to write number speller.
-You give a number and your function will spell it. Simple isn't it?
-
-*** PHPSpec and PHP
-
-- Sources on github
-  - spec: [[https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php]]
-  - source: https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php
-
-*** Golang and Ginkgo
-
-- Sources on github
-  - spec: https://github.com/exu/bddgo/blob/master/numnames_test.go
-  - source: https://github.com/exu/bddgo/blob/master/numnames.go
-
-*** Javascript and Mocha
-
-- Sources on github
-  - spec: https://github.com/exu/jsbdds/blob/master/test/numnames.js
-  - source: https://github.com/exu/jsbdds/blob/master/numnames.js
-
-
-** Excercise 1 -  Numbers statistics
-
-First excercise is really warm-up, it's really simple task to calculate
-some data (sum, avg, min, max, count) from given list of integers.
-You'll find My solutions below. (all exercises are commited to repository from
-given language and test framework)
-
-*** PHPSpec and PHP
-
-You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec][my PHP solution in separate post]]
-
-- Sources on github
-  - spec: https://github.com/exu/php-12bdds/blob/master/spec/Exc01/CalcStatsSpec.php
-  - source: https://github.com/exu/php-12bdds/blob/master/src/Exc01/CalcStats.php
-
-*** Golang and Ginkgo
-
-You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo][my Golang solution in separate post]]
-
-- Sources on github
-  - spec: https://github.com/exu/bddgo/blob/master/stats_test.go
-  - source: https://github.com/exu/bddgo/blob/master/stats.go
-
-*** Javascript and Mocha
-
-You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha][my Javascript solution in separate post]]
-
-- Sources on github
-  - spec: https://github.com/exu/jsbdds/blob/master/test/calc.js
-  - source: https://github.com/exu/jsbdds/blob/master/calc.js
-
-*** Conclusions
-
-I think that the slighty faster development time You can achieve in PHPSpec.
-Main reason for it are Its generators. Slighty more readable output
-in case of errors are in Mocha IMHO.
+I think that the slighty faster development time You can achieve in PHPSpec.  Main reason
+for it are Its generators. Slighty more readable output in case of errors are in Mocha
+IMHO in PHPSpec diffs are sometimes annoying (you need to go into verbose mode) and when
+difference is in long string at the end you'll not receive valid diff.
