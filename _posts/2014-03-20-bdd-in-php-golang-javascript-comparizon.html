@@ -2,7 +2,7 @@
 layout: post
 title: BDD with 3 languages - PHP with PHPSpec, Golang with Ginkgo and Javascript with Mocha
 date: 2014-03-15 07:16:59 UTC
-updated: 2014-03-15 07:00:59 UTC
+updated: 2014-03-15 10:00:59 UTC
 comments: true
 category: programming
 tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
@@ -13,7 +13,7 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo, javascript, mocha]
 
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Introduction</h2>
+<h2 id="sec-1">Sharpening Your SpecBDD skills</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 In these series I want to show differences (or similarities) between PHP,
@@ -28,7 +28,7 @@ Go to javascript.
 <p>
 Idea to do some simple BDD excercises came from <a href="http://www.wiredtothemoon.com/2012/12/12-tdds-of-christmas/">http://www.wiredtothemoon.com/2012/12/12-tdds-of-christmas/</a>.
 First I 've done that in PHP, after that I want to try the same in Golang which I was playing with,
-and because I'm doing some javascript research last time I write first excercises in Javascript too.
+and because I'm doing some javascript research recently so I've wrote first excercises in Javascript too.
 </p>
 
 <p>
@@ -42,10 +42,16 @@ I have my solutions in 3 separate repositories one per language (+ bdd framework
 <li>Javascript - <a href="https://github.com/exu/jsbdds">https://github.com/exu/jsbdds</a>
 </li>
 </ul>
+
+<p>
+If You start your adventure with SpecBDD It'll be great boost for You to do whis <b>wiredtothemoon</b>
+excercises. If You have some ideas how to improve some of this excercises I'll be happy to hear
+about it.
+</p>
 </div>
 </div>
 <div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Excercise status for languages of 12 tdds from wiredtothemoon blog</h2>
+<h2 id="sec-2">My Excercise status for languages of 12 tdds from wiredtothemoon blog</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>PHP - Completed <b>8</b> from 12
@@ -158,8 +164,72 @@ and start writing your specs in tests directory.
 </div>
 
 <div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5">Excercise 1 -  Numbers statistics</h2>
+<h2 id="sec-5">Completed excercises</h2>
 <div class="outline-text-2" id="text-5">
+<p>
+Here will be updates about my completed excercises.
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1">Excercise 2 -  Number speller</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Second excercise is little harder. Your task is to write number speller.
+You give a number and your function will spell it. Simple isn't it?
+</p>
+</div>
+
+<div id="outline-container-sec-5-1-1" class="outline-4">
+<h4 id="sec-5-1-1">PHPSpec and PHP</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<ul class="org-ul">
+<li>Sources on github
+<ul class="org-ul">
+<li>spec: <a href="https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php">https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php</a>
+</li>
+<li>source: <a href="https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php">https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-5-1-2" class="outline-4">
+<h4 id="sec-5-1-2">Golang and Ginkgo</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<ul class="org-ul">
+<li>Sources on github
+<ul class="org-ul">
+<li>spec: <a href="https://github.com/exu/bddgo/blob/master/numnames_test.go">https://github.com/exu/bddgo/blob/master/numnames_test.go</a>
+</li>
+<li>source: <a href="https://github.com/exu/bddgo/blob/master/numnames.go">https://github.com/exu/bddgo/blob/master/numnames.go</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-5-1-3" class="outline-4">
+<h4 id="sec-5-1-3">Javascript and Mocha</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<ul class="org-ul">
+<li>Sources on github
+<ul class="org-ul">
+<li>spec: <a href="https://github.com/exu/jsbdds/blob/master/test/numnames.js">https://github.com/exu/jsbdds/blob/master/test/numnames.js</a>
+</li>
+<li>source: <a href="https://github.com/exu/jsbdds/blob/master/numnames.js">https://github.com/exu/jsbdds/blob/master/numnames.js</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2">Excercise 1 -  Numbers statistics</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 First excercise is really warm-up, it's really simple task to calculate
 some data (sum, avg, min, max, count) from given list of integers.
@@ -168,9 +238,9 @@ given language and test framework)
 </p>
 </div>
 
-<div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1">PHPSpec and PHP</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-sec-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1">PHPSpec and PHP</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <p>
 You can find details about <a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-php-with-phpspec">my PHP solution in separate post</a>
 </p>
@@ -187,9 +257,9 @@ You can find details about <a href="http://wysocki.in/programming/2014/03/excerc
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2">Golang and Ginkgo</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-sec-5-2-2" class="outline-4">
+<h4 id="sec-5-2-2">Golang and Ginkgo</h4>
+<div class="outline-text-4" id="text-5-2-2">
 <p>
 You can find details about <a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo">my Golang solution in separate post</a>
 </p>
@@ -206,9 +276,9 @@ You can find details about <a href="http://wysocki.in/programming/2014/03/excerc
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-5-3" class="outline-3">
-<h3 id="sec-5-3">Javascript and Mocha</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-sec-5-2-3" class="outline-4">
+<h4 id="sec-5-2-3">Javascript and Mocha</h4>
+<div class="outline-text-4" id="text-5-2-3">
 <p>
 You can find details about <a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha">my Javascript solution in separate post</a>
 </p>
@@ -225,69 +295,15 @@ You can find details about <a href="http://wysocki.in/programming/2014/03/excerc
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-5-4" class="outline-3">
-<h3 id="sec-5-4">Conclusions</h3>
-<div class="outline-text-3" id="text-5-4">
+<div id="outline-container-sec-5-2-4" class="outline-4">
+<h4 id="sec-5-2-4">Conclusions</h4>
+<div class="outline-text-4" id="text-5-2-4">
 <p>
 I think that the slighty faster development time You can achieve in PHPSpec.
 Main reason for it are Its generators. Slighty more readable output
 in case of errors are in Mocha IMHO.
 </p>
 </div>
-</div>
-</div>
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6">Excercise 2 -  Number speller</h2>
-<div class="outline-text-2" id="text-6">
-<p>
-Second excercise is little harder. Your task is to write number speller.
-You give a number and your function will spell it. Simple isn't it?
-</p>
-</div>
-
-<div id="outline-container-sec-6-1" class="outline-3">
-<h3 id="sec-6-1">PHPSpec and PHP</h3>
-<div class="outline-text-3" id="text-6-1">
-<ul class="org-ul">
-<li>Sources on github
-<ul class="org-ul">
-<li>spec: <a href="https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php">https://github.com/exu/php-12bdds/blob/master/spec/Exc02/NumberNamesSpec.php</a>
-</li>
-<li>source: <a href="https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php">https://github.com/exu/php-12bdds/blob/master/src/Exc02/NumberNames.php</a>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-sec-6-2" class="outline-3">
-<h3 id="sec-6-2">Golang and Ginkgo</h3>
-<div class="outline-text-3" id="text-6-2">
-<ul class="org-ul">
-<li>Sources on github
-<ul class="org-ul">
-<li>spec: <a href="https://github.com/exu/bddgo/blob/master/numnames_test.go">https://github.com/exu/bddgo/blob/master/numnames_test.go</a>
-</li>
-<li>source: <a href="https://github.com/exu/bddgo/blob/master/numnames.go">https://github.com/exu/bddgo/blob/master/numnames.go</a>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-sec-6-3" class="outline-3">
-<h3 id="sec-6-3">Javascript and Mocha</h3>
-<div class="outline-text-3" id="text-6-3">
-<ul class="org-ul">
-<li>Sources on github
-<ul class="org-ul">
-<li>spec: <a href="https://github.com/exu/jsbdds/blob/master/test/numnames.js">https://github.com/exu/jsbdds/blob/master/test/numnames.js</a>
-</li>
-<li>source: <a href="https://github.com/exu/jsbdds/blob/master/numnames.js">https://github.com/exu/jsbdds/blob/master/numnames.js</a>
-</li>
-</ul>
-</li>
-</ul>
 </div>
 </div>
 </div>
