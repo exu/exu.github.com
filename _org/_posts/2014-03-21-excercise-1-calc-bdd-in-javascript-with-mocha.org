@@ -5,8 +5,8 @@
 ---
 layout: post
 title: (Excercise 1 - Javascript) Numbers statistics- Javascript with Mocha
-date: 2014-03-17 11:16:59 UTC
-updated: 2014-03-17 07:16:59 UTC
+date: 2014-03-16 11:16:59 UTC
+updated: 2014-03-16 11:16:59 UTC
 comments: true
 category: programming
 tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
@@ -14,7 +14,9 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
 {% include JB/setup %}
 #+END_HTML
 
-[[http://wysocki.in/assets/img/js-bdd.png]]
+#+BEGIN_HTML
+<img src="/assets/img/js-bdd.png" class="img-responsive" alt="">
+#+END_HTML
 
 * Part 1 - Using Javascript with Mocha
 

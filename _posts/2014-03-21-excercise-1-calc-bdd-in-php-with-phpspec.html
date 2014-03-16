@@ -9,12 +9,7 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
 ---
 {% include JB/setup %}
 
-
-
-<div class="figure">
-<p><img src="http://wysocki.in/assets/img/php-bdd.png" alt="php-bdd.png" />
-</p>
-</div>
+<img src="/assets/img/php-bdd.png" class="img-responsive" alt="">
 
 
 <div id="outline-container-sec-1" class="outline-2">
@@ -121,8 +116,8 @@ Next You should add PHPSpec to your dev dependencies
 <div class="org-src-container">
 
 <pre class="src src-php">{
-    <span style="color: #9a9a9a; font-weight: bold;">"</span><span style="color: #a5a5a5;">require-dev</span><span style="color: #9a9a9a; font-weight: bold;">"</span>: {
-        <span style="color: #9a9a9a; font-weight: bold;">"</span><span style="color: #a5a5a5;">phpspec</span><span style="color: #9a9a9a; font-weight: bold;">"</span>: <span style="color: #9a9a9a; font-weight: bold;">"</span><span style="color: #a5a5a5;">*</span><span style="color: #9a9a9a; font-weight: bold;">"</span>
+    <span style="color: #a5a5a5;">"require-dev"</span>: {
+        <span style="color: #a5a5a5;">"phpspec"</span>: <span style="color: #a5a5a5;">"*"</span>
     }
 }
 </pre>
@@ -192,7 +187,7 @@ We should throw exception when input is empty array.
 
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_throws_exception_on_empty_array_input</span>()
 {
-    <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldThrow</span>(<span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">You cannot pass empty array</span><span style="color: #9a9a9a; font-weight: bold;">'</span>))
+    <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldThrow</span>(<span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>))
         -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">duringCollect</span>([]);
 }
 </pre>
@@ -243,7 +238,7 @@ methods.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">getMatchers</span>()
 {
     <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">matchers</span> = [
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">haveElement</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #f0dfaf; font-weight: bold;">function</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>, <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">key</span>, <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">value</span>) {
+        <span style="color: #a5a5a5;">'haveElement'</span> =&gt; <span style="color: #f0dfaf; font-weight: bold;">function</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>, <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">key</span>, <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">value</span>) {
             <span style="color: #f0dfaf; font-weight: bold;">return</span>  <span style="color: #f0dfaf; font-weight: bold;">isset</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>[<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">key</span>]) &amp;&amp; <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>[<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">key</span>] === <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">value</span>;
         }
     ];
@@ -266,7 +261,7 @@ Now We're ready for specifing.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_min_from_given_integers</span>()
 {
     <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
-        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">min</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, -<span style="color: #ff5555;">99</span>);
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'min'</span>, -<span style="color: #ff5555;">99</span>);
 }
 </pre>
 </div>
@@ -298,19 +293,19 @@ should be implemented.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_max_from_given_integers</span>()
 {
     <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
-        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">max</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #ff5555;">99</span>);
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'max'</span>, <span style="color: #ff5555;">99</span>);
 }
 
 <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_avg_from_given_integers</span>()
 {
     <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
-        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">avg</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #ff5555;">10</span>.<span style="color: #ff5555;">0</span>);
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'avg'</span>, <span style="color: #ff5555;">10</span>.<span style="color: #ff5555;">0</span>);
 }
 
 <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">it_calculates_count_from_given_integers</span>()
 {
     <span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">collect</span>(<span style="color: #ffffff;">$</span><span style="color: #b0deff;">this</span>-&gt;<span style="color: #e2b1f4;">data</span>)
-        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">count</span><span style="color: #9a9a9a; font-weight: bold;">'</span>, <span style="color: #ff5555;">10</span>);
+        -&gt;<span style="color: #cfcfcf; background-color: #1f1f1f;">shouldHaveElement</span>(<span style="color: #a5a5a5;">'count'</span>, <span style="color: #ff5555;">10</span>);
 }
 </pre>
 </div>
@@ -339,7 +334,7 @@ Run <code>bin/phpspec run</code> after each change.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
 {
     <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
-        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">You cannot pass empty array</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
     }
 }
 </pre>
@@ -354,11 +349,11 @@ Run <code>bin/phpspec run</code> after each change.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
 {
     <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
-        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">You cannot pass empty array</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
     }
 
     <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">min</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
     ];
 
     <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
@@ -376,12 +371,12 @@ Run <code>bin/phpspec run</code> after each change.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
 {
     <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
-        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">You cannot pass empty array</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
     }
 
     <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">min</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">max</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'max'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
     ];
 
     <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
@@ -398,13 +393,13 @@ Run <code>bin/phpspec run</code> after each change.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
 {
     <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
-        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">You cannot pass empty array</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
     }
 
     <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">min</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">max</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">count</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'max'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'count'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
     ];
 
     <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
@@ -421,14 +416,14 @@ Run <code>bin/phpspec run</code> after each change.
 <pre class="src src-php"><span style="color: #f0dfaf; font-weight: bold;">public</span> <span style="color: #f0dfaf; font-weight: bold;">function</span> <span style="color: #a2d7fb;">collect</span>(<span style="color: #f0dfaf; font-weight: bold;">array</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)
 {
     <span style="color: #f0dfaf; font-weight: bold;">if</span> (<span style="color: #f0dfaf; font-weight: bold;">empty</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>)) {
-        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">You cannot pass empty array</span><span style="color: #9a9a9a; font-weight: bold;">'</span>);
+        <span style="color: #f0dfaf; font-weight: bold;">throw</span> <span style="color: #f0dfaf; font-weight: bold;">new</span> <span style="color: #9dd7ff;">\InvalidArgumentException</span>(<span style="color: #a5a5a5;">'You cannot pass empty array'</span>);
     }
 
     <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span> = [
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">min</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">max</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">count</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
-        <span style="color: #9a9a9a; font-weight: bold;">'</span><span style="color: #a5a5a5;">avg</span><span style="color: #9a9a9a; font-weight: bold;">'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">array_sum</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>) / (<span style="color: #9dd7ff;">float</span>) <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'min'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">min</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'max'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">max</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'count'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
+        <span style="color: #a5a5a5;">'avg'</span> =&gt; <span style="color: #cfcfcf; background-color: #1f1f1f;">array_sum</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>) / (<span style="color: #9dd7ff;">float</span>) <span style="color: #cfcfcf; background-color: #1f1f1f;">count</span>(<span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">input</span>),
     ];
 
     <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #ffffff;">$</span><span style="color: #e2b1f4;">result</span>;
@@ -450,7 +445,7 @@ full control in case of future code refactors.
 You can compare it to other BDD/Spec frameworks:
 </p>
 <ul class="org-ul">
-<li><a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha/">Javascript with Mocha</a>x
+<li><a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-javascript-with-mocha/">Javascript with Mocha</a>
 </li>
 <li><a href="http://wysocki.in/programming/2014/03/excercise-1-calc-bdd-in-golang-and-ginkgo">Golang and Ginkgo</a>
 </li>

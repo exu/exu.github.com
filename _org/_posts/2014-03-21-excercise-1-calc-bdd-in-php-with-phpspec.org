@@ -14,8 +14,9 @@ tags: [tdd, bdd, spec, php, phpspec, go, golang, ginkgo]
 {% include JB/setup %}
 #+END_HTML
 
-
-[[http://wysocki.in/assets/img/php-bdd.png]]
+#+BEGIN_HTML
+<img src="/assets/img/php-bdd.png" class="img-responsive" alt="">
+#+END_HTML
 
 
 * Part 1 - Using PHP and PHPSpec
