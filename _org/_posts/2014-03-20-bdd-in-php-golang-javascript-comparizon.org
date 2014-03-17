@@ -100,7 +100,7 @@ You give a number and your function will spell it. Simple isn't it?
 
 - Sources on github
   - spec: https://github.com/exu/jsbdds/blob/master/test/numnames.js
-  - source: https://github.com/exu/jsbdds/blob/master/numnames.js
+  - source: https://github.com/exu/jsbdds/blob/master/lib/numnames.js
 
 
 ** Excercise 1 -  Numbers statistics
@@ -132,7 +132,7 @@ You can find details about [[http://wysocki.in/programming/2014/03/excercise-1-c
 
 - Sources on github
   - spec: https://github.com/exu/jsbdds/blob/master/test/calc.js
-  - source: https://github.com/exu/jsbdds/blob/master/calc.js
+  - source: https://github.com/exu/jsbdds/blob/master/lib/calc.js
 
 
 * Tools used for writing BDD specs
