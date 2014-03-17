@@ -15,11 +15,7 @@ footer {
 a.navbar-brand {
     font-family: 'Exo', sans-serif;
     text-shadow: 1px 1px 0 #000;
-    color: rgb(175, 0, 214) !important;
-}
-
-a.navbar-brand i {
-    /* color: lightyellow; */
+    color: aliceblue !important;
 }
 
 h1, h2, h3, h4, h5 {
@@ -143,4 +139,12 @@ pre {
 
 ul.posts {
     padding: 0;
+}
+
+div.social-media {
+    padding: 1em;
+    margin: 1em;
+    background: aliceblue;
+    border-radius: 10px;
+    margin-top: -1em;
 }
