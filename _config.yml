@@ -83,7 +83,7 @@ JB :
   comments :
     provider : disqus
     disqus :
-      short_name : jacekwysocki
+      short_name : wysocki
     livefyre :
       site_id : 123
     intensedebate :
