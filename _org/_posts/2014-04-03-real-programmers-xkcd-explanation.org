@@ -1,0 +1,24 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: Real Programmers Explanation - What's http://xkcd.com/378/ about?
+date: 2014-04-03 10:41:59 UTC
+updated: 2014-04-03 10:41:59 UTC
+comments: true
+category: editor
+tags: [emacs, fun]
+---
+{% include JB/setup %}
+#+END_HTML
+
+* Emacs http://xkcd.com/378/
+
+If you aren't emacs user it'll be incomprehensible for you. So here is explanation
+I want to add that it's included in emacs core (no plugins required)
+
+#+BEGIN_HTML
+<img src="/assets/img/m-x-butterfly-emacs.gif" class="img-responsive" alt="M-x butterfly Emacs command animation">
+#+END_HTML
