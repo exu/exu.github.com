@@ -18,7 +18,7 @@ tags: [go json rpc net golang]
 * Golang JSON RPC Services using net/rpc/jsonrpc
 
 Yesterday I've played with JSON RPC Server and decided that I'll write something
-about it because didn't found much resources about writing it.
+about it because didn't found much resources about writing this kind of services in Golang.
 
 As reference I've used post from Michael Crosby  http://crosbymichael.com/golang-json-rpc.html
 and I've tuned it a little to work out of the box on recent Go (1.4).
@@ -151,4 +151,49 @@ func main() {
 
 	}
 }
+#+end_src
+
+
+
+When we run above program, we should receive:
+
+
+#+begin_src sh
+
+❯ go run rpc.go
+
+
+Arith: 7 * 0 = 0
+Arith: 7 + 0 = 7
+---------------
+Arith: 7 * 1 = 7
+Arith: 7 + 1 = 8
+---------------
+Arith: 7 * 2 = 14
+Arith: 7 + 2 = 9
+---------------
+Arith: 7 * 3 = 21
+Arith: 7 + 3 = 10
+---------------
+Arith: 7 * 4 = 28
+Arith: 7 + 4 = 11
+---------------
+Arith: 7 * 5 = 35
+Arith: 7 + 5 = 12
+---------------
+Arith: 7 * 6 = 42
+Arith: 7 + 6 = 13
+---------------
+Arith: 7 * 7 = 49
+Arith: 7 + 7 = 14
+---------------
+Arith: 7 * 8 = 56
+Arith: 7 + 8 = 15
+---------------
+Arith: 7 * 9 = 63
+Arith: 7 + 9 = 16
+---------------
+Arith: 7 * 10 = 70
+Arith: 7 + 10 = 17
+---------------
 #+end_src

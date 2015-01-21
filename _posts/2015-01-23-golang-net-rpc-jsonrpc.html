@@ -15,7 +15,7 @@ tags: [go json rpc net golang]
 <div class="outline-text-2" id="text-1">
 <p>
 Yesterday I've played with JSON RPC Server and decided that I'll write something
-about it because didn't found much resources about writing it.
+about it because didn't found much resources about writing this kind of services in Golang.
 </p>
 
 <p>
@@ -161,6 +161,54 @@ file for better post readibility
 
     }
 }
+</pre>
+</div>
+
+
+
+<p>
+When we run above program, we should receive:
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#10095; go run rpc.go
+
+
+Arith: 7 * <span style="color: #e2b1f4;">0</span> = 0
+Arith: 7 + <span style="color: #e2b1f4;">0</span> = 7
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">1</span> = 7
+Arith: 7 + <span style="color: #e2b1f4;">1</span> = 8
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">2</span> = 14
+Arith: 7 + <span style="color: #e2b1f4;">2</span> = 9
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">3</span> = 21
+Arith: 7 + <span style="color: #e2b1f4;">3</span> = 10
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">4</span> = 28
+Arith: 7 + <span style="color: #e2b1f4;">4</span> = 11
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">5</span> = 35
+Arith: 7 + <span style="color: #e2b1f4;">5</span> = 12
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">6</span> = 42
+Arith: 7 + <span style="color: #e2b1f4;">6</span> = 13
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">7</span> = 49
+Arith: 7 + <span style="color: #e2b1f4;">7</span> = 14
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">8</span> = 56
+Arith: 7 + <span style="color: #e2b1f4;">8</span> = 15
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">9</span> = 63
+Arith: 7 + <span style="color: #e2b1f4;">9</span> = 16
+---------------
+Arith: 7 * <span style="color: #e2b1f4;">10</span> = 70
+Arith: 7 + <span style="color: #e2b1f4;">10</span> = 17
+---------------
 </pre>
 </div>
 </div>
