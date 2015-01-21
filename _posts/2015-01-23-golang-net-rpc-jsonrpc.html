@@ -1,0 +1,168 @@
+---
+layout: post
+title: Golang JSON RPC Services using net/rpc/jsonrpc
+date: 2015-01-21 17:38:39 UTC
+updated: 2015-01-21 19:38:39 UTC
+comments: true
+category: golang
+tags: [go json rpc net golang]
+---
+{% include JB/setup %}
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Golang JSON RPC Services using net/rpc/jsonrpc</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Yesterday I've played with JSON RPC Server and decided that I'll write something
+about it because didn't found much resources about writing it.
+</p>
+
+<p>
+As reference I've used post from Michael Crosby  <a href="http://crosbymichael.com/golang-json-rpc.html">http://crosbymichael.com/golang-json-rpc.html</a>
+and I've tuned it a little to work out of the box on recent Go (1.4).
+</p>
+
+
+<p>
+It's one file example so server is runned in go-routine (will close after
+ execution of last line).
+</p>
+
+<p>
+<code>Arith</code> code was borrowed from <code>all_test.go</code> (in net/rpc/jsonrpc lib directory)
+file for better post readibility
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="todo TODO">TODO</span> Working example (<a href="https://github.com/exu/go-playground">and many others</a>)  can be found on my github account:</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+<a href="https://github.com/exu/go-playground/blob/master/47-json-rpc/rpc.go">https://github.com/exu/go-playground/blob/master/47-json-rpc/rpc.go</a>.
+</p>
+
+
+
+<div class="org-src-container">
+
+<pre class="src src-go"><span style="color: #f0dfaf; font-weight: bold;">package</span> main
+
+<span style="color: #f0dfaf; font-weight: bold;">import</span> (
+    <span style="color: #a5a5a5;">"errors"</span>
+    <span style="color: #a5a5a5;">"fmt"</span>
+    <span style="color: #a5a5a5;">"log"</span>
+    <span style="color: #a5a5a5;">"net"</span>
+    <span style="color: #a5a5a5;">"net/rpc"</span>
+    <span style="color: #a5a5a5;">"net/rpc/jsonrpc"</span>
+)
+
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">Args</span> <span style="color: #f0dfaf; font-weight: bold;">struct</span> {
+    A, B int
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">Reply</span> <span style="color: #f0dfaf; font-weight: bold;">struct</span> {
+    C int
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">Arith</span> <span style="color: #9dd7ff;">int</span>
+
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">ArithAddResp</span> <span style="color: #f0dfaf; font-weight: bold;">struct</span> {
+    Id     <span style="color: #f0dfaf; font-weight: bold;">interface</span>{} <span style="color: #a5a5a5;">`json:"id"`</span>
+    Result Reply       <span style="color: #a5a5a5;">`json:"result"`</span>
+    Error  <span style="color: #f0dfaf; font-weight: bold;">interface</span>{} <span style="color: #a5a5a5;">`json:"error"`</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> (t *<span style="color: #9dd7ff;">Arith</span>) <span style="color: #a2d7fb;">Add</span>(args *Args, reply *Reply) error {
+    reply.C = args.A + args.B
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #b0deff;">nil</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> (t *<span style="color: #9dd7ff;">Arith</span>) <span style="color: #a2d7fb;">Mul</span>(args *Args, reply *Reply) error {
+    reply.C = args.A * args.B
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #b0deff;">nil</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> (t *<span style="color: #9dd7ff;">Arith</span>) <span style="color: #a2d7fb;">Div</span>(args *Args, reply *Reply) error {
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> args.B == 0 {
+        <span style="color: #f0dfaf; font-weight: bold;">return</span> errors.<span style="color: #a2d7fb;">New</span>(<span style="color: #a5a5a5;">"divide by zero"</span>)
+    }
+    reply.C = args.A / args.B
+    <span style="color: #f0dfaf; font-weight: bold;">return</span> <span style="color: #b0deff;">nil</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> (t *<span style="color: #9dd7ff;">Arith</span>) <span style="color: #a2d7fb;">Error</span>(args *Args, reply *Reply) error {
+    <span style="color: #93e0e3;">panic</span>(<span style="color: #a5a5a5;">"ERROR"</span>)
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> <span style="color: #a2d7fb;">startServer</span>() {
+    arith := <span style="color: #93e0e3;">new</span>(<span style="color: #9dd7ff;">Arith</span>)
+
+    server := rpc.<span style="color: #a2d7fb;">NewServer</span>()
+    server.<span style="color: #a2d7fb;">Register</span>(arith)
+
+    server.<span style="color: #a2d7fb;">HandleHTTP</span>(rpc.DefaultRPCPath, rpc.DefaultDebugPath)
+
+    l, e := net.<span style="color: #a2d7fb;">Listen</span>(<span style="color: #a5a5a5;">"tcp"</span>, <span style="color: #a5a5a5;">":8222"</span>)
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> e != <span style="color: #b0deff;">nil</span> {
+        log.<span style="color: #a2d7fb;">Fatal</span>(<span style="color: #a5a5a5;">"listen error:"</span>, e)
+    }
+
+    <span style="color: #f0dfaf; font-weight: bold;">for</span> {
+        conn, err := l.<span style="color: #a2d7fb;">Accept</span>()
+        <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+            log.<span style="color: #a2d7fb;">Fatal</span>(err)
+        }
+
+        <span style="color: #f0dfaf; font-weight: bold;">go</span> server.<span style="color: #a2d7fb;">ServeCodec</span>(jsonrpc.<span style="color: #a2d7fb;">NewServerCodec</span>(conn))
+    }
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> <span style="color: #a2d7fb;">main</span>() {
+
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">starting server in go routine (it ends on end</span>
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">of main function</span>
+    <span style="color: #f0dfaf; font-weight: bold;">go</span> <span style="color: #a2d7fb;">startServer</span>()
+
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">now client part connecting to RPC service</span>
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">and calling methods</span>
+
+    conn, err := net.<span style="color: #a2d7fb;">Dial</span>(<span style="color: #a5a5a5;">"tcp"</span>, <span style="color: #a5a5a5;">"localhost:8222"</span>)
+
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+        <span style="color: #93e0e3;">panic</span>(err)
+    }
+    <span style="color: #f0dfaf; font-weight: bold;">defer</span> conn.<span style="color: #a2d7fb;">Close</span>()
+
+    c := jsonrpc.<span style="color: #a2d7fb;">NewClient</span>(conn)
+
+    <span style="color: #f0dfaf; font-weight: bold;">var</span> reply Reply
+    <span style="color: #f0dfaf; font-weight: bold;">var</span> args *Args
+    <span style="color: #f0dfaf; font-weight: bold;">for</span> i := 0; i &lt; 11; i++ {
+        <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">passing Args to RPC call</span>
+        args = &amp;<span style="color: #9dd7ff;">Args</span>{7, i}
+
+        <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">calling "Arith.Mul" on RPC server</span>
+        err = c.<span style="color: #a2d7fb;">Call</span>(<span style="color: #a5a5a5;">"Arith.Mul"</span>, args, &amp;reply)
+        <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+            log.<span style="color: #a2d7fb;">Fatal</span>(<span style="color: #a5a5a5;">"arith error:"</span>, err)
+        }
+        fmt.<span style="color: #a2d7fb;">Printf</span>(<span style="color: #a5a5a5;">"Arith: %d * %d = %v\n"</span>, args.A, args.B, reply.C)
+
+        <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">calling "Arith.Add" on RPC server</span>
+        err = c.<span style="color: #a2d7fb;">Call</span>(<span style="color: #a5a5a5;">"Arith.Add"</span>, args, &amp;reply)
+        <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+            log.<span style="color: #a2d7fb;">Fatal</span>(<span style="color: #a5a5a5;">"arith error:"</span>, err)
+        }
+        fmt.<span style="color: #a2d7fb;">Printf</span>(<span style="color: #a5a5a5;">"Arith: %d + %d = %v\n"</span>, args.A, args.B, reply.C)
+
+        <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">NL</span>
+        fmt.<span style="color: #a2d7fb;">Printf</span>(<span style="color: #a5a5a5;">"\033[33m%s\033[m\n"</span>, <span style="color: #a5a5a5;">"---------------"</span>)
+
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
