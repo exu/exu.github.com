@@ -28,7 +28,7 @@ It's one file example so server is runned in go-routine (will close after
  execution of last line).
 
 =Arith= code was borrowed from =all_test.go= (in net/rpc/jsonrpc lib directory)
-file for better post readibility
+file for better post readability
 
 ** TODO Working example ([[https://github.com/exu/go-playground][and many others]])  can be found on my github account:
 [[https://github.com/exu/go-playground/blob/master/47-json-rpc/rpc.go]].
