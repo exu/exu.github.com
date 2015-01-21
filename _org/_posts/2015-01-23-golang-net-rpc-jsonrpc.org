@@ -15,7 +15,7 @@ tags: [go, json, rpc, net, golang]
 #+END_HTML
 
 
-* Golang JSON RPC Services using net/rpc/jsonrpc
+* RPC or not to RPC
 
 Yesterday I've played with JSON RPC Server and decided that I'll write something
 about it because didn't found much resources about writing this kind of services in Golang.
@@ -30,7 +30,7 @@ It's one file example so server is runned in go-routine (will close after
 =Arith= code was borrowed from =all_test.go= (in net/rpc/jsonrpc lib directory)
 file for better post readability
 
-** TODO Working example ([[https://github.com/exu/go-playground][and many others]])  can be found on my github account:
+** Working example ([[https://github.com/exu/go-playground][and many others]])  can be found on my github account:
 [[https://github.com/exu/go-playground/blob/master/47-json-rpc/rpc.go]].
 
 
