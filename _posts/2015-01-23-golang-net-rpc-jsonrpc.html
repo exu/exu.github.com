@@ -101,8 +101,6 @@ file for better post readability
     server := rpc.<span style="color: #a2d7fb;">NewServer</span>()
     server.<span style="color: #a2d7fb;">Register</span>(arith)
 
-    server.<span style="color: #a2d7fb;">HandleHTTP</span>(rpc.DefaultRPCPath, rpc.DefaultDebugPath)
-
     l, e := net.<span style="color: #a2d7fb;">Listen</span>(<span style="color: #a5a5a5;">"tcp"</span>, <span style="color: #a5a5a5;">":8222"</span>)
     <span style="color: #f0dfaf; font-weight: bold;">if</span> e != <span style="color: #b0deff;">nil</span> {
         log.<span style="color: #a2d7fb;">Fatal</span>(<span style="color: #a5a5a5;">"listen error:"</span>, e)
