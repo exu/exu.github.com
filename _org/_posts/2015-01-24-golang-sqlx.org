@@ -1,0 +1,256 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+OPTIONS: H:4 num:nil tags:nil toc:nil timestamps:t
+#+BEGIN_HTML
+---
+layout: post
+title: Golang SQL handling with sqlx package
+date: 2015-01-22 06:25:00 UTC
+updated: 2015-01-22 06:25:00 UTC
+comments: true
+category: database
+tags: [go, golang, database, sql, abstraction]
+---
+{% include JB/setup %}
+#+END_HTML
+
+
+* =Sqlx= little helper for your database problems
+
+SQLX package will help you in several everyday jobs with
+your SQL database. All examples below are "copy-pastable"
+so you can write them to file and run by =go run filename.go=
+
+
+** Get dependencies
+
+#+begin_src sh
+go get github.com/jmoiron/sqlx
+go get github.com/go-sql-driver/mysql
+#+end_src
+
+
+** Init database
+
+I'm using MySQL/MariaDB in this example:
+
+#+begin_src sql
+CREATE DATABASE `sqlx_test`;
+USE `sqlx_test`;
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+);
+INSERT INTO `items` (name, description) VALUES ('mechanical keyboard', 'good for writing code');
+INSERT INTO `items` (name, description) VALUES ('coffe', 'oh yummy!');
+INSERT INTO `items` (name, description) VALUES ('emacs', 'your favourite text editor');
+#+end_src
+
+
+
+** SQLX provides several helpers
+
+
+*** Mapping single result to struct with =Get=
+
+#+begin_src go
+package main
+
+import "fmt"
+import "database/sql"
+import "github.com/jmoiron/sqlx"
+// I'm using MySQL
+import _ "github.com/go-sql-driver/mysql"
+
+type Item struct {
+	Id            int            `db:"id"`
+	Name          sql.NullString `db:"name"`
+	Description   sql.NullString `db:"description"`
+}
+
+func main() {
+    // Must.... functions will panic on fail
+	db := sqlx.MustConnect("mysql", "root:PASSWORD@tcp(l:3306)/sqlx_test")
+	var item Item
+    // We'll get most recent item and map it into our struct
+	err := db.Get(&item, "SELECT * FROM items ORDER BY id DESC LIMIT 1")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("id: %d, %s, %s", item.Id, item.Name.String, item.Description.String)
+}
+
+#+end_src
+
+write above content into file (=get.go=) and run =go run get.go=
+
+
+#+begin_src sh
+❯ go run get.go
+
+id: 3, emacs, your favourite text editor
+#+end_src
+
+
+
+
+
+*** Preparing statements with =Preparex=
+
+#+begin_src go
+package main
+
+import "fmt"
+import "github.com/jmoiron/sqlx"
+import "database/sql"
+import _ "github.com/go-sql-driver/mysql"
+
+type Item struct {
+	Id          int            `db:"id"`
+	Name        sql.NullString `db:"name"`
+	Description sql.NullString `db:"description"`
+}
+
+func main() {
+	var item Item
+
+	db := sqlx.MustConnect("mysql", "root:root@tcp(127.0.0.1:3306)/sqlx_test")
+	stmt, err := db.Preparex(`SELECT * FROM items WHERE id=?`)
+
+	// existing one
+	err = stmt.Get(&item, 1)
+	fmt.Println(item)
+
+	// not existing one
+	err = stmt.Get(&item, 3)
+	fmt.Println(item)
+
+	// handling non existing item
+	if err == sql.ErrNoRows {
+		fmt.Println("There is no row with id", 900)
+	} else if err != nil {
+		panic(err)
+	}
+}
+#+end_src
+
+Save above content into =prepare_x.go= and run =go run prepare_x.go=
+
+#+begin_src sh
+❯ go run prepare_x.go
+
+{1 {mechanical keyboard true} {good for writing code true}}
+{3 {emacs true} {your favourite text editor true}}
+
+#+end_src
+
+*** Querying row with =QueryRowx= and =StructScan=
+
+#+begin_src go
+package main
+
+import "fmt"
+import "database/sql"
+import "github.com/jmoiron/sqlx"
+import _ "github.com/go-sql-driver/mysql"
+
+type Item struct {
+	Id          int            `db:"id"`
+	Name        sql.NullString `db:"name"`
+	Description sql.NullString `db:"description"`
+}
+
+func main() {
+	var item Item
+
+	db := sqlx.MustConnect("mysql", "root:root@tcp(127.0.0.1:3306)/sqlx_test")
+
+	row := db.QueryRowx("SELECT * FROM items WHERE id=?", 3)
+	err := row.StructScan(&item)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(item)
+}
+#+end_src
+
+
+and output after run:
+
+#+begin_src sh
+❯ go run query_row_x.go
+
+{3 {emacs true} {your favourite text editor true}}
+#+end_src
+
+
+*** Querying multiple rows with =Queryx= and =StructScan=
+
+#+begin_src go
+package main
+
+import "fmt"
+import "database/sql"
+import "github.com/jmoiron/sqlx"
+
+// We're using MySQL
+import _ "github.com/go-sql-driver/mysql"
+
+// We can map columns to fields
+type Item struct {
+	Id  int            `db:"id"`
+	Nme sql.NullString `db:"name"`
+	Dsc sql.NullString `db:"description"`
+}
+
+func main() {
+
+	db := sqlx.MustConnect("mysql", "root:root@tcp(127.0.0.1:3306)/sqlx_test")
+	rows, err := db.Queryx("SELECT id, name, description FROM items")
+
+	if err != nil {
+		panic(err)
+	}
+
+	for rows.Next() {
+		var item Item
+		err = rows.StructScan(&item)
+
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf(
+			"%d - %s:  %s\n===================\n",
+			item.Id,
+			item.Nme.String,
+			item.Dsc.String,
+		)
+	}
+}
+#+end_src
+
+
+output:
+
+#+begin_src sh
+❯ go run query_x.go
+
+1 - mechanical keyboard:  good for writing code
+===================
+2 - coffe:  oh yummy!
+===================
+3 - emacs:  your favourite text editor
+===================
+
+#+end_src
+
+
+
+** If you want to check other things feel free to
+=godoc -goroot=$GO github.com/jmoiron/sqlx=

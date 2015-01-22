@@ -1,0 +1,308 @@
+---
+layout: post
+title: Golang SQL handling with sqlx package
+date: 2015-01-22 06:25:00 UTC
+updated: 2015-01-22 06:25:00 UTC
+comments: true
+category: database
+tags: [go, golang, database, sql, abstraction]
+---
+{% include JB/setup %}
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><code>Sqlx</code> little helper for your database problems</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+SQLX package will help you in several everyday jobs with
+your SQL database. All examples below are "copy-pastable"
+so you can write them to file and run by <code>go run filename.go</code>
+</p>
+</div>
+
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Get dependencies</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">go get github.com/jmoiron/sqlx
+go get github.com/go-sql-driver/mysql
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Init database</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+I'm using MySQL/MariaDB in this example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql"><span style="color: #f0dfaf; font-weight: bold;">CREATE</span> DATABASE `sqlx_test`;
+USE `sqlx_test`;
+<span style="color: #f0dfaf; font-weight: bold;">CREATE</span> <span style="color: #f0dfaf; font-weight: bold;">TABLE</span> `items` (
+  `id` <span style="color: #9dd7ff;">int</span>(11) <span style="color: #f0dfaf; font-weight: bold;">NOT</span> <span style="color: #f0dfaf; font-weight: bold;">NULL</span> AUTO_INCREMENT,
+  `<span style="color: #f0dfaf; font-weight: bold;">name</span>` <span style="color: #9dd7ff;">varchar</span>(255) <span style="color: #f0dfaf; font-weight: bold;">NOT</span> <span style="color: #f0dfaf; font-weight: bold;">NULL</span>,
+  `description` longtext <span style="color: #f0dfaf; font-weight: bold;">NOT</span> <span style="color: #f0dfaf; font-weight: bold;">NULL</span>,
+  <span style="color: #f0dfaf; font-weight: bold;">PRIMARY</span> <span style="color: #f0dfaf; font-weight: bold;">KEY</span> (`id`)
+);
+<span style="color: #f0dfaf; font-weight: bold;">INSERT</span> <span style="color: #f0dfaf; font-weight: bold;">INTO</span> `items` (<span style="color: #f0dfaf; font-weight: bold;">name</span>, description) <span style="color: #f0dfaf; font-weight: bold;">VALUES</span> (<span style="color: #a5a5a5;">'mechanical keyboard'</span>, <span style="color: #a5a5a5;">'good for writing code'</span>);
+<span style="color: #f0dfaf; font-weight: bold;">INSERT</span> <span style="color: #f0dfaf; font-weight: bold;">INTO</span> `items` (<span style="color: #f0dfaf; font-weight: bold;">name</span>, description) <span style="color: #f0dfaf; font-weight: bold;">VALUES</span> (<span style="color: #a5a5a5;">'coffe'</span>, <span style="color: #a5a5a5;">'oh yummy!'</span>);
+<span style="color: #f0dfaf; font-weight: bold;">INSERT</span> <span style="color: #f0dfaf; font-weight: bold;">INTO</span> `items` (<span style="color: #f0dfaf; font-weight: bold;">name</span>, description) <span style="color: #f0dfaf; font-weight: bold;">VALUES</span> (<span style="color: #a5a5a5;">'emacs'</span>, <span style="color: #a5a5a5;">'your favourite text editor'</span>);
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">SQLX provides several helpers</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Mapping single result to struct with <code>Get</code></h4>
+<div class="outline-text-4" id="text-1-3-1">
+<div class="org-src-container">
+
+<pre class="src src-go"><span style="color: #f0dfaf; font-weight: bold;">package</span> main
+
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"fmt"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"database/sql"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"github.com/jmoiron/sqlx"</span>
+<span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">I'm using MySQL</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> _ <span style="color: #a5a5a5;">"github.com/go-sql-driver/mysql"</span>
+
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">Item</span> <span style="color: #f0dfaf; font-weight: bold;">struct</span> {
+    Id            int            <span style="color: #a5a5a5;">`db:"id"`</span>
+    Name          sql.NullString <span style="color: #a5a5a5;">`db:"name"`</span>
+    Description   sql.NullString <span style="color: #a5a5a5;">`db:"description"`</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> <span style="color: #a2d7fb;">main</span>() {
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">Must.... functions will panic on fail</span>
+    db := sqlx.<span style="color: #a2d7fb;">MustConnect</span>(<span style="color: #a5a5a5;">"mysql"</span>, <span style="color: #a5a5a5;">"root:PASSWORD@tcp(l:3306)/sqlx_test"</span>)
+    <span style="color: #f0dfaf; font-weight: bold;">var</span> item Item
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">We'll get most recent item and map it into our struct</span>
+    err := db.<span style="color: #a2d7fb;">Get</span>(&amp;item, <span style="color: #a5a5a5;">"SELECT * FROM items ORDER BY id DESC LIMIT 1"</span>)
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+        <span style="color: #93e0e3;">panic</span>(err)
+    }
+
+    fmt.<span style="color: #a2d7fb;">Printf</span>(<span style="color: #a5a5a5;">"id: %d, %s, %s"</span>, item.Id, item.Name.String, item.Description.String)
+}
+</pre>
+</div>
+
+<p>
+write above content into file (<code>get.go</code>) and run <code>go run get.go</code>
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#10095; go run get.go
+
+id: 3, emacs, your favourite text editor
+</pre>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Preparing statements with <code>Preparex</code></h4>
+<div class="outline-text-4" id="text-1-3-2">
+<div class="org-src-container">
+
+<pre class="src src-go"><span style="color: #f0dfaf; font-weight: bold;">package</span> main
+
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"fmt"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"github.com/jmoiron/sqlx"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"database/sql"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> _ <span style="color: #a5a5a5;">"github.com/go-sql-driver/mysql"</span>
+
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">Item</span> <span style="color: #f0dfaf; font-weight: bold;">struct</span> {
+    Id          int            <span style="color: #a5a5a5;">`db:"id"`</span>
+    Name        sql.NullString <span style="color: #a5a5a5;">`db:"name"`</span>
+    Description sql.NullString <span style="color: #a5a5a5;">`db:"description"`</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> <span style="color: #a2d7fb;">main</span>() {
+    <span style="color: #f0dfaf; font-weight: bold;">var</span> item Item
+
+    db := sqlx.<span style="color: #a2d7fb;">MustConnect</span>(<span style="color: #a5a5a5;">"mysql"</span>, <span style="color: #a5a5a5;">"root:root@tcp(127.0.0.1:3306)/sqlx_test"</span>)
+    stmt, err := db.<span style="color: #a2d7fb;">Preparex</span>(<span style="color: #a5a5a5;">`SELECT * FROM items WHERE id=?`</span>)
+
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">existing one</span>
+    err = stmt.<span style="color: #a2d7fb;">Get</span>(&amp;item, 1)
+    fmt.<span style="color: #a2d7fb;">Println</span>(item)
+
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">not existing one</span>
+    err = stmt.<span style="color: #a2d7fb;">Get</span>(&amp;item, 3)
+    fmt.<span style="color: #a2d7fb;">Println</span>(item)
+
+    <span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">handling non existing item</span>
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> err == sql.ErrNoRows {
+        fmt.<span style="color: #a2d7fb;">Println</span>(<span style="color: #a5a5a5;">"There is no row with id"</span>, 900)
+    } <span style="color: #f0dfaf; font-weight: bold;">else</span> <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+        <span style="color: #93e0e3;">panic</span>(err)
+    }
+}
+</pre>
+</div>
+
+<p>
+Save above content into <code>prepare_x.go</code> and run <code>go run prepare_x.go</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#10095; go run prepare_x.go
+
+{1 {mechanical keyboard true} {good for writing code true}}
+{3 {emacs true} {your favourite text editor true}}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3">Querying row with <code>QueryRowx</code> and <code>StructScan</code></h4>
+<div class="outline-text-4" id="text-1-3-3">
+<div class="org-src-container">
+
+<pre class="src src-go"><span style="color: #f0dfaf; font-weight: bold;">package</span> main
+
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"fmt"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"database/sql"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"github.com/jmoiron/sqlx"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> _ <span style="color: #a5a5a5;">"github.com/go-sql-driver/mysql"</span>
+
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">Item</span> <span style="color: #f0dfaf; font-weight: bold;">struct</span> {
+    Id          int            <span style="color: #a5a5a5;">`db:"id"`</span>
+    Name        sql.NullString <span style="color: #a5a5a5;">`db:"name"`</span>
+    Description sql.NullString <span style="color: #a5a5a5;">`db:"description"`</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> <span style="color: #a2d7fb;">main</span>() {
+    <span style="color: #f0dfaf; font-weight: bold;">var</span> item Item
+
+    db := sqlx.<span style="color: #a2d7fb;">MustConnect</span>(<span style="color: #a5a5a5;">"mysql"</span>, <span style="color: #a5a5a5;">"root:root@tcp(127.0.0.1:3306)/sqlx_test"</span>)
+
+    row := db.<span style="color: #a2d7fb;">QueryRowx</span>(<span style="color: #a5a5a5;">"SELECT * FROM items WHERE id=?"</span>, 3)
+    err := row.<span style="color: #a2d7fb;">StructScan</span>(&amp;item)
+
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+        <span style="color: #93e0e3;">panic</span>(err)
+    }
+
+    fmt.<span style="color: #a2d7fb;">Println</span>(item)
+}
+</pre>
+</div>
+
+
+<p>
+and output after run:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#10095; go run query_row_x.go
+
+{3 {emacs true} {your favourite text editor true}}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4">Querying multiple rows with <code>Queryx</code> and <code>StructScan</code></h4>
+<div class="outline-text-4" id="text-1-3-4">
+<div class="org-src-container">
+
+<pre class="src src-go"><span style="color: #f0dfaf; font-weight: bold;">package</span> main
+
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"fmt"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"database/sql"</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> <span style="color: #a5a5a5;">"github.com/jmoiron/sqlx"</span>
+
+<span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">We're using MySQL</span>
+<span style="color: #f0dfaf; font-weight: bold;">import</span> _ <span style="color: #a5a5a5;">"github.com/go-sql-driver/mysql"</span>
+
+<span style="color: #5f7f5f;">// </span><span style="color: #5f7f5f;">We can map columns to fields</span>
+<span style="color: #f0dfaf; font-weight: bold;">type</span> <span style="color: #9dd7ff;">Item</span> <span style="color: #f0dfaf; font-weight: bold;">struct</span> {
+    Id  int            <span style="color: #a5a5a5;">`db:"id"`</span>
+    Nme sql.NullString <span style="color: #a5a5a5;">`db:"name"`</span>
+    Dsc sql.NullString <span style="color: #a5a5a5;">`db:"description"`</span>
+}
+
+<span style="color: #f0dfaf; font-weight: bold;">func</span> <span style="color: #a2d7fb;">main</span>() {
+
+    db := sqlx.<span style="color: #a2d7fb;">MustConnect</span>(<span style="color: #a5a5a5;">"mysql"</span>, <span style="color: #a5a5a5;">"root:root@tcp(127.0.0.1:3306)/sqlx_test"</span>)
+    rows, err := db.<span style="color: #a2d7fb;">Queryx</span>(<span style="color: #a5a5a5;">"SELECT id, name, description FROM items"</span>)
+
+    <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+        <span style="color: #93e0e3;">panic</span>(err)
+    }
+
+    <span style="color: #f0dfaf; font-weight: bold;">for</span> rows.<span style="color: #a2d7fb;">Next</span>() {
+        <span style="color: #f0dfaf; font-weight: bold;">var</span> item Item
+        err = rows.<span style="color: #a2d7fb;">StructScan</span>(&amp;item)
+
+        <span style="color: #f0dfaf; font-weight: bold;">if</span> err != <span style="color: #b0deff;">nil</span> {
+            <span style="color: #93e0e3;">panic</span>(err)
+        }
+
+        fmt.<span style="color: #a2d7fb;">Printf</span>(
+            <span style="color: #a5a5a5;">"%d - %s:  %s\n===================\n"</span>,
+            item.Id,
+            item.Nme.String,
+            item.Dsc.String,
+        )
+    }
+}
+</pre>
+</div>
+
+
+<p>
+output:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">&#10095; go run query_x.go
+
+1 - mechanical keyboard:  good for writing code
+===================
+2 - coffe:  oh yummy!
+===================
+3 - emacs:  your favourite text editor
+===================
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">If you want to check other things feel free to</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+<code>godoc -goroot=$GO github.com/jmoiron/sqlx</code>
+</p>
+</div>
+</div>
+</div>
